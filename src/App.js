@@ -8,26 +8,19 @@ import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import styled from "styled-components";
 import { useState } from "react";
+import mainlogo from "./png/mainlogo.png";
 
-const Header = styled.header`
+const Logo = styled.img`
+  width: 200px; /* 로고 크기 설정 */
+  height: auto;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  padding: 20px;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background-color: white;
-  z-index: 100;
-`;
-
-const H1 = styled.h1`
-  font-size: 48px;
-  margin-bottom: 20px;
+  flex-direction: column;
 `;
 
 const MainContent = styled.div`
-  margin-top: 160px;
+  margin-top: 200px; /* 로고 밑에 컨텐츠 여백 */
 `;
 
 function App() {
@@ -41,16 +34,10 @@ function App() {
 
   return (
     <Router>
-      {/* 고정된 헤더 */}
-      <Header>
-        <H1>
-          <a href="/" style={{ textDecoration: "none", color: "inherit" }}>
-            숨은 장학금
-          </a>
-        </H1>
-      </Header>
+      <header>
+        <Logo src={mainlogo} alt="Main Logo" />
+      </header>
 
-      {/* 헤더 아래에 표시될 페이지 내용 */}
       <MainContent>
         <Routes>
           <Route 
