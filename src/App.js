@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import ScholarshipsPage from "./pages/ScholarshipsPage";
 import CustomScholarshipsPage from "./pages/CustomScholarshipsPage";
@@ -7,42 +7,74 @@ import MyPage from "./pages/MyPage";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import mainlogo from "./png/mainlogo.png";
 
-const Logo = styled.img`
-  width: 200px; /* 로고 크기 설정 */
-  height: auto;
+const Header = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  padding: 10px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  background-color: white;
+  transition: top 0.3s ease-in-out;
+`;
+
+const Logo = styled.img`
+  width: 700px;
+  height: auto;
+  cursor: pointer;
 `;
 
 const MainContent = styled.div`
-  margin-top: 200px; /* 로고 밑에 컨텐츠 여백 */
+  margin-top: 150px;
 `;
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
+  const [showHeader, setShowHeader] = useState(true);
 
   const handleLogin = (name) => {
     setUsername(name);
     setIsLoggedIn(true);
   };
 
+  useEffect(() => {
+    let lastScrollY = window.scrollY;
+
+    const handleScroll = () => {
+      if (window.scrollY > lastScrollY) {
+        setShowHeader(false); // 스크롤 아래로: 헤더 숨기기
+      } else {
+        setShowHeader(true); // 스크롤 위로: 헤더 보이기
+      }
+      lastScrollY = window.scrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <Router>
-      <header>
-        <Logo src={mainlogo} alt="Main Logo" />
-      </header>
+      <Header style={{ backgroundColor: "#F0E6FF", top: showHeader ? "0" : "-100px" }}>
+        <Link to="/">
+          <Logo src={mainlogo} alt="Main Logo" />
+        </Link>
+      </Header>
 
       <MainContent>
         <Routes>
-          <Route 
-            path="/" 
-            element={<HomePage isLoggedIn={isLoggedIn} username={username} />} 
+          <Route
+            path="/"
+            element={<HomePage isLoggedIn={isLoggedIn} username={username} />}
           />
           <Route path="/scholarships" element={<ScholarshipsPage />} />
           <Route path="/custom-scholarships" element={<CustomScholarshipsPage />} />
