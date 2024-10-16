@@ -19,7 +19,7 @@ const Header = styled.header`
   top: 0;
   width: 100%;
   z-index: 100;
-  background-color: white;
+  background-color: #FFFFF0;
   transition: top 0.3s ease-in-out;
 `;
 
@@ -48,9 +48,9 @@ function App() {
 
     const handleScroll = () => {
       if (window.scrollY > lastScrollY) {
-        setShowHeader(false); // 스크롤 아래로: 헤더 숨기기
+        setShowHeader(false);
       } else {
-        setShowHeader(true); // 스크롤 위로: 헤더 보이기
+        setShowHeader(true);
       }
       lastScrollY = window.scrollY;
     };
@@ -64,7 +64,7 @@ function App() {
 
   return (
     <Router>
-      <Header style={{ backgroundColor: "#F0E6FF", top: showHeader ? "0" : "-100px" }}>
+      <Header style={{ backgroundColor: "#FFFFF0", top: showHeader ? "0" : "-100px" }}>
         <Link to="/">
           <Logo src={mainlogo} alt="Main Logo" />
         </Link>

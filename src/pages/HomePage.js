@@ -3,6 +3,13 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import king from "../png/king.png";
 
+const colors = {
+  ivory: "#FFFFF0",
+  navy: "#000080",
+  lightNavy: "#000066",
+  darkIvory: "#F5F5DC"
+};
+
 const ButtonsContainer = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -15,20 +22,25 @@ const Button = styled(Link)`
   padding: 10px 20px;
   border-radius: 5px;
   text-decoration: none;
-  color: white;
-  background-color: ${(props) => props.bgColor || "#9370DB"};
+  color: ${colors.ivory};
+  background-color: ${colors.navy};
   cursor: pointer;
+  transition: background-color 0.3s ease;
   &:hover {
-    background-color: ${(props) => props.hoverColor || "#8A2BE2"};
+    background-color: ${colors.lightNavy};
   }
 `;
 
 const CardsContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+  grid-template-rows: repeat(2, 1fr);
+  gap: 30px;
   justify-items: center;
   margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
 `;
 
 const Card = styled(Link)`
@@ -40,23 +52,27 @@ const Card = styled(Link)`
   height: 400px;
   width: 400px;
   border-radius: 10px;
-  color: white;
+  color: ${colors.navy};
   cursor: pointer;
   transition: 400ms;
   text-decoration: none;
-  background-color: ${(props) => props.bgColor || "#D8BFD8"};
+  background-color: ${colors.ivory};
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
   &:hover {
     transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   }
 
   p.tip {
-    font-size: 1.2em;
+    font-size: 1.4em;
     font-weight: 700;
+    color: ${colors.navy};
   }
 
   p.second-text {
-    font-size: 0.9em;
+    font-size: 1em;
+    color: ${colors.lightNavy};
   }
 `;
 
@@ -70,18 +86,18 @@ const KingSection = styled.div`
 const KingImage = styled.img`
   width: 200px;
   height: auto;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 `;
 
 const ListContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+  gap: 15px;
   justify-items: center;
 `;
 
 const ListBox = styled.div`
-  border: 2px solid #8A2BE2;
+  border: 3px solid ${colors.navy};
   border-radius: 10px;
   height: 70px;
   width: 140px;
@@ -91,12 +107,12 @@ const ListBox = styled.div`
   font-size: 1.1em;
   font-weight: bold;
   text-align: center;
-  background-color: #E6E6FA;
-  color: #4B0082;
+  background-color: ${colors.ivory};
+  color: ${colors.navy};
   transition: all 0.3s ease;
 
   &:hover {
-    background-color: #DDA0DD;
+    background-color: ${colors.darkIvory};
     transform: translateY(-3px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
@@ -104,18 +120,18 @@ const ListBox = styled.div`
 
 function HomePage({ isLoggedIn, username }) {
   return (
-    <div style={{ backgroundColor: "#F0E6FF", minHeight: "100vh", padding: "20px" }}>
+    <div style={{ backgroundColor: colors.darkIvory, minHeight: "100vh", padding: "20px" }}>
       <ButtonsContainer>
         {isLoggedIn ? (
-          <Button to="/mypage" bgColor="#9370DB" hoverColor="#8A2BE2">
+          <Button to="/mypage">
             마이페이지
           </Button>
         ) : (
           <>
-            <Button to="/login" bgColor="#9370DB" hoverColor="#8A2BE2">
+            <Button to="/login">
               로그인
             </Button>
-            <Button to="/signup" bgColor="#DDA0DD" hoverColor="#DA70D6">
+            <Button to="/signup" style={{ backgroundColor: colors.lightNavy }}>
               회원가입
             </Button>
           </>
@@ -123,19 +139,19 @@ function HomePage({ isLoggedIn, username }) {
       </ButtonsContainer>
 
       <CardsContainer>
-        <Card to="/scholarships" bgColor="#DDA0DD">
+        <Card to="/scholarships">
           <p className="tip">전체장학금</p>
           <p className="second-text">모든 장학금</p>
         </Card>
-        <Card to="/custom-scholarships" bgColor="#9370DB">
+        <Card to="/custom-scholarships">
           <p className="tip">맞춤형장학금</p>
           <p className="second-text">당신에게 맞는 장학금</p>
         </Card>
-        <Card to="/received-scholarships" bgColor="#BA55D3">
+        <Card to="/received-scholarships">
           <p className="tip">받은장학금</p>
           <p className="second-text">받은 장학금 내역</p>
         </Card>
-        <Card bgColor="#D8BFD8">
+        <Card>
           <KingSection>
             <KingImage src={king} alt="King of the Month" />
             <ListContainer>
