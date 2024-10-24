@@ -33,8 +33,8 @@ const Button = styled(Link)`
 
 const CardsContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto auto auto;
   gap: 30px;
   justify-items: center;
   margin-top: 20px;
@@ -43,14 +43,19 @@ const CardsContainer = styled.div`
   width: fit-content;
 `;
 
+const TopRow = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  width: 100%;
+`;
+
 const Card = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   text-align: center;
-  height: 400px;
-  width: 400px;
   border-radius: 10px;
   color: ${colors.navy};
   cursor: pointer;
@@ -76,6 +81,21 @@ const Card = styled(Link)`
   }
 `;
 
+const FirstCard = styled(Card)`
+  width: 600px;
+  height: 330px;
+`;
+
+const SecondCard = styled(Card)`
+  width: 1200px;
+  height: 200px;
+`;
+
+const ThirdCard = styled(Card)`
+  width: 1200px;
+  height: 500px;
+`;
+
 const KingSection = styled.div`
   display: flex;
   flex-direction: column;
@@ -91,7 +111,7 @@ const KingImage = styled.img`
 
 const ListContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr; /* 한 열로 설정 */
   gap: 15px;
   justify-items: center;
 `;
@@ -100,7 +120,7 @@ const ListBox = styled.div`
   border: 3px solid ${colors.navy};
   border-radius: 10px;
   height: 70px;
-  width: 140px;
+  width: 500px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -118,40 +138,46 @@ const ListBox = styled.div`
   }
 `;
 
+const Footer = styled.footer`
+  text-align: center;
+  margin-top: 40px;
+  padding: 20px;
+  font-size: 0.9em;
+  color: ${colors.navy};
+`;
+
 function HomePage({ isLoggedIn, username }) {
   return (
     <div style={{ backgroundColor: colors.darkIvory, minHeight: "100vh", padding: "20px" }}>
       <ButtonsContainer>
         {isLoggedIn ? (
-          <Button to="/mypage">
-            마이페이지
-          </Button>
+          <Button to="/mypage">마이페이지</Button>
         ) : (
           <>
-            <Button to="/login">
-              로그인
-            </Button>
-            <Button to="/signup" style={{ backgroundColor: colors.lightNavy }}>
-              회원가입
-            </Button>
+            <Button to="/login">로그인</Button>
+            <Button to="/signup" style={{ backgroundColor: colors.lightNavy }}>회원가입</Button>
           </>
         )}
       </ButtonsContainer>
 
       <CardsContainer>
-        <Card to="/scholarships">
-          <p className="tip">전체장학금</p>
-          <p className="second-text">모든 장학금</p>
-        </Card>
-        <Card to="/custom-scholarships">
-          <p className="tip">맞춤형장학금</p>
-          <p className="second-text">당신에게 맞는 장학금</p>
-        </Card>
-        <Card to="/received-scholarships">
+        <TopRow>
+          <FirstCard to="/scholarships">
+            <p className="tip">전체장학금</p>
+            <p className="second-text">모든 장학금</p>
+          </FirstCard>
+          <FirstCard to="/custom-scholarships">
+            <p className="tip">맞춤형장학금</p>
+            <p className="second-text">당신에게 맞는 장학금</p>
+          </FirstCard>
+        </TopRow>
+
+        <SecondCard to="/received-scholarships">
           <p className="tip">받은장학금</p>
           <p className="second-text">받은 장학금 내역</p>
-        </Card>
-        <Card>
+        </SecondCard>
+
+        <ThirdCard to="#">
           <KingSection>
             <KingImage src={king} alt="King of the Month" />
             <ListContainer>
@@ -161,8 +187,13 @@ function HomePage({ isLoggedIn, username }) {
               <ListBox>명단 4</ListBox>
             </ListContainer>
           </KingSection>
-        </Card>
+        </ThirdCard>
       </CardsContainer>
+
+      <Footer>
+        Team Project | 치즈왕만두 <br />
+        © 2024 Scholarship Finder. All Rights Reserved.
+      </Footer>
     </div>
   );
 }
