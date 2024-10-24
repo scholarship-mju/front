@@ -99,14 +99,14 @@ const InputContainer = styled.div`
   margin-top: 20px;
 `;
 
-const Input = styled.input`
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  width: 300px;
-  margin-right: 10px;
-  font-size: 1rem;
-`;
+// const Input = styled.input`
+//   padding: 10px;
+//   border: 1px solid #ccc;
+//   border-radius: 5px;
+//   width: 300px;
+//   margin-right: 10px;
+//   font-size: 1rem;
+// `;
 
 const SubmitButton = styled.button`
   padding: 10px 20px;
@@ -148,6 +148,152 @@ const Footer = styled.footer`
   font-size: 0.9em;
   color: ${colors.navy};
 `;
+// 스타일 컴포넌트 정의
+const Form = styled.form`
+  border: 2px solid black;
+  border-radius: 10px;
+  margin: 0px 10px;
+  --timing: 0.3s;
+  --width-of-input: 200px;
+  --height-of-input: 40px;
+  --border-height: 2px;
+  --input-bg: #fff;
+  --border-color: #2f2ee9;
+  --border-radius: 30px;
+  --after-border-radius: 1px;
+  position: relative;
+  width: var(--width-of-input);
+  height: var(--height-of-input);
+  display: flex;
+  align-items: center;
+  padding-inline: 0.8em;
+  border-radius: var(--border-radius);
+  transition: border-radius 0.5s ease;
+  background: var(--input-bg, #fff);
+
+  &:focus-within {
+    border-radius: var(--after-border-radius);
+  }
+
+  &:focus-within::before {
+    transform: scale(1);
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    background: var(--border-color);
+    transform: scaleX(0);
+    transform-origin: center;
+    width: 100%;
+    height: var(--border-height);
+    left: 0;
+    bottom: 0;
+    border-radius: 1px;
+    transition: transform var(--timing) ease;
+  }
+`;
+
+const Input = styled.input`
+  font-size: 0.9rem;
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  padding-inline: 0.5em;
+  padding-block: 0.7em;
+  border: none;
+
+  &:focus {
+    outline: none;
+  }
+`;
+
+const Button = styled.button`
+  border: none;
+  background: none;
+  color: #8b8ba7;
+`;
+
+const ResetButton = styled(Button)`
+  opacity: 0;
+  visibility: hidden;
+
+  &:focus + .reset {
+    opacity: 1;
+    visibility: visible;
+  }
+`;
+
+const Svg = styled.svg`
+  width: 17px;
+  margin-top: 3px;
+`;
+
+const SearchSvg = () => (
+  <Svg
+    width="17"
+    height="16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    role="img"
+    aria-labelledby="search"
+  >
+    <path
+      d="M7.667 12.667A5.333 5.333 0 107.667 2a5.333 5.333 0 000 10.667zM14.334 14l-2.9-2.9"
+      stroke="currentColor"
+      strokeWidth="1.333"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
+
+const ResetSvg = () => (
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth="2"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M6 18L18 6M6 6l12 12"
+    />
+  </Svg>
+);
+
+const SearchForm = () => {
+  const [inputValue, setInputValue] = useState("");
+
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  const handleReset = () => {
+    setInputValue("");
+  };
+
+  return (
+    <Form>
+      <Button>
+        <SearchSvg />
+      </Button>
+      <Input
+        className="input"
+        placeholder="받은 장학금 입력"
+        required
+        type="text"
+        value={inputValue}
+        onChange={handleInputChange}
+      />
+      <ResetButton className="reset" type="reset" onClick={handleReset}>
+        <ResetSvg />
+      </ResetButton>
+    </Form>
+  );
+};
 
 function ReceivedScholarshipsPage() {
   const [scholarships, setScholarships] = useState([
@@ -212,12 +358,13 @@ function ReceivedScholarshipsPage() {
 
         {/* 장학금 등록 */}
         <InputContainer>
-          <Input
-            type="text"
-            placeholder="받은 장학금 입력"
-            value={newScholarship}
-            onChange={(e) => setNewScholarship(e.target.value)}
-          />
+          {/* <Input */}
+          {/*   type="text" */}
+          {/*   placeholder="받은 장학금 입력" */}
+          {/*   value={newScholarship} */}
+          {/*   onChange={(e) => setNewScholarship(e.target.value)} */}
+          {/* /> */}
+          <SearchForm></SearchForm>
           <SubmitButton onClick={handleAddScholarship}>등록하기</SubmitButton>
         </InputContainer>
 
