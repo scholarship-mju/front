@@ -1,14 +1,14 @@
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import styled from "styled-components";
 import HomePage from "./pages/HomePage";
 import ScholarshipsPage from "./pages/ScholarshipsPage";
 import CustomScholarshipsPage from "./pages/CustomScholarshipsPage";
 import ReceivedScholarshipsPage from "./pages/ReceivedScholarshipsPage";
 import MyPage from "./pages/MyPage";
 import LoginPage from "./pages/LoginPage";
-import SignUpPage from "./pages/SignUpPage";
-import styled from "styled-components";
 import { useState, useEffect } from "react";
 import mainlogo from "./png/mainlogo.png";
+import SignUpFlow from "./pages/SignUpFlow";
 
 const Header = styled.header`
   display: flex;
@@ -45,18 +45,11 @@ function App() {
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
-
     const handleScroll = () => {
-      if (window.scrollY > lastScrollY) {
-        setShowHeader(false);
-      } else {
-        setShowHeader(true);
-      }
+      setShowHeader(window.scrollY <= lastScrollY);
       lastScrollY = window.scrollY;
     };
-
     window.addEventListener("scroll", handleScroll);
-
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -65,23 +58,18 @@ function App() {
   return (
     <Router>
       <Header style={{ backgroundColor: "#FFFFF0", top: showHeader ? "0" : "-100px" }}>
-        <Link to="/">
-          <Logo src={mainlogo} alt="Main Logo" />
-        </Link>
+        <Link to="/"><Logo src={mainlogo} alt="Main Logo" /></Link>
       </Header>
 
       <MainContent>
         <Routes>
-          <Route
-            path="/"
-            element={<HomePage isLoggedIn={isLoggedIn} username={username} />}
-          />
+          <Route path="/" element={<HomePage isLoggedIn={isLoggedIn} username={username} />} />
           <Route path="/scholarships" element={<ScholarshipsPage />} />
           <Route path="/custom-scholarships" element={<CustomScholarshipsPage />} />
           <Route path="/received-scholarships" element={<ReceivedScholarshipsPage />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
-          <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/signup" element={<SignUpFlow />} />  {/* Updated to use SignUpFlow */}
         </Routes>
       </MainContent>
     </Router>
