@@ -129,6 +129,18 @@ const WarningText = styled.p`
   text-align: center;
 `;
 
+const TotalAmount = styled.p`
+  margin-top: 10px;
+  width: 400px;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  color: yellow;
+  background-color: #9370db;
+`;
+
 const Footer = styled.footer`
   text-align: center;
   margin-top: 40px;
@@ -139,7 +151,7 @@ const Footer = styled.footer`
 
 function ReceivedScholarshipsPage() {
   const [scholarships, setScholarships] = useState([
-    { id: 1, name: "장학금 1" },
+    { id: 1, name: "장학금 1", amount: 1000000 }, // 장학금 예시 추가
   ]);
   const [newScholarship, setNewScholarship] = useState("");
 
@@ -150,12 +162,18 @@ function ReceivedScholarshipsPage() {
       } else {
         setScholarships([
           ...scholarships,
-          { id: scholarships.length + 1, name: newScholarship },
+          { id: scholarships.length + 1, name: newScholarship, amount: 0 }, // 초기 금액 설정
         ]);
         setNewScholarship("");
       }
     }
   };
+
+  // 장학금 총액 계산
+  const totalAmount = scholarships.reduce(
+    (total, scholarship) => total + (scholarship.amount || 0),
+    0,
+  );
 
   return (
     <Background>
@@ -177,6 +195,7 @@ function ReceivedScholarshipsPage() {
             <tr>
               <TableHeader>고유 번호</TableHeader>
               <TableHeader>장학금</TableHeader>
+              <TableHeader>장학금액</TableHeader>
             </tr>
           </thead>
           <tbody>
@@ -184,6 +203,8 @@ function ReceivedScholarshipsPage() {
               <tr key={scholarship.id}>
                 <TableCell>{scholarship.id}</TableCell>
                 <TableCell>{scholarship.name}</TableCell>
+                <TableCell>{scholarship.amount} 원</TableCell>{" "}
+                {/* 장학금액 표시 */}
               </tr>
             ))}
           </tbody>
@@ -201,6 +222,9 @@ function ReceivedScholarshipsPage() {
         </InputContainer>
 
         <WarningText>이미 등록된 장학금이 있을 수 있습니다.</WarningText>
+
+        {/* 총액 표시 */}
+        <TotalAmount>장학금 총액: {totalAmount} 원</TotalAmount>
       </Container>
 
       <Footer>
