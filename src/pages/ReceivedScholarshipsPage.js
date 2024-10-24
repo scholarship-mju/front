@@ -96,17 +96,8 @@ const InputContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 20px;
+  margin: 20px 0px;
 `;
-
-// const Input = styled.input`
-//   padding: 10px;
-//   border: 1px solid #ccc;
-//   border-radius: 5px;
-//   width: 300px;
-//   margin-right: 10px;
-//   font-size: 1rem;
-// `;
 
 const SubmitButton = styled.button`
   padding: 10px 20px;
@@ -148,7 +139,7 @@ const Footer = styled.footer`
   font-size: 0.9em;
   color: ${colors.navy};
 `;
-// 스타일 컴포넌트 정의
+
 const Form = styled.form`
   border: 2px solid black;
   border-radius: 10px;
@@ -264,7 +255,7 @@ const ResetSvg = () => (
   </Svg>
 );
 
-const SearchForm = () => {
+const SearchForm = ({ onSearch }) => {
   const [inputValue, setInputValue] = useState("");
 
   const handleInputChange = (e) => {
@@ -275,8 +266,16 @@ const SearchForm = () => {
     setInputValue("");
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (inputValue.trim()) {
+      onSearch(inputValue);
+      setInputValue(""); // clear input after search
+    }
+  };
+
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <Button>
         <SearchSvg />
       </Button>
@@ -296,28 +295,61 @@ const SearchForm = () => {
 };
 
 function ReceivedScholarshipsPage() {
-  const [scholarships, setScholarships] = useState([
-    { id: 1, name: "장학금 1", amount: 1000000 }, // 장학금 예시 추가
-  ]);
-  const [newScholarship, setNewScholarship] = useState("");
+  // const [scholarships, setScholarships] = useState([
+  //   { id: 1, name: "장학금 1", amount: 1000000 },
+  //   { id: 2, name: "장학금 2", amount: 500000 },
+  // ]);
+  // const [newScholarship, setNewScholarship] = useState("");
+  //
+  // const handleAddScholarship = (name) => {
+  //   const existingScholarship = scholarships.find(
+  //     (scholarship) => scholarship.name === name,
+  //   );
+  //   if (existingScholarship) {
+  //     alert("이미 등록된 장학금입니다.");
+  //   } else {
+  //     const newId = scholarships.length + 1;
+  //     const randomAmount = Math.floor(Math.random() * 5000000) + 100000;
+  //     setScholarships([
+  //       ...scholarships,
+  //       { id: newId, name, amount: randomAmount },
+  //     ]);
+  //   }
+  // };
+  const scholarshipData = [
+    { name: "장학금 A", amount: 1000000 },
+    { name: "장학금 B", amount: 1500000 },
+    { name: "장학금 C", amount: 2000000 },
+    { name: "장학금 D", amount: 2500000 },
+  ];
 
-  const handleAddScholarship = () => {
-    if (newScholarship.trim()) {
-      if (scholarships.find((s) => s.name === newScholarship)) {
-        alert("이미 등록된 장학금입니다.");
-      } else {
-        setScholarships([
-          ...scholarships,
-          { id: scholarships.length + 1, name: newScholarship, amount: 0 }, // 초기 금액 설정
-        ]);
-        setNewScholarship("");
-      }
+  const [scholarships, setScholarships] = useState([
+    { id: 1, name: "장학금 1", amount: 1000000 },
+    { id: 2, name: "장학금 2", amount: 500000 },
+  ]);
+
+  const handleAddScholarship = (name) => {
+    const matchingScholarship = scholarshipData.find(
+      (scholarship) => scholarship.name === name,
+    );
+
+    if (matchingScholarship) {
+      const newId = scholarships.length + 1;
+      setScholarships([
+        ...scholarships,
+        {
+          id: newId,
+          name: matchingScholarship.name,
+          amount: matchingScholarship.amount,
+        },
+      ]);
+    } else {
+      alert("장학금을 찾지 못했습니다.");
     }
   };
 
-  // 장학금 총액 계산
   const totalAmount = scholarships.reduce(
-    (total, scholarship) => total + (scholarship.amount || 0),
+    (total, scholarship) => total + scholarship.amount,
     0,
   );
 
@@ -335,13 +367,12 @@ function ReceivedScholarshipsPage() {
 
         <Title>받은 장학금</Title>
 
-        {/* 장학금 리스트 */}
         <Table>
           <thead>
             <tr>
               <TableHeader>고유 번호</TableHeader>
               <TableHeader>장학금</TableHeader>
-              <TableHeader>장학금액</TableHeader>
+              <TableHeader>금액</TableHeader>
             </tr>
           </thead>
           <tbody>
@@ -349,29 +380,21 @@ function ReceivedScholarshipsPage() {
               <tr key={scholarship.id}>
                 <TableCell>{scholarship.id}</TableCell>
                 <TableCell>{scholarship.name}</TableCell>
-                <TableCell>{scholarship.amount} 원</TableCell>{" "}
-                {/* 장학금액 표시 */}
+                <TableCell>{scholarship.amount.toLocaleString()}원</TableCell>
               </tr>
             ))}
           </tbody>
         </Table>
 
-        {/* 장학금 등록 */}
         <InputContainer>
-          {/* <Input */}
-          {/*   type="text" */}
-          {/*   placeholder="받은 장학금 입력" */}
-          {/*   value={newScholarship} */}
-          {/*   onChange={(e) => setNewScholarship(e.target.value)} */}
-          {/* /> */}
-          <SearchForm></SearchForm>
-          <SubmitButton onClick={handleAddScholarship}>등록하기</SubmitButton>
+          <SearchForm onSearch={handleAddScholarship} />
         </InputContainer>
 
         <WarningText>이미 등록된 장학금이 있을 수 있습니다.</WarningText>
 
-        {/* 총액 표시 */}
-        <TotalAmount>장학금 총액: {totalAmount} 원</TotalAmount>
+        <TotalAmount>
+          총 장학금 금액: {totalAmount.toLocaleString()}원
+        </TotalAmount>
       </Container>
 
       <Footer>
