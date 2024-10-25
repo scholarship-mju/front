@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 // 기존 colors 객체 재사용
 const colors = {
@@ -90,6 +91,31 @@ const TableCell = styled.td`
   padding: 12px;
   border-bottom: 1px solid #ddd;
   font-size: 1rem;
+`;
+
+const TableBody = styled.tbody`
+  .fade-enter {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  .fade-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+      opacity 300ms ease-in,
+      transform 300ms ease-in;
+  }
+  .fade-exit {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .fade-exit-active {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition:
+      opacity 300ms ease-in,
+      transform 300ms ease-in;
+  }
 `;
 
 const InputContainer = styled.div`
@@ -375,15 +401,34 @@ function ReceivedScholarshipsPage() {
               <TableHeader>금액</TableHeader>
             </tr>
           </thead>
-          <tbody>
-            {scholarships.map((scholarship) => (
-              <tr key={scholarship.id}>
-                <TableCell>{scholarship.id}</TableCell>
-                <TableCell>{scholarship.name}</TableCell>
-                <TableCell>{scholarship.amount.toLocaleString()}원</TableCell>
-              </tr>
-            ))}
-          </tbody>
+          {/* <tbody> */}
+          {/*   {scholarships.map((scholarship) => ( */}
+          {/*     <tr key={scholarship.id}> */}
+          {/*       <TableCell>{scholarship.id}</TableCell> */}
+          {/*       <TableCell>{scholarship.name}</TableCell> */}
+          {/*       <TableCell>{scholarship.amount.toLocaleString()}원</TableCell> */}
+          {/*     </tr> */}
+          {/*   ))} */}
+          {/* </tbody> */}
+          <TableBody>
+            <TransitionGroup>
+              {scholarships.map((scholarship) => (
+                <CSSTransition
+                  key={scholarship.id}
+                  timeout={300}
+                  classNames="fade"
+                >
+                  <tr>
+                    <TableCell>{scholarship.id}</TableCell>
+                    <TableCell>{scholarship.name}</TableCell>
+                    <TableCell>
+                      {scholarship.amount.toLocaleString()}원
+                    </TableCell>
+                  </tr>
+                </CSSTransition>
+              ))}
+            </TransitionGroup>
+          </TableBody>
         </Table>
 
         <InputContainer>
