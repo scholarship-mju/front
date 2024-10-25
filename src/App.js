@@ -12,14 +12,21 @@ import { useState } from "react";
 
 const Header = styled.header`
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 10px;
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: white;
   z-index: 100;
+  background-color: #FFFFF0;
+  transition: top 0.3s ease-in-out;
+`;
+
+const Logo = styled.img`
+  width: 700px;
+  height: auto;
+  cursor: pointer;
 `;
 
 const H1 = styled.h1`
