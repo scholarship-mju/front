@@ -1,0 +1,198 @@
+/* ScholarshipsPage.css */
+
+/* 검색어 입력창 스타일 */
+input[type="text"] {
+    width: 100%;             /* 입력창 너비 100% */
+    max-width: 500px;       /* 최대 너비 설정 */
+    line-height: 40px;
+    padding: 0 1px;
+    padding-left: 2.5rem;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    outline: none;
+    background-color: #f3f3f4;
+    color: #0d0c22;
+    transition: 0.3s ease;    
+}
+
+.input::placeholder {
+    color: #9e9ea7;
+}
+
+.input:focus,
+input:hover {
+    outline: none;
+    border-color: rgba(247, 127, 0, 0.4);
+    background-color: #fff;
+    box-shadow: 0 0 0 4px rgb(247 127 0 / 10%);
+}
+
+/* 버튼 스타일 */
+button {
+    appearance: none;
+    background-color: transparent;
+    border: 0.125em solid #1A1A1A;
+    border-radius: 0.9375em;
+    box-sizing: border-box;
+    color: #3B3B3B;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Roobert, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 16px;
+    font-weight: 600;
+    line-height: normal;
+    margin: 20px;
+    min-height: 3.75em;
+    min-width: 0;
+    outline: none;
+    padding: 1em 2.3em;
+    text-align: center;
+    text-decoration: none;
+    transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    will-change: transform;
+}
+
+button:disabled {
+    pointer-events: none;
+}
+
+button:hover {
+    color: #fff;
+    background-color: #1A1A1A;
+    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+    transform: translateY(-2px);
+}
+
+button:active {
+    box-shadow: none;
+    transform: translateY(0);
+}
+
+/* 필드셋 스타일 */
+fieldset {
+    border: 2px solid #4CAF50; /* 테두리 색상과 굵기 */
+    border-radius: 8px;        /* 모서리 둥글게 */
+    padding: 10px;             /* 안쪽 여백 */
+    margin: 0 10px 0 0;            
+}
+
+/* 리스트 스타일: 점 제거 */
+ul {
+    list-style-type: none; /* 점 제거 */
+    padding: 0;            /* 기본 패딩 제거 */
+    margin: 0;             /* 기본 마진 제거 */
+}
+
+/* 리스트 아이템 스타일 */
+.scholarship-item {
+    display: flex;            /* Flexbox 사용 */
+    justify-content: space-between; /* 양쪽 끝 정렬 */
+    align-items: center;      /* 수직 중앙 정렬 */
+    margin-bottom: 10px;  
+    margin-top: 0;    /* 리스트 아이템 간의 간격 */
+}
+.unit{
+    text-align: right; /* 텍스트를 오른쪽으로 정렬 */
+    margin-bottom: 0;
+}
+
+.button-container,.search-container,h1,.errormessage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* 금액 스타일 */
+.scholarship-amount  {
+    margin-left: auto; /* 왼쪽 여백을 자동으로 설정하여 오른쪽 정렬 */
+    text-align: right; /* 텍스트를 오른쪽으로 정렬 */
+}
+
+/* From Uiverse.io by catraco */ 
+.heart-container {
+    --heart-color: rgb(255, 91, 137);
+    position: relative;
+    width: 50px;
+    height: 50px;
+    transition: .3s;
+  }
+  
+  .heart-container .checkbox {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 20;
+    cursor: pointer;
+  }
+  
+  .heart-container .svg-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .heart-container .svg-outline,
+          .heart-container .svg-filled {
+    fill: var(--heart-color);
+    position: absolute;
+  }
+  
+  .heart-container .svg-filled {
+    animation: keyframes-svg-filled 1s;
+    display: none;
+  }
+  
+  .heart-container .svg-celebrate {
+    position: absolute;
+    animation: keyframes-svg-celebrate .5s;
+    animation-fill-mode: forwards;
+    display: none;
+    stroke: var(--heart-color);
+    fill: var(--heart-color);
+    stroke-width: 2px;
+  }
+  
+  .heart-container .checkbox:checked~.svg-container .svg-filled {
+    display: block
+  }
+  
+  .heart-container .checkbox:checked~.svg-container .svg-celebrate {
+    display: block
+  }
+  
+  @keyframes keyframes-svg-filled {
+    0% {
+      transform: scale(0);
+    }
+  
+    25% {
+      transform: scale(1.2);
+    }
+  
+    50% {
+      transform: scale(1);
+      filter: brightness(1.5);
+    }
+  }
+  
+  @keyframes keyframes-svg-celebrate {
+    0% {
+      transform: scale(0);
+    }
+  
+    50% {
+      opacity: 1;
+      filter: brightness(1.5);
+    }
+  
+    100% {
+      transform: scale(1.4);
+      opacity: 0;
+      display: none;
+    }
+  }
