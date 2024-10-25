@@ -5,6 +5,7 @@ import CustomScholarshipsPage from "./pages/CustomScholarshipsPage";
 import ReceivedScholarshipsPage from "./pages/ReceivedScholarshipsPage";
 import MyPage from "./pages/MyPage";
 import LoginPage from "./pages/LoginPage";
+import LoginSuccessPage from "./pages/auth/LoginSuccessPage";
 import SignUpPage from "./pages/SignUpPage";
 import styled from "styled-components";
 import { useState } from "react";
@@ -58,10 +59,11 @@ function App() {
             element={<HomePage isLoggedIn={isLoggedIn} username={username} />} 
           />
           <Route path="/scholarships" element={<ScholarshipsPage />} />
+          <Route path="/mypage" element={<MyPage />} />
           <Route path="/custom-scholarships" element={<CustomScholarshipsPage />} />
           <Route path="/received-scholarships" element={<ReceivedScholarshipsPage />} />
-          <Route path="/mypage" element={<MyPage />} />
           <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
+          <Route path="/auth/success" element={<LoginSuccessPage />} />
           <Route path="/signup" element={<SignUpPage />} />
         </Routes>
       </MainContent>
