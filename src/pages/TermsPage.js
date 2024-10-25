@@ -7,6 +7,7 @@ const lightNavy = "#000066";
 const darkIvory = "#F5F5DC";
 
 const TermsContainer = styled.div`
+  max-width: 900px;
   background-color: ${ivory};
   padding: 40px;
   border-radius: 10px;
@@ -22,17 +23,14 @@ const Title = styled.h2`
 `;
 
 const TermsText = styled.p`
-  background-color: ${darkIvory};
-  padding: 20px;
+  width: 98%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid ${navy};
   border-radius: 5px;
+  background-color: ${ivory};
   color: ${lightNavy};
-`;
-
-const Label = styled.label`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 20px;
+  font-size: 16px;
 `;
 
 const Checkbox = styled.input`
@@ -40,16 +38,17 @@ const Checkbox = styled.input`
 `;
 
 const NextButton = styled.button`
+  width: 100%;
   margin-top: 20px;
-  padding: 10px 20px;
+  padding: 12px;
   background-color: ${navy};
   color: ${ivory};
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  font-size: 16px;
   &:hover {
-    background-color: ${lightNavy};
+    background-color: #0056b3;
   }
 `;
 
@@ -73,12 +72,10 @@ function TermsPage({ onNext }) {
       <TermsText>이용약관 내용이 여기에 표시됩니다.</TermsText>
         <Checkbox type="checkbox" checked={agreed} onChange={handleAgreement}/>
         이용약관에 동의합니다.
-      </TermsContainer>
-      <Label>
-      <NextButton onClick={handleNext} disabled={!agreed}>
+        <NextButton onClick={handleNext} disabled={!agreed}>
         다음
       </NextButton>
-      </Label>
+      </TermsContainer>
     </div>
   );
 }

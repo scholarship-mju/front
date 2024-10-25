@@ -69,7 +69,7 @@ function App() {
           <Route path="/received-scholarships" element={<ReceivedScholarshipsPage />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
-          <Route path="/signup" element={<SignUpFlow />} />  {/* Updated to use SignUpFlow */}
+          <Route path="/signup" element={<SignUpFlow />} />
         </Routes>
       </MainContent>
     </Router>

@@ -1,238 +1,150 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import {
+  SignUpContainer,
+  Title,
+  InputField,
+  ErrorMessage,
+  SubmitButton,
+} from "../style/SignUpPageStyles";
 
-const ivory = "#FFFFF0";
-const navy = "#000080";
-const lightNavy = "#000066";
-const darkIvory = "#F5F5DC";
+const idDuplicateCheck = async (id) => {
+  const dummyResponse = { available: id !== "taken" };
+  return dummyResponse.available;
+};
 
-const SignUpContainer = styled.div`
-  background-color: ${ivory};
-  padding: 40px;
-  border-radius: 10px;
-  width: 80%;
-  margin: 0 auto;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-`;
+function SignUpPage({ onNext }) {
+  const [id, setId] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirm, setConfirm] = useState('');
 
-const Title = styled.h2`
-  color: ${navy};
-  text-align: center;
-  margin-bottom: 20px;
-`;
+  const [idError, setIdError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [confirmError, setConfirmError] = useState('');
 
-const InputField = styled.input`
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid ${navy};
-  border-radius: 5px;
-  background-color: ${darkIvory};
-  color: ${lightNavy};
-  font-size: 16px;
+  const [isIdCheck, setIsIdCheck] = useState(false);
+  const [isIdAvailable, setIsIdAvailable] = useState(false);
 
-  &:focus {
-    border-color: ${lightNavy};
-    outline: none;
-  }
-`;
-
-const SelectField = styled.select`
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid ${navy};
-  border-radius: 5px;
-  background-color: ${darkIvory};
-  color: ${lightNavy};
-`;
-
-const TextArea = styled.textarea`
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid ${navy};
-  border-radius: 5px;
-  background-color: ${darkIvory};
-  color: ${lightNavy};
-`;
-
-const Label = styled.label`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 20px;
-`;
-
-const SubmitButton = styled.button`
-  margin-top: 20px;
-  padding: 10px;
-  background-color: ${navy};
-  color: ${ivory};
-  font-size: 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: ${lightNavy};
-  }
-`;
-
-const IdCheckButton = styled.button`
-  padding: 5px 10px;
-  background-color: ${navy};
-  color: ${ivory};
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: ${lightNavy};
-  }
-`;
-
-const ErrorMessage = styled.p`
-  color: red;
-  font-size: 14px;
-`;
-
-function SignUpPage() {
-  const [id, setId] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const [dob, setDob] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [location, setLocation] = useState("");
-  const [languageScore, setLanguageScore] = useState("");
-  const [additionalInfo, setAdditionalInfo] = useState("");
-  const [idAvailable, setIdAvailable] = useState(null);
-
-  const handleIdCheck = () => {
-    fetch(`/check-id?username=${id}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setIdAvailable(data.available);
-        if (data.available) {
-          alert("사용 가능한 ID입니다.");
-        } else {
-          alert("이미 사용 중인 ID입니다.");
-        }
-      })
-      .catch((error) => console.error("ID 중복 확인 오류:", error));
+  const idCheckHandler = async (idValue) => {
+    const idRegex = /^[a-z\d]{5,10}$/;
+    
+    if (!idValue) {
+      setIdError('아이디를 입력해주세요.');
+      setIsIdAvailable(false);
+      return false;
+    } else if (!idRegex.test(idValue)) {
+      setIdError('아이디는 5~10자의 영소문자, 숫자만 입력 가능합니다.');
+      setIsIdAvailable(false);
+      return false;
+    }
+    
+    try {
+      const responseData = await idDuplicateCheck(idValue);
+      if (responseData) {
+        setIdError('사용 가능한 아이디입니다.');
+        setIsIdCheck(true);
+        setIsIdAvailable(true);
+        return true;
+      } else {
+        setIdError('이미 사용중인 아이디입니다.');
+        setIsIdAvailable(false);
+        return false;
+      }
+    } catch (error) {
+      alert('서버 오류입니다. 관리자에게 문의하세요.');
+      console.error(error);
+      return false;
+    }
   };
 
-  const handleSubmit = (e) => {
+  const passwordCheckHandler = (passwordValue, confirmValue) => {
+    const passwordRegex = /^[a-z\d!@*&-_]{8,16}$/;
+    if (!passwordValue) {
+      setPasswordError('비밀번호를 입력해주세요.');
+      return false;
+    } else if (!passwordRegex.test(passwordValue)) {
+      setPasswordError('비밀번호는 8~16자의 영소문자, 숫자, !@*&-_만 입력 가능합니다.');
+      return false;
+    } else if (confirmValue && confirmValue !== passwordValue) {
+      setPasswordError('');
+      setConfirmError('비밀번호가 일치하지 않습니다.');
+      return false;
+    } else {
+      setPasswordError('');
+      setConfirmError('');
+      return true;
+    }
+  };
+
+  const onChangeIdHandler = (e) => {
+    const idValue = e.target.value;
+    setId(idValue);
+    idCheckHandler(idValue);
+  };
+
+  const onChangePasswordHandler = (e) => {
+    const { name, value } = e.target;
+    if (name === 'password') {
+      setPassword(value);
+      passwordCheckHandler(value, confirm);
+    } else {
+      setConfirm(value);
+      passwordCheckHandler(password, value);
+    }
+  };
+
+  const signupHandler = async (e) => {
     e.preventDefault();
+    
+    const idCheckResult = await idCheckHandler(id);
+    if (!idCheckResult) return;
 
-    const signupData = {
-      id,
-      password,
-      name,
-      dob,
-      phone,
-      email,
-      location,
-      languageScore,
-      additionalInfo,
-    };
+    if (!isIdCheck || !isIdAvailable) {
+      alert('아이디 중복 검사를 해주세요.');
+      return;
+    }
 
-    fetch("/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(signupData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
-          alert("회원가입 성공");
-        } else {
-          alert("회원가입 실패");
-        }
-      })
-      .catch((error) => console.error("회원가입 오류:", error));
+    const passwordCheckResult = passwordCheckHandler(password, confirm);
+    if (!passwordCheckResult) return;
+
+    onNext({ id, password });
   };
 
   return (
-    <div style={{ backgroundColor: darkIvory, minHeight: "85vh", padding: "20px" }}>
     <SignUpContainer>
       <Title>회원가입</Title>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <InputField
-            type="text"
-            placeholder="아이디 입력"
-            value={id}
-            onChange={(e) => setId(e.target.value)}
-          />
-          <IdCheckButton type="button" onClick={handleIdCheck}>
-            ID 중복 확인
-          </IdCheckButton>
-          {idAvailable === false && (
-            <ErrorMessage>이미 사용 중인 ID입니다.</ErrorMessage>
-          )}
-        </div>
+      <form onSubmit={signupHandler}>
+        <InputField
+          type="text"
+          placeholder="아이디 입력"
+          value={id}
+          onChange={onChangeIdHandler}
+          maxLength={10}
+        />
+        {idError && <ErrorMessage>{idError}</ErrorMessage>}
+
         <InputField
           type="password"
           placeholder="비밀번호 입력"
+          name="password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={onChangePasswordHandler}
+          maxLength={16}
         />
+        {passwordError && <ErrorMessage>{passwordError}</ErrorMessage>}
+
         <InputField
-          type="text"
-          placeholder="이름 입력"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          type="password"
+          placeholder="비밀번호 확인"
+          name="confirm"
+          value={confirm}
+          onChange={onChangePasswordHandler}
+          maxLength={16}
         />
-        <InputField
-          type="date"
-          value={dob}
-          onChange={(e) => setDob(e.target.value)}
-        />
-        <InputField
-          type="text"
-          placeholder="전화번호 입력"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-        />
-        <InputField
-          type="email"
-          placeholder="이메일 입력"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <SelectField
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-        >
-          <option value="">사는 지역 선택</option>
-          <option value="서울">서울</option>
-          <option value="부산">부산</option>
-          <option value="대구">대구</option>
-        </SelectField>
-        <SelectField
-          value={languageScore}
-          onChange={(e) => setLanguageScore(e.target.value)}
-        >
-          <option value="">어학 성적 선택</option>
-          <option value="TOEIC">TOEIC</option>
-          <option value="TOEFL">TOEFL</option>
-          <option value="IELTS">IELTS</option>
-        </SelectField>
-        <TextArea
-          placeholder="추가 정보 입력"
-          value={additionalInfo}
-          onChange={(e) => setAdditionalInfo(e.target.value)}
-        />
+        {confirmError && <ErrorMessage>{confirmError}</ErrorMessage>}
+
+        <SubmitButton type="submit">다음</SubmitButton>
       </form>
     </SignUpContainer>
-    <Label>
-    <SubmitButton type="submit">회원가입</SubmitButton>
-    </Label>
-    </div>
   );
 }
 
