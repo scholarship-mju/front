@@ -5,6 +5,7 @@ import {
   InputField,
   ErrorMessage,
   SubmitButton,
+  darkIvory
 } from "../style/SignUpPageStyles";
 
 const idDuplicateCheck = async (id) => {
@@ -110,6 +111,7 @@ function SignUpPage({ onNext }) {
   };
 
   return (
+    <div style={{ backgroundColor: darkIvory, minHeight: "100vh", padding: "20px" }}>
     <SignUpContainer>
       <Title>회원가입</Title>
       <form onSubmit={signupHandler}>
@@ -145,6 +147,7 @@ function SignUpPage({ onNext }) {
         <SubmitButton type="submit">다음</SubmitButton>
       </form>
     </SignUpContainer>
+    </div>
   );
 }
 
