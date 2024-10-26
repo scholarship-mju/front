@@ -1,14 +1,10 @@
-// SignUpPageStyles.js
-
 import styled from "styled-components";
 
-// Define your color variables
 export const ivory = "#FFFFF0";
 export const navy = "#000080";
 export const lightNavy = "#000066";
 export const darkIvory = "#F5F5DC";
 
-// Style for the main container
 export const SignUpContainer = styled.div`
   max-width: 500px;
   margin: 0 auto;
@@ -18,14 +14,12 @@ export const SignUpContainer = styled.div`
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 `;
 
-// Style for the title
 export const Title = styled.h2`
   text-align: center;
   margin-bottom: 20px;
   color: #333;
 `;
 
-// Style for input fields
 export const InputField = styled.input`
   width: 95%;
   padding: 10px;
@@ -42,16 +36,14 @@ export const InputField = styled.input`
   }
 `;
 
-// Style for error messages
 export const ErrorMessage = styled.p`
   color: red;
   font-size: 14px;
   margin: -5px 0 10px 0;
 `;
 
-// Style for the submit button
 export const SubmitButton = styled.button`
-  width: 100%;
+  width: 90%;
   padding: 12px;
   background-color: ${navy};
   color: ${ivory};

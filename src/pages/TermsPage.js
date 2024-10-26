@@ -38,7 +38,7 @@ const Checkbox = styled.input`
 `;
 
 const NextButton = styled.button`
-  width: 100%;
+  width: 95%;
   margin-top: 20px;
   padding: 12px;
   background-color: ${navy};

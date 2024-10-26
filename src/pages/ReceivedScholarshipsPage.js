@@ -125,21 +125,6 @@ const InputContainer = styled.div`
   margin: 20px 0px;
 `;
 
-const SubmitButton = styled.button`
-  padding: 10px 20px;
-  background-color: ${colors.navy};
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: ${colors.lightNavy};
-  }
-`;
-
 const WarningText = styled.p`
   margin-top: 20px;
   color: #e74c3c;

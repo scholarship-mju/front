@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { InputField, SubmitButton, AdditionalInfoContainer } from "../style/AdditionalInfoPageStyles";
+import { InputField, SubmitButton, AdditionalInfoContainer } from "../sylte/AdditionalInfoPageStyles";
 
 function AdditionalInfoPage({ onSubmit }) {
   const [name, setName] = useState("");
@@ -23,7 +23,6 @@ function AdditionalInfoPage({ onSubmit }) {
     };
     onSubmit(additionalData);
 
-    // 홈페이지로 리다이렉트
     window.location.href = "/";
   };
 

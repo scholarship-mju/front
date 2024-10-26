@@ -111,7 +111,7 @@ const KingImage = styled.img`
 
 const ListContainer = styled.div`
   display: grid;
-  grid-template-columns: 1fr; /* 한 열로 설정 */
+  grid-template-columns: 1fr;
   gap: 15px;
   justify-items: center;
 `;

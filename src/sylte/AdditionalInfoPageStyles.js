@@ -58,7 +58,7 @@ export const ErrorMessage = styled.p`
 `;
 
 export const SubmitButton = styled.button`
-  width: 100%;
+  width: 90%;
   padding: 12px;
   background-color: ${navy};
   color: ${ivory};
