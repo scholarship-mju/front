@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-
+import AnimatedNumbers from "react-animated-numbers";
 // 기존 colors 객체 재사용
 const colors = {
   ivory: "#FFFFF0",
@@ -132,6 +132,7 @@ const WarningText = styled.p`
 `;
 
 const TotalAmount = styled.p`
+  display: flex;
   margin-top: 10px;
   width: 400px;
   border-radius: 10px;
@@ -208,6 +209,9 @@ const Input = styled.input`
   &:focus {
     outline: none;
   }
+`;
+const TotalAmountText = styled.span`
+  margin: 0px 5px;
 `;
 
 const Button = styled.button`
@@ -422,8 +426,26 @@ function ReceivedScholarshipsPage() {
 
         <WarningText>이미 등록된 장학금이 있을 수 있습니다.</WarningText>
 
+        {/* <TotalAmount> */}
+        {/*   총 장학금 금액: {totalAmount.toLocaleString()}원 */}
+        {/* </TotalAmount> */}
         <TotalAmount>
-          총 장학금 금액: {totalAmount.toLocaleString()}원
+          <span style={{ marginRight: "4px" }}>총 장학금 금액:</span>
+          {/* <span>총 장학금 금액:</span> */}
+          <AnimatedNumbers
+            includeComma
+            animateToNumber={totalAmount} // 애니메이션할 숫자
+            fontStyle={{
+              fontSize: "1.2rem", // 폰트 크기 조정
+              color: "yellow", // 숫자 색상 조정
+            }}
+            transitions={(index) => ({
+              type: "spring",
+              duration: 2,
+              delay: index * 0.07, // 각 숫자에 대한 지연 시간
+            })}
+          />
+          <span>원</span>
         </TotalAmount>
       </Container>
 
