@@ -440,8 +440,8 @@ function ReceivedScholarshipsPage() {
               color: "yellow", // 숫자 색상 조정
             }}
             transitions={(index) => ({
-              type: "spring",
-              duration: 2,
+              type: "tween",
+              duration: 0.7,
               delay: index * 0.07, // 각 숫자에 대한 지연 시간
             })}
           />
