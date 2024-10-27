@@ -267,6 +267,20 @@ const ResetSvg = () => (
   </Svg>
 );
 
+const DeleteButton = styled.button`
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #c0392b;
+  }
+`;
+
 const MemoizedAnimatedNumbers = memo(({ animateToNumber }) => (
   <AnimatedNumbers
     includeComma
@@ -376,6 +390,17 @@ function ReceivedScholarshipsPage() {
     }
   };
 
+  const handleDeleteScholarship = (id) => {
+    setScholarships((prevScholarships) =>
+      prevScholarships
+        .filter((scholarship) => scholarship.id !== id)
+        .map((scholarship, index) => ({
+          ...scholarship,
+          id: index + 1, // 삭제 후 고유 번호 재설정
+        })),
+    );
+  };
+
   const totalAmount = scholarships.reduce(
     (total, scholarship) => total + scholarship.amount,
     0,
@@ -399,6 +424,7 @@ function ReceivedScholarshipsPage() {
               <TableHeader>고유 번호</TableHeader>
               <TableHeader>장학금</TableHeader>
               <TableHeader>금액</TableHeader>
+              <TableHeader>삭제</TableHeader>
             </tr>
           </thead>
 
@@ -416,6 +442,15 @@ function ReceivedScholarshipsPage() {
                       <TableCell>{scholarship.name}</TableCell>
                       <TableCell>
                         {scholarship.amount.toLocaleString()}원
+                      </TableCell>
+                      <TableCell>
+                        <DeleteButton
+                          onClick={() =>
+                            handleDeleteScholarship(scholarship.id)
+                          }
+                        >
+                          삭제
+                        </DeleteButton>
                       </TableCell>
                     </tr>
                   </React.Fragment>
