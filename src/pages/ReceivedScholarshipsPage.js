@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, memo } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
@@ -210,9 +210,6 @@ const Input = styled.input`
     outline: none;
   }
 `;
-const TotalAmountText = styled.span`
-  margin: 0px 5px;
-`;
 
 const Button = styled.button`
   border: none;
@@ -269,6 +266,22 @@ const ResetSvg = () => (
     />
   </Svg>
 );
+
+const MemoizedAnimatedNumbers = memo(({ animateToNumber }) => (
+  <AnimatedNumbers
+    includeComma
+    animateToNumber={animateToNumber}
+    fontStyle={{
+      fontSize: "1.2rem",
+      color: "yellow",
+    }}
+    transitions={(index) => ({
+      type: "tween",
+      duration: 0.7,
+      delay: index * 0.07,
+    })}
+  />
+));
 
 const SearchForm = ({ onSearch }) => {
   const [inputValue, setInputValue] = useState("");
@@ -379,9 +392,7 @@ function ReceivedScholarshipsPage() {
             <NavButton to="/mypage">마이페이지</NavButton>
           </Nav>
         </Header>
-
         <Title>받은 장학금</Title>
-
         <Table>
           <thead>
             <tr>
@@ -391,25 +402,6 @@ function ReceivedScholarshipsPage() {
             </tr>
           </thead>
 
-          {/* <TableBody> */}
-          {/*   <TransitionGroup> */}
-          {/*     {scholarships.map((scholarship) => ( */}
-          {/*       <CSSTransition */}
-          {/*         key={scholarship.id} */}
-          {/*         timeout={300} */}
-          {/*         classNames="fade" */}
-          {/*       > */}
-          {/*         <tr> */}
-          {/*           <TableCell>{scholarship.id}</TableCell> */}
-          {/*           <TableCell>{scholarship.name}</TableCell> */}
-          {/*           <TableCell> */}
-          {/*             {scholarship.amount.toLocaleString()}원 */}
-          {/*           </TableCell> */}
-          {/*         </tr> */}
-          {/*       </CSSTransition> */}
-          {/*     ))} */}
-          {/*   </TransitionGroup> */}
-          {/* </TableBody> */}
           <TableBody>
             <TransitionGroup component={null}>
               {scholarships.map((scholarship) => (
@@ -432,32 +424,34 @@ function ReceivedScholarshipsPage() {
             </TransitionGroup>
           </TableBody>
         </Table>
-
         <InputContainer>
           <SearchForm onSearch={handleAddScholarship} />
         </InputContainer>
-
         <WarningText>이미 등록된 장학금이 있을 수 있습니다.</WarningText>
-
         {/* <TotalAmount> */}
         {/*   총 장학금 금액: {totalAmount.toLocaleString()}원 */}
         {/* </TotalAmount> */}
+        {/* <TotalAmount> */}
+        {/*   <span style={{ marginRight: "4px" }}>총 장학금 금액:</span> */}
+        {/*   {/* <span>총 장학금 금액:</span> */}
+        {/*   <AnimatedNumbers */}
+        {/*     includeComma */}
+        {/*     animateToNumber={totalAmount} // 애니메이션할 숫자 */}
+        {/*     fontStyle={{ */}
+        {/*       fontSize: "1.2rem", // 폰트 크기 조정 */}
+        {/*       color: "yellow", // 숫자 색상 조정 */}
+        {/*     }} */}
+        {/*     transitions={(index) => ({ */}
+        {/*       type: "tween", */}
+        {/*       duration: 0.7, */}
+        {/*       delay: index * 0.07, // 각 숫자에 대한 지연 시간 */}
+        {/*     })} */}
+        {/*   /> */}
+        {/*   <span>원</span> */}
+        {/* </TotalAmount> */}
         <TotalAmount>
           <span style={{ marginRight: "4px" }}>총 장학금 금액:</span>
-          {/* <span>총 장학금 금액:</span> */}
-          <AnimatedNumbers
-            includeComma
-            animateToNumber={totalAmount} // 애니메이션할 숫자
-            fontStyle={{
-              fontSize: "1.2rem", // 폰트 크기 조정
-              color: "yellow", // 숫자 색상 조정
-            }}
-            transitions={(index) => ({
-              type: "tween",
-              duration: 0.7,
-              delay: index * 0.07, // 각 숫자에 대한 지연 시간
-            })}
-          />
+          <MemoizedAnimatedNumbers animateToNumber={totalAmount} />
           <span>원</span>
         </TotalAmount>
       </Container>
