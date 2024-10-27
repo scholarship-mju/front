@@ -125,8 +125,8 @@ const TotalAmount = styled.p`
   font-weight: bold;
   text-align: center;
   padding: 10px;
-  color: yellow;
-  background-color: #9370db;
+  color: white;
+  background-color: ${colors.navy};
 `;
 
 const Form = styled.form`
@@ -264,7 +264,7 @@ const MemoizedAnimatedNumbers = memo(({ animateToNumber }) => (
     animateToNumber={animateToNumber}
     fontStyle={{
       fontSize: "1.2rem",
-      color: "yellow",
+      color: "white",
     }}
     transitions={(index) => ({
       type: "tween",
@@ -396,7 +396,7 @@ function ReceivedScholarshipsPage() {
               <TableHeader>고유 번호</TableHeader>
               <TableHeader>장학금</TableHeader>
               <TableHeader>금액</TableHeader>
-              <TableHeader>삭제</TableHeader>
+              <TableHeader></TableHeader>
             </tr>
           </thead>
 
