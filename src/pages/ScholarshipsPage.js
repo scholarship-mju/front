@@ -10,10 +10,7 @@ import {
   CenterContainer,
 } from '../sylte/schloarshipsPageStyle'; // 스타일 컴포넌트 불러오기
 
-
-
-
-
+//여기부터 시작
 const ScholarshipsPage = () => {
   const scholarships = [
     { name: "A 장학금", amount: "1,000,000", feature: ["성적 우수자 대상", "리더십 장려"] },
