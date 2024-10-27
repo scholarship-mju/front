@@ -390,30 +390,43 @@ function ReceivedScholarshipsPage() {
               <TableHeader>금액</TableHeader>
             </tr>
           </thead>
-          {/* <tbody> */}
-          {/*   {scholarships.map((scholarship) => ( */}
-          {/*     <tr key={scholarship.id}> */}
-          {/*       <TableCell>{scholarship.id}</TableCell> */}
-          {/*       <TableCell>{scholarship.name}</TableCell> */}
-          {/*       <TableCell>{scholarship.amount.toLocaleString()}원</TableCell> */}
-          {/*     </tr> */}
-          {/*   ))} */}
-          {/* </tbody> */}
+
+          {/* <TableBody> */}
+          {/*   <TransitionGroup> */}
+          {/*     {scholarships.map((scholarship) => ( */}
+          {/*       <CSSTransition */}
+          {/*         key={scholarship.id} */}
+          {/*         timeout={300} */}
+          {/*         classNames="fade" */}
+          {/*       > */}
+          {/*         <tr> */}
+          {/*           <TableCell>{scholarship.id}</TableCell> */}
+          {/*           <TableCell>{scholarship.name}</TableCell> */}
+          {/*           <TableCell> */}
+          {/*             {scholarship.amount.toLocaleString()}원 */}
+          {/*           </TableCell> */}
+          {/*         </tr> */}
+          {/*       </CSSTransition> */}
+          {/*     ))} */}
+          {/*   </TransitionGroup> */}
+          {/* </TableBody> */}
           <TableBody>
-            <TransitionGroup>
+            <TransitionGroup component={null}>
               {scholarships.map((scholarship) => (
                 <CSSTransition
                   key={scholarship.id}
                   timeout={300}
                   classNames="fade"
                 >
-                  <tr>
-                    <TableCell>{scholarship.id}</TableCell>
-                    <TableCell>{scholarship.name}</TableCell>
-                    <TableCell>
-                      {scholarship.amount.toLocaleString()}원
-                    </TableCell>
-                  </tr>
+                  <React.Fragment>
+                    <tr>
+                      <TableCell>{scholarship.id}</TableCell>
+                      <TableCell>{scholarship.name}</TableCell>
+                      <TableCell>
+                        {scholarship.amount.toLocaleString()}원
+                      </TableCell>
+                    </tr>
+                  </React.Fragment>
                 </CSSTransition>
               ))}
             </TransitionGroup>
