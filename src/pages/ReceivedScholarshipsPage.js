@@ -314,27 +314,6 @@ const SearchForm = ({ onSearch }) => {
 };
 
 function ReceivedScholarshipsPage() {
-  // const [scholarships, setScholarships] = useState([
-  //   { id: 1, name: "장학금 1", amount: 1000000 },
-  //   { id: 2, name: "장학금 2", amount: 500000 },
-  // ]);
-  // const [newScholarship, setNewScholarship] = useState("");
-  //
-  // const handleAddScholarship = (name) => {
-  //   const existingScholarship = scholarships.find(
-  //     (scholarship) => scholarship.name === name,
-  //   );
-  //   if (existingScholarship) {
-  //     alert("이미 등록된 장학금입니다.");
-  //   } else {
-  //     const newId = scholarships.length + 1;
-  //     const randomAmount = Math.floor(Math.random() * 5000000) + 100000;
-  //     setScholarships([
-  //       ...scholarships,
-  //       { id: newId, name, amount: randomAmount },
-  //     ]);
-  //   }
-  // };
   const scholarshipData = [
     { name: "장학금 A", amount: 1000000 },
     { name: "장학금 B", amount: 1500000 },
@@ -435,27 +414,7 @@ function ReceivedScholarshipsPage() {
           <SearchForm onSearch={handleAddScholarship} />
         </InputContainer>
         <WarningText>이미 등록된 장학금이 있을 수 있습니다.</WarningText>
-        {/* <TotalAmount> */}
-        {/*   총 장학금 금액: {totalAmount.toLocaleString()}원 */}
-        {/* </TotalAmount> */}
-        {/* <TotalAmount> */}
-        {/*   <span style={{ marginRight: "4px" }}>총 장학금 금액:</span> */}
-        {/*   {/* <span>총 장학금 금액:</span> */}
-        {/*   <AnimatedNumbers */}
-        {/*     includeComma */}
-        {/*     animateToNumber={totalAmount} // 애니메이션할 숫자 */}
-        {/*     fontStyle={{ */}
-        {/*       fontSize: "1.2rem", // 폰트 크기 조정 */}
-        {/*       color: "yellow", // 숫자 색상 조정 */}
-        {/*     }} */}
-        {/*     transitions={(index) => ({ */}
-        {/*       type: "tween", */}
-        {/*       duration: 0.7, */}
-        {/*       delay: index * 0.07, // 각 숫자에 대한 지연 시간 */}
-        {/*     })} */}
-        {/*   /> */}
-        {/*   <span>원</span> */}
-        {/* </TotalAmount> */}
+
         <TotalAmount>
           <span style={{ marginRight: "4px" }}>총 장학금 금액:</span>
           <MemoizedAnimatedNumbers animateToNumber={totalAmount} />
