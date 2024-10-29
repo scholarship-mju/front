@@ -118,8 +118,10 @@ const WarningText = styled.p`
 
 const TotalAmount = styled.p`
   display: flex;
+  align-items: center;
+  justify-content: center;
   margin-top: 10px;
-  width: 400px;
+  width: 280px;
   border-radius: 10px;
   font-size: 1.2rem;
   font-weight: bold;
@@ -319,6 +321,7 @@ function ReceivedScholarshipsPage() {
     { name: "장학금 B", amount: 1500000 },
     { name: "장학금 C", amount: 2000000 },
     { name: "장학금 D", amount: 2500000 },
+    { name: "장학금 E", amount: 10000000 },
   ];
 
   const [scholarships, setScholarships] = useState([
