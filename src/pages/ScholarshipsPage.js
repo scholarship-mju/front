@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import {
   Background,
-  TextInput,
   Button,
+  ResetButton,
   Fieldset,
   List,
   ScholarshipItem,
   ScholarshipAmount,
   CenterContainer,
+  ScholarshipList,
+  ListContainer,
+  ListItem,
+  TextInput,
+  SliderContainer,
+  SearchContainer
 } from '../sylte/schloarshipsPageStyle'; // 스타일 컴포넌트 불러오기
 
 //여기부터 시작
@@ -16,7 +22,14 @@ const ScholarshipsPage = () => {
     { name: "A 장학금", amount: "1,000,000", feature: ["성적 우수자 대상", "리더십 장려"] },
     { name: "B 장학금", amount: "500,000", feature: ["저소득층 대상", "학업 성취도"] },
     { name: "C 장학금", amount: "1,500,000", feature: ["우수 체육인 대상", "국제 대회 참가"] },
-    { name: "D 장학금", amount: "2,500,000", feature: ["우수 미술인 대상", "국제 대회 입상"] }
+    { name: "D 장학금", amount: "4,500,000", feature: ["우수 체육인 대상", "국제 대회 참가"] },
+    { name: "E 장학금", amount: "5,000,000", feature: ["우수 체육인 대상", "국제 대회 참가"] },
+    { name: "F 장학금", amount: "3,000,000", feature: ["우수 체육인 대상", "국제 대회 참가"] },
+    { name: "G 장학금", amount: "1,000,000", feature: ["우수 체육인 대상", "국제 대회 참가"] },
+    { name: "H 장학금", amount: "2,000,000", feature: ["우수 건축인 대상", "국제 대회 참가"] },
+    { name: "I 장학금", amount: "1,000,000", feature: ["우수 공학인 대상", "국제 대회 참가"] },
+    { name: "J 장학금", amount: "1,500,000", feature: ["우수 체육인 대상", "국제 대회 참가"] },
+    { name: "K 장학금", amount: "2,500,000", feature: ["우수 미술인 대상", "국제 대회 입상"] }
   ];
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -67,27 +80,28 @@ const ScholarshipsPage = () => {
   };
 
   return (
+
     <Background>
        <CenterContainer>
         <h1>전체 장학금 페이지</h1>
-      </CenterContainer>
-      <CenterContainer>
-        <h1>장학금 목록</h1>
+        
+        <p>장학금 목록</p>
       </CenterContainer>
 
       {/* 검색 컨테이너 */}
-      <CenterContainer className="search-container">
-        <TextInput
+     <SearchContainer>
+        <TextInput className="search-container"
           placeholder="검색어 입력"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <Button onClick={resetSearch}>리셋</Button>
-      </CenterContainer>
+        <ResetButton onClick={resetSearch}>리셋</ResetButton>
+        </SearchContainer>
+     
 
       {/* 금액 검색을 위한 범위 입력 (슬라이더) */}
       {searchField === "amount" && (
-        <CenterContainer className="amount-range-container">
+        <SliderContainer className="amount-range-container">
           <label>
             최소 금액: {minAmount.toLocaleString()}원
             <input
@@ -110,44 +124,53 @@ const ScholarshipsPage = () => {
               onChange={(e) => setMaxAmount(parseInt(e.target.value))}
             />
           </label>
-        </CenterContainer>
+        </SliderContainer>
       )}
 
       {/* 검색 버튼 */}
       <CenterContainer className="button-container">
-        <Button className={lastButton === "name" ? "button-active" : ""} onClick={() => handleSearch("name")}>
-          장학금명 검색
-        </Button>
-        <Button className={lastButton === "amount" ? "button-active" : ""} onClick={() => handleSearch("amount")}>
-          금액 검색
-        </Button>
-        <Button className={lastButton === "feature" ? "button-active" : ""} onClick={() => handleSearch("feature")}>
-          특징 검색
-        </Button>
-      </CenterContainer>
+  <ListContainer>
+    <ListItem>
+      <Button className={lastButton === "name" ? "button-active" : ""} onClick={() => handleSearch("name")}>
+        장학금명 검색
+      </Button>
+    </ListItem>
+    <ListItem>
+      <Button className={lastButton === "amount" ? "button-active" : ""} onClick={() => handleSearch("amount")}>
+        금액 검색
+      </Button>
+    </ListItem>
+    <ListItem>
+      <Button className={lastButton === "feature" ? "button-active" : ""} onClick={() => handleSearch("feature")}>
+        특징 검색
+      </Button>
+    </ListItem>
+  </ListContainer>
+</CenterContainer>
 
       {/* 오류 메시지 출력 */}
       {errorMessage && <CenterContainer style={{ color: 'red' }}>{errorMessage}</CenterContainer>}
 
       {/* 필터링된 결과 출력 */}
       <Fieldset>
-        <legend>검색 결과</legend>
-        <List className="scholarship-list">
-          {filteredScholarships.length > 0 ? (
-            filteredScholarships.map((scholarship, index) => (
-              <ScholarshipItem key={index}>
-                <div>
-                  <strong>{scholarship.name}</strong>: {scholarship.feature.join(", ")
-                  }
-                </div>
-                <ScholarshipAmount>{scholarship.amount}</ScholarshipAmount>
-              </ScholarshipItem>
-            ))
-          ) : (
-            <li>검색 결과가 없습니다.</li>
-          )}
-        </List>
-      </Fieldset>
+  <legend>검색 결과</legend>
+  <List className="scholarship-list">
+    {filteredScholarships.length > 0 ? (
+      filteredScholarships.map((scholarship, index) => (
+        <ScholarshipItem key={index}>
+          <div>
+            <strong>{scholarship.name}</strong>: {scholarship.feature.join(", ")}
+          </div>
+          <ScholarshipAmount>{scholarship.amount}
+          <img src="../png/down" alt="Down arrow" />
+          </ScholarshipAmount>
+        </ScholarshipItem>
+      ))
+    ) : (
+      <li>검색 결과가 없습니다.</li>
+    )}
+  </List>
+</Fieldset>
     </Background>
   );
 };
