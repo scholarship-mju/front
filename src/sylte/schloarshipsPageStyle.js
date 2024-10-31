@@ -206,6 +206,13 @@ const colors = {
     
   `;
 
+  const DownIcon = styled.svg`
+  width: 16px;
+  height: 16px;
+  fill: #333; /* 원하는 색상 */
+`;
+
+
   
 
   
@@ -241,7 +248,8 @@ const ListItem = styled.li`
     ListItem,
     ListContainer,
     SliderContainer,
-    SearchContainer
+    SearchContainer,
+    DownIcon
     
     
   };

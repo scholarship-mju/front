@@ -13,7 +13,8 @@ import {
   ListItem,
   TextInput,
   SliderContainer,
-  SearchContainer
+  SearchContainer,
+  DownIcon
 } from '../sylte/schloarshipsPageStyle'; // 스타일 컴포넌트 불러오기
 
 //여기부터 시작
@@ -162,7 +163,9 @@ const ScholarshipsPage = () => {
             <strong>{scholarship.name}</strong>: {scholarship.feature.join(", ")}
           </div>
           <ScholarshipAmount>{scholarship.amount}
-          <img src="../png/down" alt="Down arrow" />
+          <DownIcon down="../png/down/png" viewBox="0 0 24 24">
+    <path d="M12 16l-6-6h12z" />
+  </DownIcon>
           </ScholarshipAmount>
         </ScholarshipItem>
       ))
