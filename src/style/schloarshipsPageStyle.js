@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import downImage from '../png/down.png'; // 이미지 파일을 import
 
 const colors = {
     primary: '#4CAF50',
@@ -26,14 +27,12 @@ const colors = {
     background-color: ${colors.darkIvory};
     min-height: 100px;
     padding: 20px;
-    position: relative; /* 자식 요소의 absolute 위치 기준 */
   `;
   
   
   // 검색어 입력창 스타일
   const TextInput = styled.input`
-    width: 100%;
-    max-width: 500px;
+    width: 55%;
     line-height: 40px;
     padding: 0 1px 0 2.5rem;
     border: 3px solid transparent;
@@ -148,14 +147,15 @@ const colors = {
   const SearchContainer = styled.div`
   width: 100%;
   text-align: center; /* 자식 요소들을 수평 중앙 정렬 */
-  padding-top: 100px; /* 필요시 세로 중앙 정렬을 위한 상단 여백 */
+  padding-top: 20px; /* 필요시 세로 중앙 정렬을 위한 상단 여백 */
   `;
 
   const SliderContainer = styled.div`
   border: 3px solid ${colors.navy};
-  padding: 10px; /* 필요에 따라 패딩 추가 */
-  width : 50% 
-   display: flex; /* 혹은 display: grid; */
+  border-radius: 5px;
+  padding: 15px; /* 필요에 따라 패딩 추가 */
+  width : 60% 
+ text-
   justify-content: center; /* 중앙 정렬 필요시 */
   align-items: center; /* 중앙 정렬 필요시 */
   text-align: center; /*
@@ -166,68 +166,76 @@ const colors = {
   const Fieldset = styled.fieldset`
     border: 5px solid ${colors.navy};
     border-radius: 8px;
-    padding: 10px 10px 10px 10px; 
-    width: 90%;
-    margin: 0 10px 0 0;
+    padding: 10px 10px 10px 3px; 
+    width: 95%;
+    margin: 0 0 0 0;
     max-height: 500px; /* 적절한 높이로 설정하세요, 10개 항목을 고려한 높이입니다 */
     overflow-y: auto; /* 스크롤 가능하도록 설정 */
   `;
   
   // 리스트 스타일
   const List = styled.ul`
-    list-style-type: none;
-    padding: 0;
-    margin: 15px;
+
+  list-style-type: none;
+    display: flex; /* Flexbox 사용 */
+  justify-content: space-between; /* 양쪽 정렬 */
+  flex-direction:column;
+    paddings: 0;
+    margin: 5px;
   `;
   
   // 리스트 아이템 스타일
   const ScholarshipItem = styled.li`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 10px 0;
-     font-size: 17px;
-    font-styly:bold;
-  `;
-  
-  const Unit = styled.div`
-    text-align: right;
-    margin-bottom: 0;
-  `;
-
- 
-  
-  // 금액 스타일
-  const ScholarshipAmount = styled.div`
-    margin-left: auto;
-    text-align: right;
-    font-size: 20px;
-    font-styly:bold;
+    margin: 10px;
+    padding: 5px;
+    font-size: 17px;
+    border:1px solid gray;
+    border-radius: 8px;
+    
     
   `;
+  // 금액 스타일
+  const ScholarshipAmount = styled.div`
+   
+    flex-direction: column;
+    text-align: right;
+    font-size: 20px;
+  `;
 
-  const DownIcon = styled.svg`
-  width: 16px;
-  height: 16px;
-  fill: #333; /* 원하는 색상 */
+  const DownButton = styled.img`
+  margin-left: 10px;
+  width: 30px; /* 버튼의 크기 설정 */
+  height: 30px; /* 버튼의 크기 설정 */
+  border: 1px solid gray; /* 테두리 */
+  border-radius: 3px; /* 모서리 둥글게 */ 
+  background-color: rgba(249, 249, 249, 0.5); /* 배경색 */
 `;
 
+const DetailBox = styled.div`
+  line-height: 170%;
+  flex-direction: column; /*
+  margin: 15px 20px 20px 10px;
+  width: 90%; /* 부모의 전체 너비 사용 */
+  margin : 20px;
+  padding: 10px; /* 안쪽 여백 */
+  border: 1px solid gray; /* 테두리 */
+  border-radius: 3px; /* 모서리 둥글게 */ 
+  background-color: rgba(249, 249, 249, 0.5); /* 배경색 */
+  color: black; /* 글자색 */
+`;
 
-  
-
-  
-
+const ListItem = styled.li`
+  margin: 35px;
+  padding: 1px;
+  display: inline-block;
+`;
   const ListContainer = styled.ol`
-  list-style-type: none;
+  
   margin: 0;
   padding: 0;
 `;
 
-const ListItem = styled.li`
-  margin: 40px;
-  padding: 0;
-  display: inline-block;
-`;
+
 
 
  
@@ -249,7 +257,8 @@ const ListItem = styled.li`
     ListContainer,
     SliderContainer,
     SearchContainer,
-    DownIcon
+    DownButton,
+    DetailBox
     
     
   };
