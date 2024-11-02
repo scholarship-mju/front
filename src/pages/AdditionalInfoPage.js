@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { InputField, SubmitButton, AdditionalInfoContainer } from "../sylte/AdditionalInfoPageStyles";
+import { InputField, SubmitButton, AdditionalInfoContainer } from "../style/AdditionalInfoPageStyles";
 
 function AdditionalInfoPage({ onSubmit }) {
   const [name, setName] = useState("");

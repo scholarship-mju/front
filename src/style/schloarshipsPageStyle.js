@@ -10,11 +10,13 @@ const colors = {
     placeholderText: '#9e9ea7',
     buttonText: '#3B3B3B',
     buttonBgHover: '#1A1A1A',
+    buttonBgActive: '#1A1A1A',
     ivory: "#FFFFF0",
     navy: "#000080",
     lightNavy: "#000066",
     darkIvory: "#F5F5DC",
     heartColor: 'rgb(255, 91, 137)',
+    
   };
   
   // 스타일링된 컴포넌트
@@ -25,14 +27,14 @@ const colors = {
   flex-direction: column; /* 세로 방향으로 정렬 */
   height: 100vh; /* 전체 화면 높이 */
     background-color: ${colors.darkIvory};
-    min-height: 100px;
-    padding: 20px;
+    
+    padding: 0px 15px 15px 15px; 
   `;
   
   
   // 검색어 입력창 스타일
   const TextInput = styled.input`
-    width: 55%;
+    width: 40%;
     line-height: 40px;
     padding: 0 1px 0 2.5rem;
     border: 3px solid transparent;
@@ -92,6 +94,13 @@ const colors = {
       box-shadow: none;
       transform: translateY(0);
     }
+
+    ${(props) =>
+      props.isClicked &&
+      `
+        background-color: ${colors.buttonBgActive}; 
+        
+      `}
   `;
 
   // 컨테이너 스타일
@@ -145,17 +154,36 @@ const colors = {
   `
 
   const SearchContainer = styled.div`
+  
   width: 100%;
   text-align: center; /* 자식 요소들을 수평 중앙 정렬 */
   padding-top: 20px; /* 필요시 세로 중앙 정렬을 위한 상단 여백 */
   `;
+
+  const Selectioncontainer  = styled.div`
+    display:inline-block;
+    width: 10%;
+    line-height: 40px;
+    padding: 1px 2px 1px 2.5px;
+    border: 3px solid transparent;
+    border-radius: 8px;
+    margin: 4px;
+    outline: none;
+    background-color: ${colors.inputBg};
+    color: ${colors.inputText};
+    transition: 0.3s ease;
+    outline: none;
+      border-color: ${colors.navy};
+      background-color: #fff;
+      box-shadow: 0 0 0 4px ${colors.inputShadow};
+
+  `
 
   const SliderContainer = styled.div`
   border: 3px solid ${colors.navy};
   border-radius: 5px;
   padding: 15px; /* 필요에 따라 패딩 추가 */
   width : 60% 
- text-
   justify-content: center; /* 중앙 정렬 필요시 */
   align-items: center; /* 중앙 정렬 필요시 */
   text-align: center; /*
@@ -166,18 +194,17 @@ const colors = {
   const Fieldset = styled.fieldset`
     border: 5px solid ${colors.navy};
     border-radius: 8px;
-    padding: 10px 10px 10px 3px; 
+    padding: 10px 10px 10px 0px; 
     width: 95%;
-    margin: 0 0 0 0;
-    max-height: 500px; /* 적절한 높이로 설정하세요, 10개 항목을 고려한 높이입니다 */
+    margin: 0 auto;
+    max-height: 700px; /* 적절한 높이로 설정하세요, 10개 항목을 고려한 높이입니다 */
     overflow-y: auto; /* 스크롤 가능하도록 설정 */
   `;
   
   // 리스트 스타일
   const List = styled.ul`
-
   list-style-type: none;
-    display: flex; /* Flexbox 사용 */
+  display: flex; /* Flexbox 사용 */
   justify-content: space-between; /* 양쪽 정렬 */
   flex-direction:column;
     paddings: 0;
@@ -187,7 +214,7 @@ const colors = {
   // 리스트 아이템 스타일
   const ScholarshipItem = styled.li`
     margin: 10px;
-    padding: 5px;
+    padding: 15px 10px 10px 15px;
     font-size: 17px;
     border:1px solid gray;
     border-radius: 8px;
@@ -196,7 +223,6 @@ const colors = {
   `;
   // 금액 스타일
   const ScholarshipAmount = styled.div`
-   
     flex-direction: column;
     text-align: right;
     font-size: 20px;
@@ -207,7 +233,7 @@ const colors = {
   width: 30px; /* 버튼의 크기 설정 */
   height: 30px; /* 버튼의 크기 설정 */
   border: 1px solid gray; /* 테두리 */
-  border-radius: 3px; /* 모서리 둥글게 */ 
+  border-radius: 4px; /* 모서리 둥글게 */ 
   background-color: rgba(249, 249, 249, 0.5); /* 배경색 */
 `;
 
@@ -219,7 +245,7 @@ const DetailBox = styled.div`
   margin : 20px;
   padding: 10px; /* 안쪽 여백 */
   border: 1px solid gray; /* 테두리 */
-  border-radius: 3px; /* 모서리 둥글게 */ 
+  border-radius: 6px; /* 모서리 둥글게 */ 
   background-color: rgba(249, 249, 249, 0.5); /* 배경색 */
   color: black; /* 글자색 */
 `;
@@ -258,7 +284,8 @@ const ListItem = styled.li`
     SliderContainer,
     SearchContainer,
     DownButton,
-    DetailBox
+    DetailBox,
+    Selectioncontainer
     
     
   };
