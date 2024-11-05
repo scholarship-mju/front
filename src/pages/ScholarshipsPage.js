@@ -18,7 +18,7 @@ import {
   DetailBox,
   Selectioncontainer,
   Title
-} from '../sylte/ScholarshipsPage';
+} from '../style/ScholarshipsPage';
 
 
 const ScholarshipsPage = () => {
