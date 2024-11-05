@@ -18,8 +18,9 @@ import {
   DownButton,
   DetailBox,
   Selectioncontainer,
-  Title
-} from '../style/ScholarshipsPage';
+  Container,
+  Checkmark,
+} from '../style/schloarshipsPageStyle';
 
 
 const ScholarshipsPage = () => {
@@ -162,7 +163,7 @@ const ScholarshipsPage = () => {
   return (
     <Background>
       <CenterContainer className="intro">
-        <Title>전체 장학금 페이지</Title>
+        <h1>전체 장학금 페이지</h1>
         
       </CenterContainer>
 
