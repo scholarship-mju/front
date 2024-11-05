@@ -32,29 +32,7 @@ const colors = {
   `;
   
   
-  // 검색어 입력창 스타일
-  const TextInput = styled.input`
-    width: 40%;
-    line-height: 40px;
-    padding: 0 1px 0 2.5rem;
-    border: 3px solid transparent;
-    border-radius: 8px;
-    margin: 0 auto;
-    outline: none;
-    background-color: ${colors.inputBg};
-    color: ${colors.inputText};
-    transition: 0.3s ease;
-    outline: none;
-      border-color: ${colors.navy};
-      background-color: #fff;
-      box-shadow: 0 0 0 4px ${colors.inputShadow};
-    
   
-    &::placeholder {
-      color: ${colors.placeholderText};
-    } 
-    
-  `;
   
   // 버튼 스타일
   const Button = styled.button`
@@ -114,70 +92,84 @@ const colors = {
 
   `;
 
-  const ResetButton = styled.button`
-    appearance: none;
-    background-color: transparent;
-    border: 0.125em solid #1A1A1A;
-    border-radius: 0.9375em;
-    box-sizing: border-box;
-    color: ${colors.buttonText};
-    cursor: pointer;
-    display: inline;
-    font-family: Roobert, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-    font-size: 18px;
-    font-weight: 600;
-    line-height: normal;
-    margin: 25px;
-    
-    padding: 1em 2.3em;
-    text-align: center;
-    text-decoration: none;
-    transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
-    user-select: none;
-    touch-action: manipulation;
-  
-    &:disabled {
-      pointer-events: none;
-    }
-  
-    &:hover {
-      color: #fff;
-      background-color: ${colors.buttonBgHover};
-      box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
-      transform: translateY(-2px);
-    }
-  
-    &:active {
-      box-shadow: none;
-      transform: translateY(0);
-    }
-  `
-
   const SearchContainer = styled.div`
+  display: flex;
+  align-items: center;
+  border: 1px solid black;
+  max-height: 60px;
+  width: 800px;
+  text-align: center;
+  padding: 0;
+`;
+
+const TextInput = styled.input`
+  flex: 7; /* 전체 너비의 70% */
+  line-height: 30px;
+  padding: 0 1px 0 2.5px;
+  border: 3px solid transparent;
+  border-radius: 8px;
+  margin: 5px;
+  outline: none;
+  background-color: ${colors.inputBg};
+  color: ${colors.inputText};
+  transition: 0.3s ease;
+  border-color: ${colors.navy};
+  background-color: #fff;
+  box-shadow: 0 0 0 4px ${colors.inputShadow};
   
-  width: 100%;
-  text-align: center; /* 자식 요소들을 수평 중앙 정렬 */
-  padding-top: 20px; /* 필요시 세로 중앙 정렬을 위한 상단 여백 */
-  `;
+  &::placeholder {
+    color: ${colors.placeholderText};
+  }
+`;
 
-  const Selectioncontainer  = styled.div`
-    display:inline-block;
-    width: 10%;
-    line-height: 40px;
-    padding: 1px 2px 1px 2.5px;
-    border: 3px solid transparent;
-    border-radius: 8px;
-    margin: 4px;
-    outline: none;
-    background-color: ${colors.inputBg};
-    color: ${colors.inputText};
-    transition: 0.3s ease;
-    outline: none;
-      border-color: ${colors.navy};
-      background-color: #fff;
-      box-shadow: 0 0 0 4px ${colors.inputShadow};
+const Selectioncontainer = styled.div`
+  flex: 1.5; /* 전체 너비의 15% */
+  line-height: 20px;
+  padding: 1px 2px 1px 2.5px;
+  border: 3px solid transparent;
+  border-radius: 8px;
+  margin: 5px;
+  outline: none;
+  background-color: ${colors.inputBg};
+  color: ${colors.inputText};
+  transition: 0.3s ease;
+  border-color: ${colors.navy};
+  background-color: #fff;
+  box-shadow: 0 0 0 4px ${colors.inputShadow};
+`;
 
-  `
+const ResetButton = styled.button`
+  flex: 1.5; /* 전체 너비의 15% */
+  background-color: transparent;
+  border: 0.125em solid #1A1A1A;
+  border-radius: 8px;
+  color: ${colors.buttonText};
+  font-family: Roobert, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  font-size: 18px;
+  font-weight: 600;
+  line-height: normal;
+  margin: 5px;
+  padding: 5px;
+  text-align: center;
+  touch-action: manipulation;
+  
+  &:disabled {
+    pointer-events: none;
+  }
+  
+  &:hover {
+    color: #fff;
+    background-color: ${colors.buttonBgHover};
+    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+    transform: translateY(-2px);
+  }
+  
+  &:active {
+    box-shadow: none;
+    transform: translateY(0);
+  }
+`;
+
 
   const SliderContainer = styled.div`
   border: 3px solid ${colors.navy};
@@ -237,6 +229,7 @@ const colors = {
   background-color: rgba(249, 249, 249, 0.5); /* 배경색 */
 `;
 
+
 const DetailBox = styled.div`
   line-height: 170%;
   flex-direction: column; /*
@@ -262,10 +255,65 @@ const ListItem = styled.li`
 `;
 
 
+const likeEffect = keyframes`
+  0% { transform: scale(0); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+`;
 
+const dislikeEffect = keyframes`
+  0% { transform: scale(1); }
+  50% { transform: scale(0.8); }
+  100% { transform: scale(0); }
+`;
 
- 
+const Container = styled.label`
+  position: relative;
+  cursor: pointer;
+  font-size: 20px;
+  user-select: none;
+  transition: 100ms;
+  display: inline-flex;
+  align-items: center;
 
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+  input:checked ~ .checkmark path {
+    fill: #ff5353;
+    stroke-width: 0;
+  }
+
+  input:checked ~ .checkmark {
+    animation: ${likeEffect} 400ms ease;
+  }
+`;
+
+const Checkmark = styled.div`
+  height: 2em;
+  width: 2em;
+  background-color: ${({ isChecked }) => (isChecked ? '#ff5353' : '#fff')};
+  border: 1px solid #000;
+  transition: background-color 0.3s ease;
+  animation: ${({ isChecked }) => (isChecked ? likeEffect : dislikeEffect)} 400ms ease;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    width: 1em;
+    height: 1em;
+  }
+`;
   
   
   
@@ -285,7 +333,11 @@ const ListItem = styled.li`
     SearchContainer,
     DownButton,
     DetailBox,
-    Selectioncontainer
+    Selectioncontainer,
+    Container,
+    Checkmark,
+    likeEffect,
+    dislikeEffect
     
     
   };
