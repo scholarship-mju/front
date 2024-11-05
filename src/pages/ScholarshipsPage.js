@@ -9,11 +9,11 @@ import {
   ScholarshipItem,
   ScholarshipAmount,
   CenterContainer,
-  ListContainer,
   ListItem,
+  ListContainer,
   TextInput,
-  SliderContainer,
   SearchContainer,
+  SliderContainer,
   DownButton,
   DetailBox,
   Selectioncontainer
