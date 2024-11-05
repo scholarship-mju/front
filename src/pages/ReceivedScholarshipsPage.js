@@ -118,8 +118,10 @@ const WarningText = styled.p`
 
 const TotalAmount = styled.p`
   display: flex;
+  align-items: center;
+  justify-content: center;
   margin-top: 10px;
-  width: 400px;
+  width: 280px;
   border-radius: 10px;
   font-size: 1.2rem;
   font-weight: bold;
@@ -314,32 +316,12 @@ const SearchForm = ({ onSearch }) => {
 };
 
 function ReceivedScholarshipsPage() {
-  // const [scholarships, setScholarships] = useState([
-  //   { id: 1, name: "장학금 1", amount: 1000000 },
-  //   { id: 2, name: "장학금 2", amount: 500000 },
-  // ]);
-  // const [newScholarship, setNewScholarship] = useState("");
-  //
-  // const handleAddScholarship = (name) => {
-  //   const existingScholarship = scholarships.find(
-  //     (scholarship) => scholarship.name === name,
-  //   );
-  //   if (existingScholarship) {
-  //     alert("이미 등록된 장학금입니다.");
-  //   } else {
-  //     const newId = scholarships.length + 1;
-  //     const randomAmount = Math.floor(Math.random() * 5000000) + 100000;
-  //     setScholarships([
-  //       ...scholarships,
-  //       { id: newId, name, amount: randomAmount },
-  //     ]);
-  //   }
-  // };
   const scholarshipData = [
     { name: "장학금 A", amount: 1000000 },
     { name: "장학금 B", amount: 1500000 },
     { name: "장학금 C", amount: 2000000 },
     { name: "장학금 D", amount: 2500000 },
+    { name: "장학금 E", amount: 10000000 },
   ];
 
   const [scholarships, setScholarships] = useState([
@@ -386,7 +368,7 @@ function ReceivedScholarshipsPage() {
   return (
     <Background>
       <ButtonsContainer>
-      <MyButton to="/mypage">마이페이지</MyButton>
+        <MyButton to="/mypage">마이페이지</MyButton>
       </ButtonsContainer>
       <Container>
         <Title>받은 장학금</Title>

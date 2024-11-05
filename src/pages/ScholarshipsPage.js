@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import downImage from '../png/down.png'; // 이미지 파일을 import
+import { likeEffect, dislikeEffect } from '../style/schloarshipsPageStyle';
 import {
   Background,
   Button,
@@ -9,11 +10,11 @@ import {
   ScholarshipItem,
   ScholarshipAmount,
   CenterContainer,
-  ListContainer,
   ListItem,
+  ListContainer,
   TextInput,
-  SliderContainer,
   SearchContainer,
+  SliderContainer,
   DownButton,
   DetailBox,
   Selectioncontainer,
@@ -45,7 +46,7 @@ const ScholarshipsPage = () => {
         category: "교외", // 교외 장학금
         attachment: "https://example.com/b-attachment.pdf"
       },
-      button: { id: "button-b" }
+      button: { id: "button-b" }  
     },
     { 
       name: "C 장학금", 
@@ -58,6 +59,17 @@ const ScholarshipsPage = () => {
         attachment: null // 첨부파일이 없는 경우 null
       },
       button: { id: "button-c" }
+    }, { 
+      name: "D 장학금", 
+      amount: "3,500,000", 
+      feature: ["우수 체육인 대상", "국제 대회 참가","교내"],
+      DetailBox: { 
+        link: "https://example.com/c", 
+        notes: "D 장학금에 대한 특이사항", 
+        category: "교내", 
+        attachment: null // 첨부파일이 없는 경우 null
+      },
+      button: { id: "button-d" }
     },
   ];
 
@@ -69,7 +81,7 @@ const ScholarshipsPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [expandedScholarships, setExpandedScholarships] = useState({});
   const [selectedCategory, setSelectedCategory] = useState("전체"); // 카테고리 상태 추가
-
+  const [isChecked, setIsChecked] = useState(false);
   const parseAmount = (amount) => parseInt(amount.replace(/[^0-9]/g, ''), 10);
 
   const filterScholarships = (category, searchField, searchTerm, minAmount, maxAmount) => {
@@ -141,6 +153,10 @@ const ScholarshipsPage = () => {
 
   const handleSelectChange = (event) => { // 카테고리 선택 변경 핸들러
     setSelectedCategory(event.target.value);
+  };
+
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked); // 체크 상태 토글
   };
 
   return (
@@ -238,6 +254,24 @@ const ScholarshipsPage = () => {
                     alt="클릭할 이미지" 
                     id={scholarship.button.id} // 각 장학금에 대해 고유 ID 부여
                   />
+
+<Container>
+      <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange} />
+      <Checkmark isChecked={isChecked} className="checkmark">
+        <svg viewBox="0 0 24 24">
+          <rect fill="none" height="10px" width="10px"></rect>
+          <path
+            d="M224.6,51.9a59.5,59.5,0,0,0-43-19.9,60.5,60.5,0,0,0-44,17.6L128,59.1l-7.5-7.4C97.2,28.3,59.2,26.3,35.9,47.4a59.9,59.9,0,0,0-2.3,87l83.1,83.1a15.9,15.9,0,0,0,22.6,0l81-81C243.7,113.2,245.6,75.2,224.6,51.9Z"
+            strokeWidth="2px"
+            stroke="#000"
+            fill="none"
+          ></path>
+        </svg>
+      </Checkmark>
+    </Container>
+
+
+
                 </ScholarshipAmount>
 
                 {expandedScholarships[index] && (
