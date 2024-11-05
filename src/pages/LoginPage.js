@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import axios from "axios"; // axios import 추가
 
 const ivory = "#FFFFF0";
 const navy = "#000080";
@@ -87,11 +88,17 @@ function LoginPage({ setIsLoggedIn }) {
   const [name, setName] = useState("");
 
   const handleLogin = (provider) => {
+    window.location.href = `ec2-52-78-181-84.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/${provider}`;
+  };
+
+  const kakaoLogin = async () => {
     try {
-      // OAuth2 로그인 경로로 리다이렉트
-      window.location.href = `http://localhost:8080/oauth2/authorization/${provider}`;
+      const response = await axios.get("ec2-52-78-181-84.ap-northeast-2.compute.amazonaws.com:8080/login");
+      if (response.status === 200) {
+        setIsLoggedIn(true); // 로그인 성공 시 상태 업데이트
+      }
     } catch (error) {
-      console.error("로그인 실패:", error);
+      console.error("카카오 로그인 실패:", error);
     }
   };
 
@@ -100,7 +107,6 @@ function LoginPage({ setIsLoggedIn }) {
       <LoginForm
         onSubmit={(e) => {
           e.preventDefault();
-          // 수동 로그인 처리 (필요 시 구현)
           handleLogin("manual");
         }}
       >
