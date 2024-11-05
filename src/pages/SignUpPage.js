@@ -6,7 +6,7 @@ import {
   ErrorMessage,
   SubmitButton,
   darkIvory
-} from "../sylte/SignUpPageStyles";
+} from "../style/SignUpPageStyles";
 
 const idDuplicateCheck = async (id) => {
   const dummyResponse = { available: id !== "taken" };

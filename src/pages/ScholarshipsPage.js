@@ -20,6 +20,7 @@ import {
   Title
 } from '../sylte/ScholarshipsPage';
 
+
 const ScholarshipsPage = () => {
   const scholarships = [ // scholarships 배열 이름 변경
     { 
@@ -258,3 +259,4 @@ const ScholarshipsPage = () => {
 };
 
 export default ScholarshipsPage;
+

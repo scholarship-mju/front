@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import axios from "axios"; // axios import 추가
 import king from "../png/king.png";
 
 const colors = {
@@ -25,6 +26,20 @@ const Button = styled(Link)`
   color: ${colors.ivory};
   background-color: ${colors.navy};
   cursor: pointer;
+  transition: background-color 0.3s ease;
+  &:hover {
+    background-color: ${colors.lightNavy};
+  }
+`;
+
+const LogoutButton = styled.button`
+  margin-left: 10px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  color: ${colors.ivory};
+  background-color: ${colors.navy};
+  cursor: pointer;
+  border: none;
   transition: background-color 0.3s ease;
   &:hover {
     background-color: ${colors.lightNavy};
@@ -147,11 +162,28 @@ const Footer = styled.footer`
 `;
 
 function HomePage({ isLoggedIn, username }) {
+  const handleLogout = async () => {
+    const token = localStorage.getItem("accessToken");
+    try {
+      await axios.post("http://localhost:8080/logout", null, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      window.location.reload(); // 로그아웃 후 새로고침
+    } catch (error) {
+      console.error("로그아웃 실패:", error);
+    }
+  };
+
   return (
     <div style={{ backgroundColor: colors.darkIvory, minHeight: "100vh", padding: "20px" }}>
       <ButtonsContainer>
         {isLoggedIn ? (
-          <Button to="/mypage">마이페이지</Button>
+          <>
+            <Button to="/mypage">마이페이지</Button>
+            <LogoutButton onClick={handleLogout}>로그아웃</LogoutButton>
+          </>
         ) : (
           <>
             <Button to="/login">로그인</Button>
