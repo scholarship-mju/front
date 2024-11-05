@@ -1,9 +1,8 @@
-
 import styled from "styled-components";
 
 export const ivory = "#FFFFF0";
 export const navy = "#000080";
-export const lightNavy = "#000066";
+const lightNavy = "#000066";
 export const darkIvory = "#F5F5DC";
 
 export const AdditionalInfoContainer = styled.div`
@@ -15,46 +14,46 @@ export const AdditionalInfoContainer = styled.div`
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 `;
 
-export const InfoContainer = styled.div`
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: ${ivory};
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-`;
-
-export const Title = styled.h2`
-  text-align: center;
-  color: #333;
-  margin-bottom: 20px;
-`;
-
 export const InputField = styled.input`
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
-  box-sizing: border-box;
+  &[type="text"], &[type="date"], &[type="tel"], &[type="email"] {
+    width: 95%;
+    height: 30px;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid ${navy};
+    border-radius: 5px;
+    background-color: ${ivory};
+    color: ${lightNavy};
+    font-size: 16px;
+
+    &:focus {
+      border-color: ${lightNavy};
+      outline: none;
+    }
+  }
 `;
 
 export const SelectField = styled.select`
-  width: 100%;
-  padding: 12px;
+  width: 95%;
+  height: 45px;
+  padding: 10px;
   margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border: 1px solid ${navy};
+  border-radius: 5px;
+  background-color: ${ivory};
+  color: ${lightNavy};
   font-size: 16px;
-  box-sizing: border-box;
-`;
 
-export const ErrorMessage = styled.p`
-  color: red;
-  font-size: 14px;
-  margin-top: -10px;
-  margin-bottom: 10px;
+  &:focus {
+    border-color: ${lightNavy};
+    outline: none;
+  }
+
+  option {
+    background-color: ${ivory};
+    color: ${lightNavy};
+    padding: 10px;
+  }
 `;
 
 export const SubmitButton = styled.button`

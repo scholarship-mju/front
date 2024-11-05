@@ -49,7 +49,7 @@ const InputField = styled.input`
 `;
 
 const SubmitButton = styled.button`
-  width: 87%;
+  width: 102%;
   padding: 10px;
   background-color: ${navy};
   color: ${ivory};
@@ -107,7 +107,7 @@ function LoginPage({ setIsLoggedIn }) {
         <Title>로그인</Title>
         <InputField
           type="text"
-          placeholder="이름 입력"
+          placeholder="아이디 입력"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />

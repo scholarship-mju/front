@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, memo } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-
+import AnimatedNumbers from "react-animated-numbers";
 // 기존 colors 객체 재사용
 const colors = {
   ivory: "#FFFFF0",
@@ -24,42 +24,27 @@ const Container = styled.div`
   background-color: ${colors.ivory};
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 800px;
+  max-width: 1100px;
   margin: auto;
   margin-top: 50px;
 `;
 
-const Header = styled.header`
+const ButtonsContainer = styled.div`
   display: flex;
-  justify-content: space-between;
-  border-radius: 10px;
-  align-items: center;
+  justify-content: flex-end;
+  margin-right: 150px;
+  margin-bottom: 20px;
+`;
+
+const MyButton = styled(Link)`
+  margin-left: 10px;
   padding: 10px 20px;
-  background-color: #f8f7eb;
-`;
-
-const Logo = styled.div`
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: ${colors.navy};
-`;
-
-const Nav = styled.div`
-  display: flex;
-  gap: 10px;
-`;
-
-const NavButton = styled(Link)`
-  padding: 10px 15px;
-  background-color: ${colors.navy};
-  color: white;
-  border: none;
   border-radius: 5px;
-  cursor: pointer;
-  font-size: 1rem;
   text-decoration: none;
+  color: ${colors.ivory};
+  background-color: ${colors.navy};
+  cursor: pointer;
   transition: background-color 0.3s ease;
-
   &:hover {
     background-color: ${colors.lightNavy};
   }
@@ -132,6 +117,7 @@ const WarningText = styled.p`
 `;
 
 const TotalAmount = styled.p`
+  display: flex;
   margin-top: 10px;
   width: 400px;
   border-radius: 10px;
@@ -141,14 +127,6 @@ const TotalAmount = styled.p`
   padding: 10px;
   color: yellow;
   background-color: #9370db;
-`;
-
-const Footer = styled.footer`
-  text-align: center;
-  margin-top: 40px;
-  padding: 20px;
-  font-size: 0.9em;
-  color: ${colors.navy};
 `;
 
 const Form = styled.form`
@@ -266,6 +244,36 @@ const ResetSvg = () => (
   </Svg>
 );
 
+const DeleteButton = styled.button`
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #c0392b;
+  }
+`;
+
+const MemoizedAnimatedNumbers = memo(({ animateToNumber }) => (
+  <AnimatedNumbers
+    includeComma
+    animateToNumber={animateToNumber}
+    fontStyle={{
+      fontSize: "1.2rem",
+      color: "yellow",
+    }}
+    transitions={(index) => ({
+      type: "tween",
+      duration: 0.7,
+      delay: index * 0.07,
+    })}
+  />
+));
+
 const SearchForm = ({ onSearch }) => {
   const [inputValue, setInputValue] = useState("");
 
@@ -359,6 +367,17 @@ function ReceivedScholarshipsPage() {
     }
   };
 
+  const handleDeleteScholarship = (id) => {
+    setScholarships((prevScholarships) =>
+      prevScholarships
+        .filter((scholarship) => scholarship.id !== id)
+        .map((scholarship, index) => ({
+          ...scholarship,
+          id: index + 1, // 삭제 후 고유 번호 재설정
+        })),
+    );
+  };
+
   const totalAmount = scholarships.reduce(
     (total, scholarship) => total + scholarship.amount,
     0,
@@ -366,71 +385,83 @@ function ReceivedScholarshipsPage() {
 
   return (
     <Background>
+      <ButtonsContainer>
+      <MyButton to="/mypage">마이페이지</MyButton>
+      </ButtonsContainer>
       <Container>
-        <Header>
-          <Logo>숨은 장학금 찾기</Logo>
-          <Nav>
-            <NavButton to="/login">로그인</NavButton>
-            <NavButton to="/signup">회원가입</NavButton>
-            <NavButton to="/mypage">마이페이지</NavButton>
-          </Nav>
-        </Header>
-
         <Title>받은 장학금</Title>
-
         <Table>
           <thead>
             <tr>
               <TableHeader>고유 번호</TableHeader>
               <TableHeader>장학금</TableHeader>
               <TableHeader>금액</TableHeader>
+              <TableHeader>삭제</TableHeader>
             </tr>
           </thead>
-          {/* <tbody> */}
-          {/*   {scholarships.map((scholarship) => ( */}
-          {/*     <tr key={scholarship.id}> */}
-          {/*       <TableCell>{scholarship.id}</TableCell> */}
-          {/*       <TableCell>{scholarship.name}</TableCell> */}
-          {/*       <TableCell>{scholarship.amount.toLocaleString()}원</TableCell> */}
-          {/*     </tr> */}
-          {/*   ))} */}
-          {/* </tbody> */}
+
           <TableBody>
-            <TransitionGroup>
+            <TransitionGroup component={null}>
               {scholarships.map((scholarship) => (
                 <CSSTransition
                   key={scholarship.id}
                   timeout={300}
                   classNames="fade"
                 >
-                  <tr>
-                    <TableCell>{scholarship.id}</TableCell>
-                    <TableCell>{scholarship.name}</TableCell>
-                    <TableCell>
-                      {scholarship.amount.toLocaleString()}원
-                    </TableCell>
-                  </tr>
+                  <React.Fragment>
+                    <tr>
+                      <TableCell>{scholarship.id}</TableCell>
+                      <TableCell>{scholarship.name}</TableCell>
+                      <TableCell>
+                        {scholarship.amount.toLocaleString()}원
+                      </TableCell>
+                      <TableCell>
+                        <DeleteButton
+                          onClick={() =>
+                            handleDeleteScholarship(scholarship.id)
+                          }
+                        >
+                          삭제
+                        </DeleteButton>
+                      </TableCell>
+                    </tr>
+                  </React.Fragment>
                 </CSSTransition>
               ))}
             </TransitionGroup>
           </TableBody>
         </Table>
-
         <InputContainer>
           <SearchForm onSearch={handleAddScholarship} />
         </InputContainer>
-
         <WarningText>이미 등록된 장학금이 있을 수 있습니다.</WarningText>
-
+        {/* <TotalAmount> */}
+        {/*   총 장학금 금액: {totalAmount.toLocaleString()}원 */}
+        {/* </TotalAmount> */}
+        {/* <TotalAmount> */}
+        {/*   <span style={{ marginRight: "4px" }}>총 장학금 금액:</span> */}
+        {/*   {/* <span>총 장학금 금액:</span> */}
+        {/*   <AnimatedNumbers */}
+        {/*     includeComma */}
+        {/*     animateToNumber={totalAmount} // 애니메이션할 숫자 */}
+        {/*     fontStyle={{ */}
+        {/*       fontSize: "1.2rem", // 폰트 크기 조정 */}
+        {/*       color: "yellow", // 숫자 색상 조정 */}
+        {/*     }} */}
+        {/*     transitions={(index) => ({ */}
+        {/*       type: "tween", */}
+        {/*       duration: 0.7, */}
+        {/*       delay: index * 0.07, // 각 숫자에 대한 지연 시간 */}
+        {/*     })} */}
+        {/*   /> */}
+        {/*   <span>원</span> */}
+        {/* </TotalAmount> */}
         <TotalAmount>
-          총 장학금 금액: {totalAmount.toLocaleString()}원
+          <span style={{ marginRight: "4px" }}>총 장학금 금액:</span>
+          <MemoizedAnimatedNumbers animateToNumber={totalAmount} />
+          <span>원</span>
         </TotalAmount>
       </Container>
-
-      <Footer>
-        Team Project | 치즈왕만두 <br />© 2024 Scholarship Finder. All Rights
-        Reserved.
-      </Footer>
     </Background>
   );
 }
