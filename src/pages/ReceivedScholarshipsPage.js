@@ -127,8 +127,8 @@ const TotalAmount = styled.p`
   font-weight: bold;
   text-align: center;
   padding: 10px;
-  color: yellow;
-  background-color: #9370db;
+  color: white;
+  background-color: ${colors.navy};
 `;
 
 const Form = styled.form`
@@ -266,7 +266,7 @@ const MemoizedAnimatedNumbers = memo(({ animateToNumber }) => (
     animateToNumber={animateToNumber}
     fontStyle={{
       fontSize: "1.2rem",
-      color: "yellow",
+      color: "white",
     }}
     transitions={(index) => ({
       type: "tween",
@@ -378,7 +378,7 @@ function ReceivedScholarshipsPage() {
               <TableHeader>고유 번호</TableHeader>
               <TableHeader>장학금</TableHeader>
               <TableHeader>금액</TableHeader>
-              <TableHeader>삭제</TableHeader>
+              <TableHeader></TableHeader>
             </tr>
           </thead>
 
@@ -417,27 +417,7 @@ function ReceivedScholarshipsPage() {
           <SearchForm onSearch={handleAddScholarship} />
         </InputContainer>
         <WarningText>이미 등록된 장학금이 있을 수 있습니다.</WarningText>
-        {/* <TotalAmount> */}
-        {/*   총 장학금 금액: {totalAmount.toLocaleString()}원 */}
-        {/* </TotalAmount> */}
-        {/* <TotalAmount> */}
-        {/*   <span style={{ marginRight: "4px" }}>총 장학금 금액:</span> */}
-        {/*   {/* <span>총 장학금 금액:</span> */}
-        {/*   <AnimatedNumbers */}
-        {/*     includeComma */}
-        {/*     animateToNumber={totalAmount} // 애니메이션할 숫자 */}
-        {/*     fontStyle={{ */}
-        {/*       fontSize: "1.2rem", // 폰트 크기 조정 */}
-        {/*       color: "yellow", // 숫자 색상 조정 */}
-        {/*     }} */}
-        {/*     transitions={(index) => ({ */}
-        {/*       type: "tween", */}
-        {/*       duration: 0.7, */}
-        {/*       delay: index * 0.07, // 각 숫자에 대한 지연 시간 */}
-        {/*     })} */}
-        {/*   /> */}
-        {/*   <span>원</span> */}
-        {/* </TotalAmount> */}
+
         <TotalAmount>
           <span style={{ marginRight: "4px" }}>총 장학금 금액:</span>
           <MemoizedAnimatedNumbers animateToNumber={totalAmount} />
@@ -449,3 +429,4 @@ function ReceivedScholarshipsPage() {
 }
 
 export default ReceivedScholarshipsPage;
+
