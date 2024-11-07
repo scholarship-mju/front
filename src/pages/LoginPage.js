@@ -1,59 +1,61 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import axios from "axios"; // axios import 추가
-
-const ivory = "#FFFFF0";
-const navy = "#000080";
-const lightNavy = "#000066";
-const darkIvory = "#F5F5DC";
+import axios from "axios";
+import mainlogo from "../png/mainlogo.png";
 
 const LoginContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 85vh;
-  background-color: ${darkIvory};
+  min-height: 100vh;
+  background-color: #ffffff;
 `;
 
-const LoginForm = styled.form`
-  background-color: ${ivory};
-  padding: 40px;
-  border-radius: 10px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  width: 300px;
-`;
-
-const Title = styled.h2`
-  color: ${navy};
-  text-align: center;
+const Logo = styled.img`
+  width: 200px;
   margin-bottom: 20px;
 `;
 
-const InputField = styled.input`
-  &[type="text"] {
-    width: 95%;
-    height: 30px;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid ${navy};
-    border-radius: 5px;
-    background-color: ${ivory};
-    color: ${lightNavy};
-    font-size: 16px;
+const LoginForm = styled.form`
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  background-color: #fafafa;
+  text-align: center;
+`;
 
-    &:focus {
-      border-color: ${lightNavy};
-      outline: none;
-    }
+const Title = styled.h1`
+  font-size: 24px;
+  color: #ff6a00;
+  margin-bottom: 20px;
+  font-weight: bold;
+`;
+
+const InputField = styled.input`
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #333;
+  box-sizing: border-box;
+
+  &:focus {
+    border-color: #ff6a00;
+    outline: none;
   }
 `;
 
 const SubmitButton = styled.button`
-  width: 102%;
-  padding: 10px;
-  background-color: ${navy};
-  color: ${ivory};
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  background-color: #ff6a00;
+  color: #ffffff;
   font-size: 16px;
   font-weight: bold;
   border: none;
@@ -62,26 +64,58 @@ const SubmitButton = styled.button`
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: ${lightNavy};
+    background-color: #e55a00;
   }
 `;
 
 const SocialLoginContainer = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
   margin-top: 20px;
+  width: 100%;
+  align-items: center;
 `;
 
 const SocialLoginButton = styled.button`
-  margin: 0 10px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  background-color: ${lightNavy};
-  color: ${ivory};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 300px;
+  padding: 12px;
+  font-size: 16px;
   font-weight: bold;
-  font-size: 14px;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  gap: 10px;
+
+  &:hover {
+    opacity: 0.9;
+  }
+`;
+
+const KakaoButton = styled(SocialLoginButton)`
+  background-color: #fee500;
+  color: #3c1e1e;
+
+  svg {
+    font-size: 20px;
+  }
+`;
+
+const GoogleButton = styled(SocialLoginButton)`
+  background-color: #ffffff;
+  color: #757575;
+  border: 1px solid #e0e0e0;
+
+  svg {
+    font-size: 20px;
+    color: #757575;
+  }
 `;
 
 function LoginPage({ setIsLoggedIn }) {
@@ -104,6 +138,7 @@ function LoginPage({ setIsLoggedIn }) {
 
   return (
     <LoginContainer>
+      <Logo src={mainlogo} alt="mainlogo" />
       <LoginForm
         onSubmit={(e) => {
           e.preventDefault();
@@ -122,12 +157,12 @@ function LoginPage({ setIsLoggedIn }) {
 
       <h3>소셜 로그인</h3>
       <SocialLoginContainer>
-        <SocialLoginButton onClick={() => handleLogin("kakao")}>
+      <KakaoButton onClick={() => handleLogin("kakao")}>
           카카오 로그인
-        </SocialLoginButton>
-        <SocialLoginButton onClick={() => handleLogin("google")}>
+        </KakaoButton>
+        <GoogleButton onClick={() => handleLogin("google")}>
           구글 로그인
-        </SocialLoginButton>
+        </GoogleButton>
       </SocialLoginContainer>
     </LoginContainer>
   );

@@ -2,25 +2,25 @@ import styled, { keyframes } from 'styled-components';
 import downImage from '../png/down.png'; // 이미지 파일을 import
 
 const colors = {
-    primary: '#4CAF50',
-    inputBg: '#f3f3f4',
-    inputText: '#0d0c22',
-    inputBorderHover: 'rgba(247, 127, 0, 0.4)',
-    inputShadow: 'rgb(247 127 0 / 10%)',
-    placeholderText: '#9e9ea7',
-    buttonText: '#3B3B3B',
-    buttonBgHover: '#1A1A1A',
-    buttonBgActive: '#1A1A1A',
-    ivory: "#FFFFF0",
-    navy: "#000080",
-    lightNavy: "#000066",
-    darkIvory: "#F5F5DC",
-    heartColor: 'rgb(255, 91, 137)',
-    
-  };
-  
-  // 스타일링된 컴포넌트
-  const Background = styled.div`
+  primary: '#4CAF50',
+  inputBg: '#f3f3f4',
+  inputText: '#0d0c22',
+  inputBorderHover: 'rgba(247, 127, 0, 0.4)',
+  inputShadow: 'rgb(247 127 0 / 10%)',
+  placeholderText: '#9e9ea7',
+  buttonText: '#3B3B3B',
+  buttonBgHover: '#1A1A1A',
+  buttonBgActive: '#1A1A1A',
+  ivory: "#FFFFF0",
+  navy: "#000080",
+  lightNavy: "#000066",
+  darkIvory: "#F5F5DC",
+  heartColor: 'rgb(255, 91, 137)',
+
+};
+
+// 스타일링된 컴포넌트
+const Background = styled.div`
   display: flex;
   justify-content: center; /* 수평 중앙 정렬 */
   align-items: center; /* 수직 중앙 정렬 */
@@ -30,12 +30,9 @@ const colors = {
     
     padding: 0px 15px 15px 15px; 
   `;
-  
-  
-  
-  
-  // 버튼 스타일
-  const Button = styled.button`
+
+// 버튼 스타일
+const Button = styled.button`
     appearance: none;
     background-color: transparent;
     border: 0.125em solid #1A1A1A;
@@ -74,25 +71,23 @@ const colors = {
     }
 
     ${(props) =>
-      props.isClicked &&
-      `
+    props.isClicked &&
+    `
         background-color: ${colors.buttonBgActive}; 
         
       `}
   `;
 
-  // 컨테이너 스타일
-  const CenterContainer = styled.div`
+// 컨테이너 스타일
+const CenterContainer = styled.div`
     
     justify-content: center;
     align-items: center;
     text-align:center;
     height:auto
-    
-
   `;
 
-  const SearchContainer = styled.div`
+const SearchContainer = styled.div`
   display: flex;
   align-items: center;
   border: 1px solid black;
@@ -170,20 +165,18 @@ const ResetButton = styled.button`
   }
 `;
 
-
-  const SliderContainer = styled.div`
+const SliderContainer = styled.div`
   border: 3px solid ${colors.navy};
   border-radius: 5px;
-  padding: 15px; /* 필요에 따라 패딩 추가 */
-  width : 60% 
-  justify-content: center; /* 중앙 정렬 필요시 */
-  align-items: center; /* 중앙 정렬 필요시 */
-  text-align: center; /*
-
+  padding: 15px;
+  width: 60%;
+  justify-content: center; 
+  align-items: center;
+  text-align: center;
 `;
-  
-  // 필드셋 스타일
-  const Fieldset = styled.fieldset`
+
+// 필드셋 스타일
+const Fieldset = styled.fieldset`
     border: 5px solid ${colors.navy};
     border-radius: 8px;
     padding: 10px 10px 10px 0px; 
@@ -192,19 +185,19 @@ const ResetButton = styled.button`
     max-height: 700px; /* 적절한 높이로 설정하세요, 10개 항목을 고려한 높이입니다 */
     overflow-y: auto; /* 스크롤 가능하도록 설정 */
   `;
-  
-  // 리스트 스타일
-  const List = styled.ul`
+
+// 리스트 스타일
+const List = styled.ul`
   list-style-type: none;
   display: flex; /* Flexbox 사용 */
   justify-content: space-between; /* 양쪽 정렬 */
   flex-direction:column;
-    paddings: 0;
+    padding: 0;
     margin: 5px;
   `;
-  
-  // 리스트 아이템 스타일
-  const ScholarshipItem = styled.li`
+
+// 리스트 아이템 스타일
+const ScholarshipItem = styled.li`
     margin: 10px;
     padding: 15px 10px 10px 15px;
     font-size: 17px;
@@ -213,14 +206,14 @@ const ResetButton = styled.button`
     
     
   `;
-  // 금액 스타일
-  const ScholarshipAmount = styled.div`
+// 금액 스타일
+const ScholarshipAmount = styled.div`
     flex-direction: column;
     text-align: right;
     font-size: 20px;
   `;
 
-  const DownButton = styled.img`
+const DownButton = styled.img`
   margin-left: 10px;
   width: 30px; /* 버튼의 크기 설정 */
   height: 30px; /* 버튼의 크기 설정 */
@@ -228,7 +221,6 @@ const ResetButton = styled.button`
   border-radius: 4px; /* 모서리 둥글게 */ 
   background-color: rgba(249, 249, 249, 0.5); /* 배경색 */
 `;
-
 
 const DetailBox = styled.div`
   line-height: 170%;
@@ -248,12 +240,11 @@ const ListItem = styled.li`
   padding: 1px;
   display: inline-block;
 `;
-  const ListContainer = styled.ol`
+const ListContainer = styled.ol`
   
   margin: 0;
   padding: 0;
 `;
-
 
 const likeEffect = keyframes`
   0% { transform: scale(0); }
@@ -314,30 +305,26 @@ const Checkmark = styled.div`
     height: 1em;
   }
 `;
-  
-  
-  
-  export {
-    TextInput,
-    Button,
-    ResetButton,
-    Fieldset,
-    List,
-    ScholarshipItem,
-    ScholarshipAmount,
-    CenterContainer,
-    Background,
-    ListItem,
-    ListContainer,
-    SliderContainer,
-    SearchContainer,
-    DownButton,
-    DetailBox,
-    Selectioncontainer,
-    Container,
-    Checkmark,
-    likeEffect,
-    dislikeEffect
-    
-    
-  };
+
+export {
+  TextInput,
+  Button,
+  ResetButton,
+  Fieldset,
+  List,
+  ScholarshipItem,
+  ScholarshipAmount,
+  CenterContainer,
+  Background,
+  ListItem,
+  ListContainer,
+  SliderContainer,
+  SearchContainer,
+  DownButton,
+  DetailBox,
+  Selectioncontainer,
+  Container,
+  Checkmark,
+  likeEffect,
+  dislikeEffect
+};
