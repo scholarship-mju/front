@@ -269,7 +269,7 @@ const DeleteButton = styled.button`
 `;
 
 const AuthButton = styled.button`
-  background-color: #e74c3c;
+  background-color: ${(props) => (props.isVerified ? "#2ecc71" : "#e74c3c")};
   color: white;
   border: none;
   border-radius: 5px;
@@ -278,7 +278,43 @@ const AuthButton = styled.button`
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #c0392b;
+    background-color: ${(props) => (props.isVerified ? "#27ae60" : "#c0392b")};
+  }
+`;
+
+const Modal = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  padding: 20px;
+  z-index: 1000;
+`;
+
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+`;
+
+const ModalButton = styled.button`
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-top: 10px;
+
+  &:hover {
+    background-color: #2980b9;
   }
 `;
 
@@ -387,6 +423,32 @@ function ReceivedScholarshipsPage() {
     0,
   );
 
+  const [isVerified, setIsVerified] = useState(false); // 인증 상태
+  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
+  const [selectedFile, setSelectedFile] = useState(null); // 업로드된 파일
+
+  const handleButtonClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleFileChange = (event) => {
+    setSelectedFile(event.target.files[0]);
+  };
+
+  const handleUpload = () => {
+    if (selectedFile) {
+      setIsVerified(true);
+      setIsModalOpen(false);
+      alert("사진이 성공적으로 업로드되었습니다!");
+    } else {
+      alert("사진을 선택해주세요!");
+    }
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <Background>
       <ButtonsContainer>
@@ -433,7 +495,28 @@ function ReceivedScholarshipsPage() {
                         {scholarship.amount.toLocaleString()}원
                       </TableCell>
                       <TableCell>
-                        <AuthButton>인증 X </AuthButton>
+                        <AuthButton
+                          onClick={handleButtonClick}
+                          isVerified={isVerified}
+                        >
+                          {isVerified ? "인증 O" : "인증 X"}
+                        </AuthButton>
+                        {isModalOpen && (
+                          <>
+                            <Overlay onclick={handleCloseModal} />
+                            <Modal>
+                              <h3>사진 업로드</h3>
+                              <input
+                                type="file"
+                                accept="image/*"
+                                onChange={handleFileChange}
+                              />
+                              <ModalButton onclick={handleUpload}>
+                                업로드
+                              </ModalButton>
+                            </Modal>
+                          </>
+                        )}
                       </TableCell>
                       <TableCell>
                         <DeleteButton
