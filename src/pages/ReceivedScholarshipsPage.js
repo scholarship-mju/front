@@ -5,15 +5,15 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 import AnimatedNumbers from "react-animated-numbers";
 // 기존 colors 객체 재사용
 const colors = {
-  ivory: "#FFFFF0",
-  navy: "#000080",
-  lightNavy: "#000066",
-  darkIvory: "#F5F5DC",
+  white: "white",
+  orange: "#ff6a00",
+  background_color: "#ffd8cc",
+  white: "white",
 };
 
 // 스타일링된 컴포넌트
 const Background = styled.div`
-  background-color: ${colors.darkIvory};
+  background-color: ${colors.white};
   min-height: 100vh;
   padding: 20px;
 `;
@@ -21,9 +21,10 @@ const Background = styled.div`
 const Container = styled.div`
   padding: 20px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background-color: ${colors.ivory};
+  background-color: ${colors.white};
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 5px solid r
   max-width: 1100px;
   margin: auto;
   margin-top: 50px;
@@ -32,28 +33,35 @@ const Container = styled.div`
 const ButtonsContainer = styled.div`
   display: flex;
   justify-content: flex-end;
-  margin-right: 150px;
+  margin-top: 50px;
   margin-bottom: 20px;
 `;
 
 const MyButton = styled(Link)`
   margin-left: 10px;
-  padding: 10px 20px;
-  border-radius: 5px;
+  padding: 8px 16px;
+  border-radius: 10px;
   text-decoration: none;
-  color: ${colors.ivory};
-  background-color: ${colors.navy};
+  background-color: #ffece6;
+  color: ${colors.orange};
+  font-weight: bold;
+  font-size: 14px;
+  text-decoration: none;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  border: none;
+  transition:
+    color 0.3s ease,
+    background-color 0.3s ease;
   &:hover {
-    background-color: ${colors.lightNavy};
+    background-color: ${colors.background_color};
+    color: #ff5a00;
   }
 `;
 
 const Title = styled.h2`
   text-align: center;
-  color: ${colors.navy};
-  font-size: 1.8rem;
+  color: ${colors.orange};
+  font-size: 2rem;
   margin-bottom: 20px;
 `;
 
@@ -65,7 +73,7 @@ const Table = styled.table`
 
 const TableHeader = styled.th`
   padding: 12px;
-  background-color: ${colors.navy};
+  background-color: ${colors.orange};
   color: white;
   text-align: left;
   font-weight: bold;
@@ -128,7 +136,7 @@ const TotalAmount = styled.p`
   text-align: center;
   padding: 10px;
   color: white;
-  background-color: ${colors.navy};
+  background-color: ${colors.orange};
 `;
 
 const Form = styled.form`
@@ -260,6 +268,20 @@ const DeleteButton = styled.button`
   }
 `;
 
+const AuthButton = styled.button`
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #c0392b;
+  }
+`;
+
 const MemoizedAnimatedNumbers = memo(({ animateToNumber }) => (
   <AnimatedNumbers
     includeComma
@@ -375,10 +397,23 @@ function ReceivedScholarshipsPage() {
         <Table>
           <thead>
             <tr>
-              <TableHeader>고유 번호</TableHeader>
+              <TableHeader
+                style={{
+                  borderTopLeftRadius: "10px",
+                  borderBottomLeftRadius: "10px",
+                }}
+              >
+                고유 번호
+              </TableHeader>
               <TableHeader>장학금</TableHeader>
               <TableHeader>금액</TableHeader>
-              <TableHeader></TableHeader>
+              <TableHeader>인증 상태</TableHeader>
+              <TableHeader
+                style={{
+                  borderTopRightRadius: "10px",
+                  borderBottomRightRadius: "10px",
+                }}
+              ></TableHeader>
             </tr>
           </thead>
 
@@ -396,6 +431,9 @@ function ReceivedScholarshipsPage() {
                       <TableCell>{scholarship.name}</TableCell>
                       <TableCell>
                         {scholarship.amount.toLocaleString()}원
+                      </TableCell>
+                      <TableCell>
+                        <AuthButton>인증 X </AuthButton>
                       </TableCell>
                       <TableCell>
                         <DeleteButton
@@ -429,4 +467,3 @@ function ReceivedScholarshipsPage() {
 }
 
 export default ReceivedScholarshipsPage;
-
