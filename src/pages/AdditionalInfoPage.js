@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { InputField, SubmitButton, AdditionalInfoContainer } from "../style/AdditionalInfoPageStyles";
+import {
+  AdditionalInfoContainer,
+  Title,
+  InputField,
+  Label,
+  SubmitButton,
+  FormContainer,
+} from "../style/AdditionalInfoPageStyle";
 
 function AdditionalInfoPage({ onSubmit }) {
   const [name, setName] = useState("");
@@ -22,60 +29,71 @@ function AdditionalInfoPage({ onSubmit }) {
       additionalInfo,
     };
     onSubmit(additionalData);
-
     window.location.href = "/";
   };
 
   return (
-    <div style={{ backgroundColor: "#F5F5DC", minHeight: "100vh", padding: "20px" }}>
-      <AdditionalInfoContainer>
-        <form onSubmit={handleSubmit}>
-          <InputField
-            type="text"
-            placeholder="이름"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <InputField
-            type="date"
-            placeholder="생년월일"
-            value={birthdate}
-            onChange={(e) => setBirthdate(e.target.value)}
-          />
-          <InputField
-            type="text"
-            placeholder="전화번호"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-          />
-          <InputField
-            type="email"
-            placeholder="이메일"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <InputField
-            type="text"
-            placeholder="위치"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-          />
-          <InputField
-            type="text"
-            placeholder="언어 점수"
-            value={languageScores}
-            onChange={(e) => setLanguageScores(e.target.value)}
-          />
-          <InputField
-            type="text"
-            placeholder="추가 정보"
-            value={additionalInfo}
-            onChange={(e) => setAdditionalInfo(e.target.value)}
-          />
-          <SubmitButton type="submit">제출</SubmitButton>
-        </form>
-      </AdditionalInfoContainer>
-    </div>
+    <AdditionalInfoContainer>
+      <Title>추가 정보 입력</Title>
+      <FormContainer onSubmit={handleSubmit}>
+        <Label>이름</Label>
+        <InputField
+          type="text"
+          placeholder="이름을 입력하세요"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+
+        <Label>생년월일</Label>
+        <InputField
+          type="date"
+          value={birthdate}
+          onChange={(e) => setBirthdate(e.target.value)}
+        />
+
+        <Label>전화번호</Label>
+        <InputField
+          type="tel"
+          placeholder="전화번호"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+        />
+
+        <Label>이메일</Label>
+        <InputField
+          type="email"
+          placeholder="이메일"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+
+        <Label>위치</Label>
+        <InputField
+          type="text"
+          placeholder="거주 지역"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+        />
+
+        <Label>언어 점수</Label>
+        <InputField
+          type="text"
+          placeholder="언어 점수 (예: TOEIC 900)"
+          value={languageScores}
+          onChange={(e) => setLanguageScores(e.target.value)}
+        />
+
+        <Label>추가 정보</Label>
+        <InputField
+          type="text"
+          placeholder="추가 정보를 입력하세요"
+          value={additionalInfo}
+          onChange={(e) => setAdditionalInfo(e.target.value)}
+        />
+
+        <SubmitButton type="submit">제출</SubmitButton>
+      </FormContainer>
+    </AdditionalInfoContainer>
   );
 }
 

@@ -1,81 +1,93 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-
-const ivory = "#FFFFF0";
-const navy = "#000080";
-const lightNavy = "#000066";
-const darkIvory = "#F5F5DC";
-
-const TermsContainer = styled.div`
-  max-width: 900px;
-  background-color: ${ivory};
-  padding: 40px;
-  border-radius: 10px;
-  width: 80%;
-  margin: 0 auto;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-`;
-
-const Title = styled.h2`
-  color: ${navy};
-  text-align: center;
-  margin-bottom: 20px;
-`;
-
-const TermsText = styled.p`
-  width: 98%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid ${navy};
-  border-radius: 5px;
-  background-color: ${ivory};
-  color: ${lightNavy};
-  font-size: 16px;
-`;
-
-const Checkbox = styled.input`
-  margin-right: 10px;
-`;
-
-const NextButton = styled.button`
-  width: 95%;
-  margin-top: 20px;
-  padding: 12px;
-  background-color: ${navy};
-  color: ${ivory};
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  &:hover {
-    background-color: #0056b3;
-  }
-`;
+import React, { useState, useEffect } from "react";
+import {
+  Container,
+  Title,
+  TermsList,
+  TermsItem,
+  AllAgreementBox,
+  CheckboxLabel,
+  CustomCheckbox,
+  NextButton,
+} from "../style/TermsPageStyle";
 
 function TermsPage({ onNext }) {
-  const [agreed, setAgreed] = useState(false);
+  const [allAgreed, setAllAgreed] = useState(false);
+  const [agreements, setAgreements] = useState({
+    service: false,
+    personal: false,
+    marketing: false,
+    location: false,
+  });
 
-  const handleAgreement = (e) => setAgreed(e.target.checked);
+  const handleAllAgreement = () => {
+    const newAgreement = !allAgreed;
+    setAgreements({
+      service: newAgreement,
+      personal: newAgreement,
+      marketing: newAgreement,
+      location: newAgreement,
+    });
+    setAllAgreed(newAgreement);
+  };
+
+  const handleAgreementChange = (key) => {
+    const updatedAgreements = {
+      ...agreements,
+      [key]: !agreements[key],
+    };
+    setAgreements(updatedAgreements);
+  };
+
+  useEffect(() => {
+    const isAllAgreed = Object.values(agreements).every(Boolean);
+    setAllAgreed(isAllAgreed);
+  }, [agreements]);
 
   const handleNext = () => {
-    if (agreed) {
+    if (agreements.service) {
       onNext();
     } else {
-      alert("이용약관에 동의해주세요.");
+      alert("필수 약관에 동의해주세요.");
     }
   };
 
   return (
-    <div style={{ backgroundColor: darkIvory, minHeight: "100vh", padding: "20px" }}>
-    <TermsContainer>
-      <Title>이용약관</Title>
-      <TermsText>이용약관 내용이 여기에 표시됩니다.</TermsText>
-        <Checkbox type="checkbox" checked={agreed} onChange={handleAgreement}/>
-        이용약관에 동의합니다.
-        <NextButton onClick={handleNext} disabled={!agreed}>
-        다음
-      </NextButton>
-      </TermsContainer>
+    <div>
+      <Container>
+        <Title>약관 동의</Title>
+
+        <AllAgreementBox onClick={handleAllAgreement}>
+          <CheckboxLabel>
+            <CustomCheckbox checked={allAgreed} />
+            <span>이용약관, 개인정보 수집 및 이용에 모두 동의합니다.</span>
+          </CheckboxLabel>
+        </AllAgreementBox>
+
+        <TermsList>
+          <TermsItem>
+            <CheckboxLabel onClick={() => handleAgreementChange("service")}>
+              <CustomCheckbox checked={agreements.service} />
+              <span>이용약관 동의 (필수)</span>
+            </CheckboxLabel>
+          </TermsItem>
+          <TermsItem>
+            <CheckboxLabel onClick={() => handleAgreementChange("personal")}>
+              <CustomCheckbox checked={agreements.personal} />
+              <span>개인정보 수집 및 이용 동의 (선택)</span>
+            </CheckboxLabel>
+          </TermsItem>
+          <TermsItem>
+            <CheckboxLabel onClick={() => handleAgreementChange("marketing")}>
+              <CustomCheckbox checked={agreements.marketing} />
+              <span>마케팅 활용 동의 및 광고 수신 동의 (선택)</span>
+            </CheckboxLabel>
+          </TermsItem>
+        </TermsList>
+
+        <NextButton onClick={handleNext} disabled={!agreements.service}>
+          동의하고 계속하기
+        </NextButton>
+      </Container>
     </div>
   );
 }

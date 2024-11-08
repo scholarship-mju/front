@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import {
   SignUpContainer,
   Title,
+  ProfileImageContainer,
+  ProfileImage,
+  UploadButton,
   InputField,
   ErrorMessage,
   SubmitButton,
-  darkIvory
-} from "../style/SignUpPageStyles";
+} from "../style/SignUpPageStyle";
 
 const idDuplicateCheck = async (id) => {
   const dummyResponse = { available: id !== "taken" };
@@ -17,17 +19,24 @@ function SignUpPage({ onNext }) {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
+  const [profileImage, setProfileImage] = useState(null);
 
   const [idError, setIdError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [confirmError, setConfirmError] = useState('');
-
   const [isIdCheck, setIsIdCheck] = useState(false);
   const [isIdAvailable, setIsIdAvailable] = useState(false);
 
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setProfileImage(URL.createObjectURL(file));
+    }
+  };
+
+  // 아이디 검증 함수
   const idCheckHandler = async (idValue) => {
     const idRegex = /^[a-z\d]{5,10}$/;
-    
     if (!idValue) {
       setIdError('아이디를 입력해주세요.');
       setIsIdAvailable(false);
@@ -37,7 +46,7 @@ function SignUpPage({ onNext }) {
       setIsIdAvailable(false);
       return false;
     }
-    
+
     try {
       const responseData = await idDuplicateCheck(idValue);
       if (responseData) {
@@ -57,6 +66,7 @@ function SignUpPage({ onNext }) {
     }
   };
 
+  // 비밀번호 검증 함수
   const passwordCheckHandler = (passwordValue, confirmValue) => {
     const passwordRegex = /^[a-z\d!@*&-_]{8,16}$/;
     if (!passwordValue) {
@@ -95,7 +105,6 @@ function SignUpPage({ onNext }) {
 
   const signupHandler = async (e) => {
     e.preventDefault();
-    
     const idCheckResult = await idCheckHandler(id);
     if (!idCheckResult) return;
 
@@ -111,16 +120,21 @@ function SignUpPage({ onNext }) {
   };
 
   return (
-    <div style={{ backgroundColor: darkIvory, minHeight: "100vh", padding: "20px" }}>
     <SignUpContainer>
       <Title>회원가입</Title>
+      <ProfileImageContainer>
+        <ProfileImage src={profileImage || "https://via.placeholder.com/100"} alt="Profile" />
+        <UploadButton htmlFor="imageUpload">📷</UploadButton>
+        <input id="imageUpload" type="file" accept="image/*" style={{ display: 'none' }} onChange={handleImageUpload} />
+      </ProfileImageContainer>
+
       <form onSubmit={signupHandler}>
         <InputField
-        type="id"
-        placeholder="아이디 입력"
-        value={id}
-        onChange={onChangeIdHandler}
-        maxLength={10}
+          type="text"
+          placeholder="아이디 입력"
+          value={id}
+          onChange={onChangeIdHandler}
+          maxLength={10}
         />
         {idError && <ErrorMessage>{idError}</ErrorMessage>}
 
@@ -144,10 +158,9 @@ function SignUpPage({ onNext }) {
         />
         {confirmError && <ErrorMessage>{confirmError}</ErrorMessage>}
 
-        <SubmitButton type="submit">다음</SubmitButton>
+        <SubmitButton type="submit">가입하기</SubmitButton>
       </form>
     </SignUpContainer>
-    </div>
   );
 }
 
