@@ -1,28 +1,16 @@
 import React, { useState } from "react";
-import downImage from '../png/down.png'; // 이미지 파일을 import
-import { likeEffect, dislikeEffect } from '../style/schloarshipsPageStyle';
-import {
-  Background,
-  Button,
-  ResetButton,
-  Fieldset,
-  List,
-  ScholarshipItem,
-  ScholarshipAmount,
-  CenterContainer,
-  ListItem,
-  ListContainer,
-  TextInput,
-  SearchContainer,
-  SliderContainer,
-  DownButton,
-  DetailBox,
-  Selectioncontainer,
-  Container,
-  Checkmark,
+import downImage from '../png/down.png'; 
+import SearchImage from '../png/search.png';// 이미지 파일을 import
+import ButtonGroup from './ButtonGroup';  // ButtonGroup 임포트
+import { 
+  Background, Button, ResetButton, Fieldset, List, ScholarshipItem, 
+  ScholarshipAmount, CenterContainer, ListItem, ListContainer, TextInput, 
+  SearchContainer, SliderContainer, DownButton, DetailBox, Selectioncontainer,
+  Container, Checkmark ,SearchButton
 } from '../style/schloarshipsPageStyle';
 
 
+/////////////////////////////////////////////////////////////////////////////////////////////
 const ScholarshipsPage = () => {
   const scholarships = [ // scholarships 배열 이름 변경
     { 
@@ -83,6 +71,8 @@ const ScholarshipsPage = () => {
   const [expandedScholarships, setExpandedScholarships] = useState({});
   const [selectedCategory, setSelectedCategory] = useState("전체"); // 카테고리 상태 추가
   const [isChecked, setIsChecked] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
+
   const parseAmount = (amount) => parseInt(amount.replace(/[^0-9]/g, ''), 10);
 
   const filterScholarships = (category, searchField, searchTerm, minAmount, maxAmount) => {
@@ -120,6 +110,7 @@ const ScholarshipsPage = () => {
     setExpandedScholarships({});
     setSelectedCategory("전체"); // 카테고리 초기화
   };
+  
 
   const handleSearch1 = (field) => {
     setSearchField(field);
@@ -173,7 +164,12 @@ const ScholarshipsPage = () => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)} // 검색창 
         /> 
-         
+        <SearchButton 
+        src={SearchImage} // 실제 이미지 경로로 변경
+        alt="클릭할 이미지"/>
+       
+            
+        
          <Selectioncontainer>
           <label htmlFor="scholarship-category">장학금 유형:</label>
           <select

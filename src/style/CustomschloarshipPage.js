@@ -11,7 +11,8 @@ const colors = {
     buttonText: '#3B3B3B',
     buttonBgHover: '#1A1A1A',
     buttonBgActive: '#1A1A1A',
-   
+    ivory: "#FFFFF0",
+    navy: "#000080",
     lightNavy: "#000066",
     darkIvory: "#F5F5DC",
     heartColor: 'rgb(255, 91, 137)',
@@ -25,7 +26,7 @@ const colors = {
   align-items: center; /* 수직 중앙 정렬 */
   flex-direction: column; /* 세로 방향으로 정렬 */
   height: 100vh; /* 전체 화면 높이 */
-    background-color: #f8fbfe;
+    background-color: ${colors.darkIvory};
     
     padding: 0px 15px 15px 15px; 
   `;
@@ -36,11 +37,11 @@ const colors = {
   // 버튼 스타일
   const Button = styled.button`
     appearance: none;
-    background-color: ${(props) => (props.isClicked ? colors.buttonBgActive : "transparent")};
-    border: 3px solid #fe6f0f;
-    border-radius: 10px;
+     background-color: ${(props) => (props.isClicked ? colors.buttonBgActive : "transparent")};
+    border: 0.125em solid #1A1A1A;
+    border-radius: 0.9375em;
     box-sizing: border-box;
-    color: #212124 ;
+    color: ${colors.buttonText};
     cursor: pointer;
     display: inline-block;
     font-family: Roobert, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
@@ -55,13 +56,13 @@ const colors = {
     transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
     user-select: none;
     touch-action: manipulation;
-    
+  
     &:disabled {
       pointer-events: none;
     }
   
     &:hover {
-      color: #fff;
+      c
       background-color: ${colors.buttonBgHover};
       box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
       transform: translateY(-2px);
@@ -72,12 +73,18 @@ const colors = {
       transform: translateY(0);
     }
 
+    &:focus {
+    background-color: ${colors.BgHover};
+    outline: none; // 포커스 링 제거
+  }
+
     ${(props) =>
       props.isClicked &&
       `
         background-color: ${colors.buttonBgActive}; 
         
       `}
+      
   `;
 
   // 컨테이너 스타일
@@ -92,22 +99,27 @@ const colors = {
   `;
 
   const SearchContainer = styled.div`
-  
-  position:relative;
-  width: 600px;
+  display: flex;
+  align-items: center;
+  border: 1px solid black;
+  max-height: 60px;
+  width: 800px;
+  text-align: center;
+  padding: 0;
 `;
 
 const TextInput = styled.input`
-  width:100%
-  
-  padding: 10px 12px;
-  font-size: 16px;
+  flex: 7; /* 전체 너비의 70% */
+  line-height: 30px;
+  padding: 0 1px 0 2.5px;
   border: 3px solid transparent;
   border-radius: 8px;
+  margin: 5px;
+  outline: none;
   background-color: ${colors.inputBg};
   color: ${colors.inputText};
-
-  border-color: #fe6f0f;
+  transition: 0.3s ease;
+  border-color: ${colors.navy};
   background-color: #fff;
   box-shadow: 0 0 0 4px ${colors.inputShadow};
   
@@ -117,35 +129,23 @@ const TextInput = styled.input`
 `;
 
 const Selectioncontainer = styled.div`
- 
- 
- 
+  flex: 1.5; /* 전체 너비의 15% */
+  line-height: 20px;
+  padding: 1px 2px 1px 2.5px;
   border: 3px solid transparent;
   border-radius: 8px;
   margin: 5px;
   outline: none;
   background-color: ${colors.inputBg};
   color: ${colors.inputText};
-  
+  transition: 0.3s ease;
   border-color: ${colors.navy};
   background-color: #fff;
   box-shadow: 0 0 0 4px ${colors.inputShadow};
 `;
 
-const SearchButton = styled.img`
-position: absolute;
-  margin: 0px;
-  width: 17px; /* 버튼의 크기 설정 */
-  top:10px;
-  right:12px;
-  height: 30px; /* 버튼의 크기 설정 */
-  border: 1px solid gray; /* 테두리 */
-  border-radius: 4px; /* 모서리 둥글게 */ 
-  background-color: rgba(249, 249, 249, 0.5); /* 배경색 */
-`;
-
 const ResetButton = styled.button`
-  
+  flex: 1.5; /* 전체 너비의 15% */
   background-color: transparent;
   border: 0.125em solid #1A1A1A;
   border-radius: 8px;
@@ -234,8 +234,6 @@ const ResetButton = styled.button`
   border-radius: 4px; /* 모서리 둥글게 */ 
   background-color: rgba(249, 249, 249, 0.5); /* 배경색 */
 `;
-
-
 
 
 const DetailBox = styled.div`
@@ -345,8 +343,7 @@ const Checkmark = styled.div`
     Container,
     Checkmark,
     likeEffect,
-    dislikeEffect,
-    SearchButton
+    dislikeEffect
     
     
   };
