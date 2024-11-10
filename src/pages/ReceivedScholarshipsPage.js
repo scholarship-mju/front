@@ -1,215 +1,40 @@
 import React, { useState, memo } from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import AnimatedNumbers from "react-animated-numbers";
-// 기존 colors 객체 재사용
-const colors = {
-  ivory: "#FFFFF0",
-  navy: "#000080",
-  lightNavy: "#000066",
-  darkIvory: "#F5F5DC",
-};
-
-// 스타일링된 컴포넌트
-const Background = styled.div`
-  background-color: ${colors.darkIvory};
-  min-height: 100vh;
-  padding: 20px;
-`;
-
-const Container = styled.div`
-  padding: 20px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background-color: ${colors.ivory};
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 1100px;
-  margin: auto;
-  margin-top: 50px;
-`;
-
-const ButtonsContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  margin-right: 150px;
-  margin-bottom: 20px;
-`;
-
-const MyButton = styled(Link)`
-  margin-left: 10px;
-  padding: 10px 20px;
-  border-radius: 5px;
-  text-decoration: none;
-  color: ${colors.ivory};
-  background-color: ${colors.navy};
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  &:hover {
-    background-color: ${colors.lightNavy};
-  }
-`;
-
-const Title = styled.h2`
-  text-align: center;
-  color: ${colors.navy};
-  font-size: 1.8rem;
-  margin-bottom: 20px;
-`;
-
-const Table = styled.table`
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
-`;
-
-const TableHeader = styled.th`
-  padding: 12px;
-  background-color: ${colors.navy};
-  color: white;
-  text-align: left;
-  font-weight: bold;
-  font-size: 1.1rem;
-`;
-
-const TableCell = styled.td`
-  padding: 12px;
-  border-bottom: 1px solid #ddd;
-  font-size: 1rem;
-`;
-
-const TableBody = styled.tbody`
-  .fade-enter {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  .fade-enter-active {
-    opacity: 1;
-    transform: translateY(0);
-    transition:
-      opacity 300ms ease-in,
-      transform 300ms ease-in;
-  }
-  .fade-exit {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .fade-exit-active {
-    opacity: 0;
-    transform: translateY(-10px);
-    transition:
-      opacity 300ms ease-in,
-      transform 300ms ease-in;
-  }
-`;
-
-const InputContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 20px 0px;
-`;
-
-const WarningText = styled.p`
-  margin-top: 20px;
-  color: #e74c3c;
-  text-align: center;
-`;
-
-const TotalAmount = styled.p`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 10px;
-  width: 280px;
-  border-radius: 10px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  text-align: center;
-  padding: 10px;
-  color: white;
-  background-color: ${colors.navy};
-`;
-
-const Form = styled.form`
-  border: 2px solid black;
-  border-radius: 10px;
-  margin: 0px 10px;
-  --timing: 0.3s;
-  --width-of-input: 200px;
-  --height-of-input: 40px;
-  --border-height: 2px;
-  --input-bg: #fff;
-  --border-color: #2f2ee9;
-  --border-radius: 30px;
-  --after-border-radius: 1px;
-  position: relative;
-  width: var(--width-of-input);
-  height: var(--height-of-input);
-  display: flex;
-  align-items: center;
-  padding-inline: 0.8em;
-  border-radius: var(--border-radius);
-  transition: border-radius 0.5s ease;
-  background: var(--input-bg, #fff);
-
-  &:focus-within {
-    border-radius: var(--after-border-radius);
-  }
-
-  &:focus-within::before {
-    transform: scale(1);
-  }
-
-  &::before {
-    content: "";
-    position: absolute;
-    background: var(--border-color);
-    transform: scaleX(0);
-    transform-origin: center;
-    width: 100%;
-    height: var(--border-height);
-    left: 0;
-    bottom: 0;
-    border-radius: 1px;
-    transition: transform var(--timing) ease;
-  }
-`;
-
-const Input = styled.input`
-  font-size: 0.9rem;
-  background-color: transparent;
-  width: 100%;
-  height: 100%;
-  padding-inline: 0.5em;
-  padding-block: 0.7em;
-  border: none;
-
-  &:focus {
-    outline: none;
-  }
-`;
-
-const Button = styled.button`
-  border: none;
-  background: none;
-  color: #8b8ba7;
-`;
-
-const ResetButton = styled(Button)`
-  opacity: 0;
-  visibility: hidden;
-
-  &:focus + .reset {
-    opacity: 1;
-    visibility: visible;
-  }
-`;
-
-const Svg = styled.svg`
-  width: 17px;
-  margin-top: 3px;
-`;
+import axios from "axios";
+import {
+  Background,
+  Container,
+  ButtonsContainer,
+  MyButton,
+  Title,
+  Table,
+  TableHeader,
+  TableCell,
+  TableBody,
+  InputContainer,
+  WarningText,
+  TotalAmount,
+  Form,
+  Input,
+  Button,
+  ResetButton,
+  Svg,
+  DeleteButton,
+  AuthButton,
+  Modal,
+  Overlay,
+  ModalButton,
+  // UploadContainer
+  UploadContainer,
+  UploadBox,
+  FileSelectButton,
+  UploadItem,
+  CloseButton,
+  ProgressBar,
+  Progress,
+  UploadProgress,
+} from "../style/ReceivedScholarshipsPageStyles";
 
 const SearchSvg = () => (
   <Svg
@@ -245,20 +70,6 @@ const ResetSvg = () => (
     />
   </Svg>
 );
-
-const DeleteButton = styled.button`
-  background-color: #e74c3c;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 5px 10px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #c0392b;
-  }
-`;
 
 const MemoizedAnimatedNumbers = memo(({ animateToNumber }) => (
   <AnimatedNumbers
@@ -349,6 +160,35 @@ function ReceivedScholarshipsPage() {
     }
   };
 
+  const handleAddScholarship_server = async (name) => {
+    try {
+      // 서버에 요청 보내기
+      const response = await axios.get(
+        `/api/scholarships?name=${encodeURIComponent(name)}`,
+      );
+
+      // 서버에서 받은 데이터를 변수에 저장
+      const matchingScholarship = response.data; // 서버에서 단일 장학금 객체를 반환한다고 가정
+
+      if (matchingScholarship) {
+        const newId = scholarships.length + 1;
+        setScholarships([
+          ...scholarships,
+          {
+            id: newId,
+            name: matchingScholarship.name,
+            amount: matchingScholarship.amount,
+          },
+        ]);
+      } else {
+        alert("장학금을 찾지 못했습니다.");
+      }
+    } catch (error) {
+      console.error("서버 요청 중 오류 발생:", error);
+      alert("서버와 통신하는 중 오류가 발생했습니다.");
+    }
+  };
+
   const handleDeleteScholarship = (id) => {
     setScholarships((prevScholarships) =>
       prevScholarships
@@ -365,6 +205,68 @@ function ReceivedScholarshipsPage() {
     0,
   );
 
+  const [isVerified, setIsVerified] = useState(false); // 인증 상태
+  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
+  const [selectedFile, setSelectedFile] = useState(null); // 업로드된 파일
+
+  const handleButtonClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleFileChange = (event) => {
+    setSelectedFile(event.target.files[0]);
+  };
+
+  const handleUpload = () => {
+    if (selectedFile) {
+      setIsVerified(true);
+      setIsModalOpen(false);
+      alert("사진이 성공적으로 업로드되었습니다!");
+    } else {
+      alert("사진을 선택해주세요!");
+    }
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const [files, setFiles] = useState([]);
+
+  const handleFileSelect = (e) => {
+    const selectedFiles = Array.from(e.target.files);
+    setFiles((prev) => [...prev, ...selectedFiles]);
+  };
+
+  const simulateUpload = (file) => {
+    let progress = 0;
+    const interval = setInterval(() => {
+      progress += Math.random() * 10;
+      if (progress >= 100) {
+        progress = 100;
+        clearInterval(interval);
+      }
+      setFiles((prev) =>
+        prev.map((f) => (f.name === file.name ? { ...f, progress } : f)),
+      );
+    }, 200);
+  };
+
+  const startUpload = () => {
+    files.forEach((file) => {
+      if (!file.progress) {
+        setFiles((prev) =>
+          prev.map((f) => (f.name === file.name ? { ...f, progress: 0 } : f)),
+        );
+        simulateUpload(file);
+      }
+    });
+  };
+
+  const handleRemoveFile = (fileName) => {
+    setFiles((prev) => prev.filter((file) => file.name !== fileName));
+  };
+
   return (
     <Background>
       <ButtonsContainer>
@@ -375,10 +277,23 @@ function ReceivedScholarshipsPage() {
         <Table>
           <thead>
             <tr>
-              <TableHeader>고유 번호</TableHeader>
+              <TableHeader
+                style={{
+                  borderTopLeftRadius: "10px",
+                  borderBottomLeftRadius: "10px",
+                }}
+              >
+                고유 번호
+              </TableHeader>
               <TableHeader>장학금</TableHeader>
               <TableHeader>금액</TableHeader>
-              <TableHeader></TableHeader>
+              <TableHeader>인증 상태</TableHeader>
+              <TableHeader
+                style={{
+                  borderTopRightRadius: "10px",
+                  borderBottomRightRadius: "10px",
+                }}
+              ></TableHeader>
             </tr>
           </thead>
 
@@ -396,6 +311,97 @@ function ReceivedScholarshipsPage() {
                       <TableCell>{scholarship.name}</TableCell>
                       <TableCell>
                         {scholarship.amount.toLocaleString()}원
+                      </TableCell>
+                      <TableCell>
+                        <AuthButton
+                          onClick={handleButtonClick}
+                          isVerified={isVerified}
+                        >
+                          {isVerified ? "인증 O" : "인증 X"}
+                        </AuthButton>
+                        {isModalOpen && (
+                          <>
+                            <Overlay onclick={handleCloseModal} />
+                            <Modal>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  alignItem: "center",
+                                  justifyContent: "flex-end",
+                                }}
+                              >
+                                <ModalButton onClick={handleCloseModal}>
+                                  닫기
+                                </ModalButton>
+                              </div>
+                              {/* <h3>사진 업로드</h3> */}
+                              {/* <input */}
+                              {/*   type="file" */}
+                              {/*   accept="image/*" */}
+                              {/*   onChange={handleFileChange} */}
+                              {/* /> */}
+                              {/* <div */}
+                              {/*   style={{ */}
+                              {/*     display: "flex", */}
+                              {/*     justifyContent: "space-between", */}
+                              {/*     marginTop: "10px", */}
+                              {/*   }} */}
+                              {/* > */}
+                              {/*   <ModalButton onClick={handleUpload}> */}
+                              {/*     업로드 */}
+                              {/*   </ModalButton> */}
+                              {/* </div> */}
+                              <UploadContainer>
+                                <h2>File Upload</h2>
+                                <UploadBox
+                                  onClick={() =>
+                                    document
+                                      .getElementById("file-input")
+                                      .click()
+                                  }
+                                >
+                                  <p>Drag files to upload</p>
+                                  <FileSelectButton>
+                                    Select Files
+                                  </FileSelectButton>
+                                  <input
+                                    type="file"
+                                    id="file-input"
+                                    multiple
+                                    hidden
+                                    onChange={handleFileSelect}
+                                  />
+                                </UploadBox>
+                                <UploadProgress>
+                                  {files.map((file, index) => (
+                                    <UploadItem key={index}>
+                                      <p>
+                                        {file.name} (
+                                        {(file.size / 1024 / 1024).toFixed(1)}{" "}
+                                        MB)
+                                      </p>
+                                      <ProgressBar>
+                                        <Progress width={file.progress || 0} />
+                                      </ProgressBar>
+                                      <CloseButton
+                                        onClick={() =>
+                                          handleRemoveFile(file.name)
+                                        }
+                                      >
+                                        ✕
+                                      </CloseButton>
+                                    </UploadItem>
+                                  ))}
+                                </UploadProgress>
+                                {files.length > 0 && (
+                                  <FileSelectButton onClick={startUpload}>
+                                    Start Upload
+                                  </FileSelectButton>
+                                )}
+                              </UploadContainer>
+                            </Modal>
+                          </>
+                        )}
                       </TableCell>
                       <TableCell>
                         <DeleteButton
@@ -429,4 +435,3 @@ function ReceivedScholarshipsPage() {
 }
 
 export default ReceivedScholarshipsPage;
-
