@@ -94,11 +94,12 @@ const colors = {
   const SearchContainer = styled.div`
   
   position:relative;
-  width: 600px;
+  width: 900px;
+  align-items: center;
 `;
 
 const TextInput = styled.input`
-  width:100%
+  width:670px;
   
   padding: 10px 12px;
   font-size: 16px;
@@ -115,11 +116,45 @@ const TextInput = styled.input`
     color: ${colors.placeholderText};
   }
 `;
+const FilterButton = styled.button`
+top:200px;
+left:40px;
+  display: inline-block;
+  position: sticky; 
+  background-color: transparent;
+  border: 0.125em solid #1A1A1A;
+  border-radius: 8px;
+  color: ${colors.buttonText};
+  font-family: Roobert, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  font-size: 18px;
+  font-weight: 600;
+  line-height: normal;
+  margin: 10px;
+  padding: 5px;
+  text-align: center;
+  touch-action: manipulation;
+  
+  &:disabled {
+    pointer-events: none;
+  }
+  
+  &:hover {
+    color: #fff;
+    background-color: ${colors.buttonBgHover};
+    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+    transform: translateY(-2px);
+  }
+  
+  &:active {
+    box-shadow: none;
+    transform: translateY(0);
+  }
+`;
 
 const Selectioncontainer = styled.div`
  
  
- 
+  padding: 1px 2px 1px 2.5px;
   border: 3px solid transparent;
   border-radius: 8px;
   margin: 5px;
@@ -136,12 +171,11 @@ const SearchButton = styled.img`
 position: absolute;
   margin: 0px;
   width: 17px; /* 버튼의 크기 설정 */
-  top:10px;
+  top:6.5px;
   right:12px;
   height: 30px; /* 버튼의 크기 설정 */
-  border: 1px solid gray; /* 테두리 */
-  border-radius: 4px; /* 모서리 둥글게 */ 
-  background-color: rgba(249, 249, 249, 0.5); /* 배경색 */
+  
+
 `;
 
 const ResetButton = styled.button`
@@ -177,15 +211,41 @@ const ResetButton = styled.button`
 `;
 
 
+
+
   const SliderContainer = styled.div`
   border: 3px solid ${colors.navy};
   border-radius: 5px;
   padding: 15px; /* 필요에 따라 패딩 추가 */
-  width : 60% 
+  width : 50% 
   justify-content: center; /* 중앙 정렬 필요시 */
   align-items: center; /* 중앙 정렬 필요시 */
   text-align: center; /*
 
+`;
+const OverlayForm = styled.div`
+  position: fixed;
+  top: 00px;
+  left: 00px;
+  width: 100vw; /* 폼의 너비를 화면의 80%로 설정 */
+  height: 100vh; /* 폼의 높이를 화면의 80%로 설정 */
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 2px; /* 내부 여백 추가 */
+  border-radius: 8px; /* 모서리를 둥글게 */
+`;
+
+
+const FilterForm = styled.div`
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 600px;
+  height: 300px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 `;
   
   // 필드셋 스타일
@@ -214,7 +274,7 @@ const ResetButton = styled.button`
     margin: 10px;
     padding: 15px 10px 10px 15px;
     font-size: 17px;
-    border:1px solid gray;
+    border:3px solid #fe6f0f;
     border-radius: 8px;
     
     
@@ -346,7 +406,11 @@ const Checkmark = styled.div`
     Checkmark,
     likeEffect,
     dislikeEffect,
-    SearchButton
+    SearchButton,
+    OverlayForm,
+    FilterForm,
+    FilterButton
+    
     
     
   };
