@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import AnimatedNumbers from "react-animated-numbers";
+import axios from "axios";
 // 기존 colors 객체 재사용
 const colors = {
   white: "white",
@@ -505,15 +506,34 @@ function ReceivedScholarshipsPage() {
                           <>
                             <Overlay onclick={handleCloseModal} />
                             <Modal>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  alignItem: "center",
+                                  justifyContent: "flex-end",
+                                }}
+                              >
+                                <ModalButton onClick={handleCloseModal}>
+                                  닫기
+                                </ModalButton>
+                              </div>
                               <h3>사진 업로드</h3>
                               <input
                                 type="file"
                                 accept="image/*"
                                 onChange={handleFileChange}
                               />
-                              <ModalButton onclick={handleUpload}>
-                                업로드
-                              </ModalButton>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "space-between",
+                                  marginTop: "10px",
+                                }}
+                              >
+                                <ModalButton onClick={handleUpload}>
+                                  업로드
+                                </ModalButton>
+                              </div>
                             </Modal>
                           </>
                         )}
