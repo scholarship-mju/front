@@ -25,6 +25,15 @@ import {
   Modal,
   Overlay,
   ModalButton,
+  // UploadContainer
+  UploadContainer,
+  UploadBox,
+  FileSelectButton,
+  UploadItem,
+  CloseButton,
+  ProgressBar,
+  Progress,
+  UploadProgress,
 } from "../style/ReceivedScholarshipsPageStyles";
 
 const SearchSvg = () => (
@@ -222,6 +231,42 @@ function ReceivedScholarshipsPage() {
     setIsModalOpen(false);
   };
 
+  const [files, setFiles] = useState([]);
+
+  const handleFileSelect = (e) => {
+    const selectedFiles = Array.from(e.target.files);
+    setFiles((prev) => [...prev, ...selectedFiles]);
+  };
+
+  const simulateUpload = (file) => {
+    let progress = 0;
+    const interval = setInterval(() => {
+      progress += Math.random() * 10;
+      if (progress >= 100) {
+        progress = 100;
+        clearInterval(interval);
+      }
+      setFiles((prev) =>
+        prev.map((f) => (f.name === file.name ? { ...f, progress } : f)),
+      );
+    }, 200);
+  };
+
+  const startUpload = () => {
+    files.forEach((file) => {
+      if (!file.progress) {
+        setFiles((prev) =>
+          prev.map((f) => (f.name === file.name ? { ...f, progress: 0 } : f)),
+        );
+        simulateUpload(file);
+      }
+    });
+  };
+
+  const handleRemoveFile = (fileName) => {
+    setFiles((prev) => prev.filter((file) => file.name !== fileName));
+  };
+
   return (
     <Background>
       <ButtonsContainer>
@@ -289,23 +334,71 @@ function ReceivedScholarshipsPage() {
                                   닫기
                                 </ModalButton>
                               </div>
-                              <h3>사진 업로드</h3>
-                              <input
-                                type="file"
-                                accept="image/*"
-                                onChange={handleFileChange}
-                              />
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "space-between",
-                                  marginTop: "10px",
-                                }}
-                              >
-                                <ModalButton onClick={handleUpload}>
-                                  업로드
-                                </ModalButton>
-                              </div>
+                              {/* <h3>사진 업로드</h3> */}
+                              {/* <input */}
+                              {/*   type="file" */}
+                              {/*   accept="image/*" */}
+                              {/*   onChange={handleFileChange} */}
+                              {/* /> */}
+                              {/* <div */}
+                              {/*   style={{ */}
+                              {/*     display: "flex", */}
+                              {/*     justifyContent: "space-between", */}
+                              {/*     marginTop: "10px", */}
+                              {/*   }} */}
+                              {/* > */}
+                              {/*   <ModalButton onClick={handleUpload}> */}
+                              {/*     업로드 */}
+                              {/*   </ModalButton> */}
+                              {/* </div> */}
+                              <UploadContainer>
+                                <h2>File Upload</h2>
+                                <UploadBox
+                                  onClick={() =>
+                                    document
+                                      .getElementById("file-input")
+                                      .click()
+                                  }
+                                >
+                                  <p>Drag files to upload</p>
+                                  <FileSelectButton>
+                                    Select Files
+                                  </FileSelectButton>
+                                  <input
+                                    type="file"
+                                    id="file-input"
+                                    multiple
+                                    hidden
+                                    onChange={handleFileSelect}
+                                  />
+                                </UploadBox>
+                                <UploadProgress>
+                                  {files.map((file, index) => (
+                                    <UploadItem key={index}>
+                                      <p>
+                                        {file.name} (
+                                        {(file.size / 1024 / 1024).toFixed(1)}{" "}
+                                        MB)
+                                      </p>
+                                      <ProgressBar>
+                                        <Progress width={file.progress || 0} />
+                                      </ProgressBar>
+                                      <CloseButton
+                                        onClick={() =>
+                                          handleRemoveFile(file.name)
+                                        }
+                                      >
+                                        ✕
+                                      </CloseButton>
+                                    </UploadItem>
+                                  ))}
+                                </UploadProgress>
+                                {files.length > 0 && (
+                                  <FileSelectButton onClick={startUpload}>
+                                    Start Upload
+                                  </FileSelectButton>
+                                )}
+                              </UploadContainer>
                             </Modal>
                           </>
                         )}

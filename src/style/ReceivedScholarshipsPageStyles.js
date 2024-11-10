@@ -278,3 +278,79 @@ export const ModalButton = styled.button`
     background-color: #2980b9;
   }
 `;
+
+// UploadContainer
+
+export const UploadContainer = styled.div`
+  width: 400px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+`;
+
+export const UploadBox = styled.div`
+  border: 2px dashed #d1d5db;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  background-color: #fafafa;
+  position: relative;
+  cursor: pointer;
+  color: #6b7280;
+`;
+
+export const FileSelectButton = styled.button`
+  margin-top: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4caf50;
+  color: white;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #45a049;
+  }
+`;
+
+export const UploadItem = styled.div`
+  margin-bottom: 10px;
+  text-align: left;
+  position: relative;
+`;
+
+export const CloseButton = styled.button`
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: none;
+  border: none;
+  color: #ff5f56;
+  font-size: 16px;
+  cursor: pointer;
+
+  &:hover {
+    color: #e55350;
+  }
+`;
+
+export const ProgressBar = styled.div`
+  width: 100%;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 5px;
+`;
+
+export const Progress = styled.div`
+  height: 10px;
+  background-color: #4caf50;
+  width: ${(props) => props.width}%;
+  transition: width 0.3s ease;
+`;
+
+export const UploadProgress = styled.div`
+  margin-top: 20px;
+`;
