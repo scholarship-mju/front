@@ -11,7 +11,8 @@ const colors = {
     buttonText: '#3B3B3B',
     buttonBgHover: '#1A1A1A',
     buttonBgActive: '#1A1A1A',
-   
+    ivory: "#FFFFF0",
+    navy: "#000080",
     lightNavy: "#000066",
     darkIvory: "#F5F5DC",
     heartColor: 'rgb(255, 91, 137)',
@@ -25,19 +26,22 @@ const colors = {
   align-items: center; /* 수직 중앙 정렬 */
   flex-direction: column; /* 세로 방향으로 정렬 */
   height: 100vh; /* 전체 화면 높이 */
-    background-color: #f8fbfe;
+    background-color: ${colors.darkIvory};
     
     padding: 0px 15px 15px 15px; 
   `;
-
-// 버튼 스타일
-const Button = styled.button`
+  
+  
+  
+  
+  // 버튼 스타일
+  const Button = styled.button`
     appearance: none;
-    background-color: ${(props) => (props.isClicked ? colors.buttonBgActive : "transparent")};
-    border: 3px solid #fe6f0f;
-    border-radius: 10px;
+     background-color: ${(props) => (props.isClicked ? colors.buttonBgActive : "transparent")};
+    border: 0.125em solid #1A1A1A;
+    border-radius: 0.9375em;
     box-sizing: border-box;
-    color: #212124 ;
+    color: ${colors.buttonText};
     cursor: pointer;
     display: inline-block;
     font-family: Roobert, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
@@ -52,13 +56,13 @@ const Button = styled.button`
     transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
     user-select: none;
     touch-action: manipulation;
-    
+  
     &:disabled {
       pointer-events: none;
     }
   
     &:hover {
-      color: #fff;
+      c
       background-color: ${colors.buttonBgHover};
       box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
       transform: translateY(-2px);
@@ -69,41 +73,53 @@ const Button = styled.button`
       transform: translateY(0);
     }
 
+    &:focus {
+    background-color: ${colors.BgHover};
+    outline: none; // 포커스 링 제거
+  }
+
     ${(props) =>
-    props.isClicked &&
-    `
+      props.isClicked &&
+      `
         background-color: ${colors.buttonBgActive}; 
         
       `}
+      
   `;
 
-// 컨테이너 스타일
-const CenterContainer = styled.div`
+  // 컨테이너 스타일
+  const CenterContainer = styled.div`
     
     justify-content: center;
     align-items: center;
     text-align:center;
     height:auto
+    
+
   `;
 
   const SearchContainer = styled.div`
-  
-  position:relative;
-  width: 900px;
+  display: flex;
   align-items: center;
+  border: 1px solid black;
+  max-height: 60px;
+  width: 800px;
+  text-align: center;
+  padding: 0;
 `;
 
 const TextInput = styled.input`
-  width:670px;
-  
-  padding: 10px 12px;
-  font-size: 16px;
+  flex: 7; /* 전체 너비의 70% */
+  line-height: 30px;
+  padding: 0 1px 0 2.5px;
   border: 3px solid transparent;
   border-radius: 8px;
+  margin: 5px;
+  outline: none;
   background-color: ${colors.inputBg};
   color: ${colors.inputText};
-
-  border-color: #fe6f0f;
+  transition: 0.3s ease;
+  border-color: ${colors.navy};
   background-color: #fff;
   box-shadow: 0 0 0 4px ${colors.inputShadow};
   
@@ -111,44 +127,10 @@ const TextInput = styled.input`
     color: ${colors.placeholderText};
   }
 `;
-const FilterButton = styled.button`
-top:200px;
-left:40px;
-  display: inline-block;
-  position: sticky; 
-  background-color: transparent;
-  border: 0.125em solid #1A1A1A;
-  border-radius: 8px;
-  color: ${colors.buttonText};
-  font-family: Roobert, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-  font-size: 18px;
-  font-weight: 600;
-  line-height: normal;
-  margin: 10px;
-  padding: 5px;
-  text-align: center;
-  touch-action: manipulation;
-  
-  &:disabled {
-    pointer-events: none;
-  }
-  
-  &:hover {
-    color: #fff;
-    background-color: ${colors.buttonBgHover};
-    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
-    transform: translateY(-2px);
-  }
-  
-  &:active {
-    box-shadow: none;
-    transform: translateY(0);
-  }
-`;
 
 const Selectioncontainer = styled.div`
- 
- 
+  flex: 1.5; /* 전체 너비의 15% */
+  line-height: 20px;
   padding: 1px 2px 1px 2.5px;
   border: 3px solid transparent;
   border-radius: 8px;
@@ -156,25 +138,14 @@ const Selectioncontainer = styled.div`
   outline: none;
   background-color: ${colors.inputBg};
   color: ${colors.inputText};
-  
+  transition: 0.3s ease;
   border-color: ${colors.navy};
   background-color: #fff;
   box-shadow: 0 0 0 4px ${colors.inputShadow};
 `;
 
-const SearchButton = styled.img`
-position: absolute;
-  margin: 0px;
-  width: 17px; /* 버튼의 크기 설정 */
-  top:6.5px;
-  right:12px;
-  height: 30px; /* 버튼의 크기 설정 */
-  
-
-`;
-
 const ResetButton = styled.button`
-  
+  flex: 1.5; /* 전체 너비의 15% */
   background-color: transparent;
   border: 0.125em solid #1A1A1A;
   border-radius: 8px;
@@ -206,41 +177,15 @@ const ResetButton = styled.button`
 `;
 
 
-
-
   const SliderContainer = styled.div`
   border: 3px solid ${colors.navy};
   border-radius: 5px;
   padding: 15px; /* 필요에 따라 패딩 추가 */
-  width : 50% 
+  width : 60% 
   justify-content: center; /* 중앙 정렬 필요시 */
   align-items: center; /* 중앙 정렬 필요시 */
   text-align: center; /*
 
-`;
-const OverlayForm = styled.div`
-  position: fixed;
-  top: 00px;
-  left: 00px;
-  width: 100vw; /* 폼의 너비를 화면의 80%로 설정 */
-  height: 100vh; /* 폼의 높이를 화면의 80%로 설정 */
-  background-color: rgba(0, 0, 0, 0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  padding: 2px; /* 내부 여백 추가 */
-  border-radius: 8px; /* 모서리를 둥글게 */
-`;
-
-
-const FilterForm = styled.div`
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  width: 600px;
-  height: 300px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 `;
   
   // 필드셋 스타일
@@ -253,35 +198,35 @@ const FilterForm = styled.div`
     max-height: 700px; /* 적절한 높이로 설정하세요, 10개 항목을 고려한 높이입니다 */
     overflow-y: auto; /* 스크롤 가능하도록 설정 */
   `;
-
-// 리스트 스타일
-const List = styled.ul`
+  
+  // 리스트 스타일
+  const List = styled.ul`
   list-style-type: none;
   display: flex; /* Flexbox 사용 */
   justify-content: space-between; /* 양쪽 정렬 */
   flex-direction:column;
-    padding: 0;
+    paddings: 0;
     margin: 5px;
   `;
-
-// 리스트 아이템 스타일
-const ScholarshipItem = styled.li`
+  
+  // 리스트 아이템 스타일
+  const ScholarshipItem = styled.li`
     margin: 10px;
     padding: 15px 10px 10px 15px;
     font-size: 17px;
-    border:3px solid #fe6f0f;
+    border:1px solid gray;
     border-radius: 8px;
     
     
   `;
-// 금액 스타일
-const ScholarshipAmount = styled.div`
+  // 금액 스타일
+  const ScholarshipAmount = styled.div`
     flex-direction: column;
     text-align: right;
     font-size: 20px;
   `;
 
-const DownButton = styled.img`
+  const DownButton = styled.img`
   margin-left: 10px;
   width: 30px; /* 버튼의 크기 설정 */
   height: 30px; /* 버튼의 크기 설정 */
@@ -289,8 +234,6 @@ const DownButton = styled.img`
   border-radius: 4px; /* 모서리 둥글게 */ 
   background-color: rgba(249, 249, 249, 0.5); /* 배경색 */
 `;
-
-
 
 
 const DetailBox = styled.div`
@@ -311,11 +254,12 @@ const ListItem = styled.li`
   padding: 1px;
   display: inline-block;
 `;
-const ListContainer = styled.ol`
+  const ListContainer = styled.ol`
   
   margin: 0;
   padding: 0;
 `;
+
 
 const likeEffect = keyframes`
   0% { transform: scale(0); }
@@ -399,12 +343,7 @@ const Checkmark = styled.div`
     Container,
     Checkmark,
     likeEffect,
-    dislikeEffect,
-    SearchButton,
-    OverlayForm,
-    FilterForm,
-    FilterButton
-    
+    dislikeEffect
     
     
   };
