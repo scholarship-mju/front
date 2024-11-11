@@ -118,7 +118,7 @@ function MyPage() {
       const token = localStorage.getItem("accessToken");
 
       try {
-        const response = await axios.get("http://localhost:8080/my", {
+        const response = await axios.get("http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/my", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -147,7 +147,7 @@ function MyPage() {
   const handleSaveClick = async () => {
     const token = localStorage.getItem("accessToken");
     try {
-      await axios.post("http://localhost:8080/my", updatedInfo, {
+      await axios.post("http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/my", updatedInfo, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -22,18 +22,24 @@ function LoginPage({ setIsLoggedIn }) {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = (provider) => {
-    window.location.href = `ec2-52-78-181-84.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/${provider}`;
-  };
-
-  const kakaoLogin = async () => {
+  const handleLogin = async (provider) => {
     try {
-      const response = await axios.get("ec2-52-78-181-84.ap-northeast-2.compute.amazonaws.com:8080/login");
-      if (response.status === 200) {
-        setIsLoggedIn(true); // 로그인 성공 시 상태 업데이트
+      window.location.href = `http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/${provider}`;
+
+      // OAuth2 인증 후 사용자 정보를 확인하여 첫 로그인 여부를 처리
+      const response = await axios.get("http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/oauth2/current-user", {
+        withCredentials: true,
+      });
+
+      if (response.data) {
+        if (response.data === true) { // 첫 로그인 여부가 true인지 확인
+          window.location.href = "/new-user-page"; // 처음 로그인한 사용자 처리
+        } else {
+          setIsLoggedIn(true); // 기존 사용자 처리
+        }
       }
     } catch (error) {
-      console.error("카카오 로그인 실패:", error);
+      console.error("Error during login process:", error);
     }
   };
 
