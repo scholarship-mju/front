@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Outlet, Link } from "react-router-dom";
 import mainlogo from "../png/mainlogo.png";
-import axios from "axios";
 
 import {
   Header,
@@ -9,7 +8,8 @@ import {
   Nav,
   NavLink,
   ButtonsContainer,
-  StyledButton,
+  StyledLinkButton,
+  StyledButtonElement,
   ContentWrapper,
   Footer,
 } from "../style/LayoutStyle";
@@ -26,7 +26,7 @@ const Layout = ({ isLoggedIn, handleLogout }) => {
   };
 
   return (
-    <div>
+    <div style={{ overflowX: "hidden" }}>
       <Header>
         <Link to="/">
           <Logo src={mainlogo} alt="Main Logo" />
@@ -63,21 +63,15 @@ const Layout = ({ isLoggedIn, handleLogout }) => {
         <ButtonsContainer>
           {isLoggedIn ? (
             <>
-              <StyledButton as={Link} to="/mypage">
-                마이페이지
-              </StyledButton>
-              <StyledButton as="button" onClick={handleLogout}>
+              <StyledLinkButton to="/mypage">마이페이지</StyledLinkButton>
+              <StyledButtonElement onClick={handleLogout}>
                 로그아웃
-              </StyledButton>
+              </StyledButtonElement>
             </>
           ) : (
             <>
-              <StyledButton as={Link} to="/login">
-                로그인
-              </StyledButton>
-              <StyledButton as={Link} to="/signup">
-                회원가입
-              </StyledButton>
+              <StyledLinkButton to="/login">로그인</StyledLinkButton>
+              <StyledLinkButton to="/signup">회원가입</StyledLinkButton>
             </>
           )}
         </ButtonsContainer>

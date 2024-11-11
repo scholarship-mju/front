@@ -8,14 +8,14 @@ import Banner1 from "../png/배너001.png";
 import Banner2 from "../png/배너002.png";
 import Banner3 from "../png/배너003.png";
 import Banner4 from "../png/배너004.png";
-import { Banner, MainContent, KingSection, KingText, ListContainer, ListBox } from "../style/HomePageStyle";
+import { Banner, MainContent, KingSection, KingText, ListContainer, ListBox, SwiperSlideImage } from "../style/HomePageStyle";
 
 const HomePage = () => {
   return (
     <div>
       <Banner>
         <Swiper
-          spaceBetween={50}
+          spaceBetween={0}
           slidesPerView={1}
           navigation
           pagination={{ clickable: true }}
@@ -24,16 +24,16 @@ const HomePage = () => {
           className="swiper-container"
         >
           <SwiperSlide>
-            <img src={Banner1} alt="배너1" style={{ width: "2000px", height: "360px", objectFit: "cover" }} />
+            <SwiperSlideImage src={Banner1} alt="배너1" />
           </SwiperSlide>
           <SwiperSlide>
-            <img src={Banner2} alt="배너2" style={{ width: "2000px", height: "360px", objectFit: "cover" }} />
+            <SwiperSlideImage src={Banner2} alt="배너2" />
           </SwiperSlide>
           <SwiperSlide>
-            <img src={Banner3} alt="배너3" style={{ width: "2000px", height: "360px", objectFit: "cover" }} />
+            <SwiperSlideImage src={Banner3} alt="배너3" />
           </SwiperSlide>
           <SwiperSlide>
-            <img src={Banner4} alt="배너4" style={{ width: "2000px", height: "360px", objectFit: "cover" }} />
+            <SwiperSlideImage src={Banner4} alt="배너4" />
           </SwiperSlide>
         </Swiper>
       </Banner>
