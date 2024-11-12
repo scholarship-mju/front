@@ -36,6 +36,7 @@ import {
   ProgressBar,
   Progress,
   UploadProgress,
+  //Search realted
   SearchSvg,
   ResetSvg,
 } from "../style/ReceivedScholarshipsPageStyles";
@@ -147,6 +148,7 @@ function ReceivedScholarshipsPage() {
   };
 
   // ***********************************************************************************
+  // 파일 관련된 코드
 
   const [isVerified, setIsVerified] = useState(false); // 인증 상태
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
@@ -229,7 +231,7 @@ function ReceivedScholarshipsPage() {
       .then((response) => {
         // 응답 데이터를 serverdata에 저장
         setServerdata(response.data);
-        console.log("데이저 출력");
+        console.log("데이터 출력");
         console.log(response.data); // 데이터 확인용 콘솔 출력
       })
       .catch((error) => {
@@ -237,6 +239,7 @@ function ReceivedScholarshipsPage() {
       });
   }, []);
 
+  // 장학금 총액 계산 함수
   const totalAmount = serverdata.reduce(
     (total, scholarship) => total + scholarship.price,
     0,
