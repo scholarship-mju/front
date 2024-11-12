@@ -5,14 +5,16 @@ export const LoginContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 70vh;
+  min-height: 65vh;
   background-color: #ffffff;
 `;
 
 export const Logo = styled.img`
   width: 200px;
-  margin-bottom: 20px;
+  margin-bottom: 10px; 
+  margin-top: -10px;
 `;
+
 
 export const SubtitleContainer = styled.div`
   display: flex;
@@ -70,53 +72,4 @@ export const GoogleButton = styled(SocialButton)`
   background-color: #ffffff;
   color: #3c1e1e;
   border: 1px solid #e0e0e0;
-`;
-
-export const LoginForm = styled.form`
-  padding: 20px;
-  border-radius: 10px;
-  width: 100%;
-  max-width: 400px;
-  text-align: center;
-`;
-
-export const Title = styled.h1`
-  font-size: 24px;
-  color: #ff6a00;
-  margin-bottom: 20px;
-  font-weight: bold;
-`;
-
-export const InputField = styled.input`
-  width: 90%;
-  padding: 12px;
-  margin-bottom: 15px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 16px;
-  color: #333;
-
-  &:focus {
-    border-color: #ff6a00;
-    outline: none;
-  }
-`;
-
-export const SubmitButton = styled.button`
-  width: 100%;
-  padding: 12px;
-  margin-top: 10px;
-  background-color: #ffece6;
-  color: #ff6a00;
-  font-size: 16px;
-  font-weight: bold;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #ffd8cc;
-    color: #ff5a00;
-  }
 `;
