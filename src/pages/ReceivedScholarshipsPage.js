@@ -1,4 +1,4 @@
-import React, { useState, memo } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import AnimatedNumbers from "react-animated-numbers";
 import axios from "axios";
@@ -267,6 +267,30 @@ function ReceivedScholarshipsPage() {
     setFiles((prev) => prev.filter((file) => file.name !== fileName));
   };
 
+  const [serverdata, setServerdata] = useState([]); // 서버 데이터 저장용 state
+
+  useEffect(() => {
+    // 서버로 GET 요청을 보냄
+    const token = localStorage.getItem("accessToken"); // 실제 토큰 값??
+    const response = axios
+      .get(
+        "http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/scholarship/got",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // 토큰이 필요할 경우 포함
+          },
+        },
+      )
+      .then((response) => {
+        // 응답 데이터를 serverdata에 저장
+        setServerdata(response.data);
+        console.log(response.data); // 데이터 확인용 콘솔 출력
+      })
+      .catch((error) => {
+        console.error("데이터 가져오기 실패:", error);
+      });
+  }, []);
+
   return (
     <Background>
       <ButtonsContainer>
@@ -307,11 +331,23 @@ function ReceivedScholarshipsPage() {
                 >
                   <React.Fragment>
                     <tr>
-                      <TableCell>{scholarship.id}</TableCell>
-                      <TableCell>{scholarship.name}</TableCell>
-                      <TableCell>
-                        {scholarship.amount.toLocaleString()}원
-                      </TableCell>
+                      {/* <TableCell>{scholarship.id}</TableCell> */}
+                      {/* <TableCell>{scholarship.name}</TableCell> */}
+                      {/* <TableCell> */}
+                      {/*   {scholarship.amount.toLocaleString()}원 */}
+                      {/* </TableCell> */}
+                      {serverdata.map((item, index) => (
+                        <>
+                          {/* <TableCell key={`id-${index}`}>{item.id}</TableCell> */}
+                          {/* <TableCell key={`name-${index}`}> */}
+                          {/*   {item.name} */}
+                          {/* </TableCell> */}
+                          <TableCell>{item.id}</TableCell>
+                          <TableCell>{item.name}</TableCell>
+                          <TableCell>{item.price}</TableCell>
+                        </>
+                      ))}
+
                       <TableCell>
                         <AuthButton
                           onClick={handleButtonClick}
