@@ -10,6 +10,8 @@ import {
   Title,
   Table,
   TableHeader,
+  TableHeaderRight,
+  TableHeaderLeft,
   TableCell,
   TableBody,
   InputContainer,
@@ -34,42 +36,9 @@ import {
   ProgressBar,
   Progress,
   UploadProgress,
+  SearchSvg,
+  ResetSvg,
 } from "../style/ReceivedScholarshipsPageStyles";
-
-const SearchSvg = () => (
-  <Svg
-    width="17"
-    height="16"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    role="img"
-    aria-labelledby="search"
-  >
-    <path
-      d="M7.667 12.667A5.333 5.333 0 107.667 2a5.333 5.333 0 000 10.667zM14.334 14l-2.9-2.9"
-      stroke="currentColor"
-      strokeWidth="1.333"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </Svg>
-);
-
-const ResetSvg = () => (
-  <Svg
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth="2"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M6 18L18 6M6 6l12 12"
-    />
-  </Svg>
-);
 
 const MemoizedAnimatedNumbers = memo(({ animateToNumber }) => (
   <AnimatedNumbers
@@ -177,6 +146,8 @@ function ReceivedScholarshipsPage() {
     );
   };
 
+  // ***********************************************************************************
+
   const [isVerified, setIsVerified] = useState(false); // 인증 상태
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
   const [selectedFile, setSelectedFile] = useState(null); // 업로드된 파일
@@ -239,6 +210,8 @@ function ReceivedScholarshipsPage() {
     setFiles((prev) => prev.filter((file) => file.name !== fileName));
   };
 
+  // ***********************************************************************************
+
   const [serverdata, setServerdata] = useState([]); // 서버 데이터 저장용 state
 
   useEffect(() => {
@@ -279,23 +252,11 @@ function ReceivedScholarshipsPage() {
         <Table>
           <thead>
             <tr>
-              <TableHeader
-                style={{
-                  borderTopLeftRadius: "10px",
-                  borderBottomLeftRadius: "10px",
-                }}
-              >
-                고유 번호
-              </TableHeader>
+              <TableHeaderLeft>고유 번호</TableHeaderLeft>
               <TableHeader>장학금</TableHeader>
               <TableHeader>금액</TableHeader>
               <TableHeader>인증 상태</TableHeader>
-              <TableHeader
-                style={{
-                  borderTopRightRadius: "10px",
-                  borderBottomRightRadius: "10px",
-                }}
-              ></TableHeader>
+              <TableHeaderRight></TableHeaderRight>
             </tr>
           </thead>
 
