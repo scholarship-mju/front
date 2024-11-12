@@ -1,61 +1,65 @@
-import React, { useState } from "react";
-import downImage from '../png/down.png'; 
+import React, { useState ,useEffect } from "react";
+import downImage from '../png/down.png';
+import axios from "axios";
 import SearchImage from '../png/search.png';// 이미지 파일을 import
-import ButtonGroup from './ButtonGroup';  // ButtonGroup 임포트
-import { 
-  Background, Button, ResetButton, Fieldset, List, ScholarshipItem, 
-  ScholarshipAmount, CenterContainer, ListItem, ListContainer, TextInput, 
+import HeartCheckbox from './HeartButton';  // ButtonGroup 임포트
+
+
+import {
+  Background, Button, ResetButton, Fieldset, List, ScholarshipItem,
+  ScholarshipAmount, CenterContainer, ListItem, ListContainer, TextInput,
   SearchContainer, SliderContainer, DownButton, DetailBox, Selectioncontainer,
-  Container, Checkmark ,SearchButton,OverlayForm,FilterForm,FilterButton
+     OverlayForm, FilterForm, FilterButton,Slider,AmountLabel
+  ,Select,StyledWrapper
 } from '../style/schloarshipsPageStyle';
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 const ScholarshipsPage = () => {
   const scholarships = [ // scholarships 배열 이름 변경
-    { 
-      name: "A 장학금", 
-      amount: "1,000,000", 
-      feature: ["성적 우수자 대상", "리더십 장려","교내"],
-      DetailBox: { 
-        link: "https://example.com/a", 
-        notes: "A 장학금에 대한 특이사항", 
+    {
+      name: "A 장학금",
+      amount: "1,000,000",
+      feature: ["성적 우수자 대상", "리더십 장려", "교내"],
+      DetailBox: {
+        link: "https://example.com/a",
+        notes: "A 장학금에 대한 특이사항",
         category: "교내", // 교내 장학금
         attachment: "https://example.com/a-attachment.pdf" // 첨부파일 URL
       },
       button: { id: "button-a" }
     },
-    { 
-      name: "B 장학금", 
-      amount: "500,000", 
-      feature: ["저소득층 대상", "학업 성취도","교외"],
-      DetailBox: { 
-        link: "https://example.com/b", 
-        notes: "B 장학금에 대한 특이사항", 
+    {
+      name: "B 장학금",
+      amount: "500,000",
+      feature: ["저소득층 대상", "학업 성취도", "교외"],
+      DetailBox: {
+        link: "https://example.com/b",
+        notes: "B 장학금에 대한 특이사항",
         category: "교외", // 교외 장학금
         attachment: "https://example.com/b-attachment.pdf"
       },
-      button: { id: "button-b" }  
+      button: { id: "button-b" }
     },
-    { 
-      name: "C 장학금", 
-      amount: "1,500,000", 
-      feature: ["우수 체육인 대상", "국제 대회 참가","교내"],
-      DetailBox: { 
-        link: "https://example.com/c", 
-        notes: "C 장학금에 대한 특이사항", 
-        category: "교내", 
+    {
+      name: "C 장학금",
+      amount: "1,500,000",
+      feature: ["우수 체육인 대상", "국제 대회 참가", "교내"],
+      DetailBox: {
+        link: "https://example.com/c",
+        notes: "C 장학금에 대한 특이사항",
+        category: "교내",
         attachment: null // 첨부파일이 없는 경우 null
       },
       button: { id: "button-c" }
-    }, { 
-      name: "D 장학금", 
-      amount: "3,500,000", 
-      feature: ["우수 체육인 대상", "국제 대회 참가","교내"],
-      DetailBox: { 
-        link: "https://example.com/c", 
-        notes: "D 장학금에 대한 특이사항", 
-        category: "교내", 
+    }, {
+      name: "D 장학금",
+      amount: "3,500,000",
+      feature: ["우수 체육인 대상", "국제 대회 참가", "교내"],
+      DetailBox: {
+        link: "https://example.com/c",
+        notes: "D 장학금에 대한 특이사항",
+        category: "교내",
         attachment: null // 첨부파일이 없는 경우 null
       },
       button: { id: "button-d" }
@@ -65,9 +69,6 @@ const ScholarshipsPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [minAmount, setMinAmount] = useState(100000);
   const [maxAmount, setMaxAmount] = useState(5000000);
-  const [searchField, setSearchField] = useState("name");
-  const [lastButton, setLastButton] = useState(null);
-  const [errorMessage, setErrorMessage] = useState("");
   const [expandedScholarships, setExpandedScholarships] = useState({});
   const [selectedCategory, setSelectedCategory] = useState("전체"); // 카테고리 상태 추가
   const [isChecked, setIsChecked] = useState(false);
@@ -75,32 +76,32 @@ const ScholarshipsPage = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const parseAmount = (amount) => parseInt(amount.replace(/[^0-9]/g, ''), 10);
-
+  
 
   const filterScholarships = (category, minAmount, maxAmount) => {
     return scholarships.filter((scholarship) => {
       const isCategoryMatch = (category === "전체") || (scholarship.DetailBox.category === category);
       const scholarshipAmount = parseAmount(scholarship.amount);
       const isAmountMatch = scholarshipAmount >= minAmount && scholarshipAmount <= maxAmount;
-      
+
       // 대소문자 구분 없이 이름 검색
       const isNameMatch = scholarship.name.toLowerCase().includes(searchTerm.toLowerCase());
-  
+
       // 특징 검색
       const isFeatureMatch = scholarship.feature.join(", ").toLowerCase().includes(searchTerm.toLowerCase());
-  
+
       // 금액 범위 검색
       const isAmountRangeMatch = scholarshipAmount >= minAmount && scholarshipAmount <= maxAmount;
-  
+
       // 모든 조건을 만족하는지 확인
       return isCategoryMatch && isAmountMatch && (isNameMatch || isFeatureMatch) && isAmountRangeMatch;
     });
   };
-  
- //검색 필터 열기 닫기
+
+  //검색 필터 열기 닫기
   const openFilterForm = () => setIsFilterOpen(true);
   const closeFilterForm = () => setIsFilterOpen(false);
-  
+
   // 필터링된 장학금 목록을 계산
   const filteredScholarships = filterScholarships(selectedCategory, minAmount, maxAmount);
 
@@ -108,22 +109,10 @@ const ScholarshipsPage = () => {
     setSearchTerm("");
     setMinAmount(100000);
     setMaxAmount(5000000);
-    setSearchField("name");
-    setLastButton(null);
-    setErrorMessage("");
     setExpandedScholarships({});
     setSelectedCategory("전체"); // 카테고리 초기화
   };
-  
 
-  const handleSearch1 = (field) => {
-    setSearchField(field);
-    setLastButton(field);
-
-    if (field === "name" && searchTerm.trim() === "") { 
-      setErrorMessage("정확한 장학금명을 입력해주세요.");
-    } 
-  };
 
   const handleToggleDetails = (index) => {
     setExpandedScholarships((prev) => ({
@@ -149,125 +138,141 @@ const ScholarshipsPage = () => {
     setIsChecked(!isChecked); // 체크 상태 토글
   };
 
+  const [serverdata, setServerdata] = useState([]); // 서버 데이터 저장용 state
+
+
+  useEffect(() => {
+    // 서버로 GET 요청을 보냄
+    const token = " "; // 실제 토큰 값??
+    const response = axios.get("http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/scholarship/all", {
+        headers: {
+          Authorization:  `Bearer ${token}`, // 토큰이 필요할 경우 포함
+        },
+      })
+      .then((response) => {
+        // 응답 데이터를 serverdata에 저장
+        setServerdata(response.data);
+        console.log(response.data); // 데이터 확인용 콘솔 출력
+      })
+      .catch((error) => {
+        console.error('데이터 가져오기 실패:', error);
+      });
+  }, []);
+
+  {serverdata.map((item, index) => (          //serverdata->item 객체 
+    <div key={index} >
+      {item.name} {item.age}  {item.university} {/* 예시로 각 항목의 name을 버튼 텍스트로 사용 */}
+    </div>
+  ))}
+
+
   return (
+    
     <Background>
       <CenterContainer className="intro">
-        <h1>전체 장학금 페이지</h1>
-        
+        <h1 className="bigtitle">전체 장학금 페이지</h1>
+
       </CenterContainer>
 
-      <SearchContainer className="search">    
+      <SearchContainer className="search">
 
-      <FilterButton onClick={openFilterForm}>검색 필터</FilterButton>
-                  
-        <TextInput 
-          placeholder="검색어 입력" 
+        <FilterButton onClick={openFilterForm}>검색 필터</FilterButton>
+
+        <TextInput
+          placeholder="검색어 입력"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)} // 검색창 
-        /> 
+        />
 
         {/*<SearchButton 
         src={SearchImage} // 실제 이미지 경로로 변경
         alt="클릭할 이미지"/>*/}
-       
-       
-       {isFilterOpen && (
-      <OverlayForm onClick={closeFilterForm}>
-        <FilterForm onClick={(e) => e.stopPropagation()}>
-          <h2>검색 필터</h2>
-          <Selectioncontainer> 
-          <label htmlFor="scholarship-category">장학금 유형:</label>
-          <select
-            id="scholarship-category"
-            value={selectedCategory}
-            onChange={handleSelectChange}
-          >
-            <option value="전체">전체</option>
-            <option value="교내">교내</option>
-            <option value="교외">교외</option>
-          </select>
-         {/* 드롭 다운 - 교내 교외 전체 */}
-         </Selectioncontainer>
-         
-         <SliderContainer>
-          <label>
-            최소 금액: {minAmount.toLocaleString()}원
-            <input
-              type="range"
-              min="100000"
-              max="5000000"
-              step="100000"
-              value={minAmount}
-              onChange={(e) => setMinAmount(parseInt(e.target.value))}
-            />
-          </label>
-          <label>
-            최대 금액: {maxAmount.toLocaleString()}원
-            <input
-              type="range"
-              min="100000"
-              max="5000000"
-              step="100000"
-              value={maxAmount}
-              onChange={(e) => setMaxAmount(parseInt(e.target.value))}
-            />
-          </label>
-        </SliderContainer>
-          
-          <ResetButton onClick={resetbutton}>초기화</ResetButton> {/* 초기화 버튼 */}
-        </FilterForm>
-      </OverlayForm>
-    )}
-       
       </SearchContainer>
 
+      {isFilterOpen && (
+        <OverlayForm onClick={closeFilterForm}>
+          <FilterForm className="Filter" onClick={(e) => e.stopPropagation()}>
+          <h2 style={{ display: "inline" }}>검색 필터</h2>
+            <ResetButton onClick={resetbutton}>초기화</ResetButton> {/* 초기화 버튼 */}
+            <Selectioncontainer>
+      <label >장학금 유형 :</label>
+      <Select
+        id="scholarship-category"
+        value={selectedCategory}
+        onChange={handleSelectChange}
+      >
+        <option value="전체">전체</option>
+        <option value="교내">교내</option>
+        <option value="교외">교외</option>
+      </Select>
+    </Selectioncontainer>
+
+            <SliderContainer>
+      <AmountLabel>
+        최소 금액: {minAmount.toLocaleString()}원
+        <Slider
+          type="range"
+          min="100000"
+          max="5000000"
+          step="100000"
+          value={minAmount}
+          onChange={(e) => setMinAmount(parseInt(e.target.value))}
+        />
+      </AmountLabel>
+      <AmountLabel>
+        최대 금액: {maxAmount.toLocaleString()}원
+        <Slider
+          type="range"
+          min="100000"
+          max="5000000"
+          step="100000"
+          value={maxAmount}
+          onChange={(e) => setMaxAmount(parseInt(e.target.value))}
+        />
+      </AmountLabel>
+    </SliderContainer>
+
+
+          </FilterForm>
+
+          <h3>검은 부분을 누르면 종료됩니다</h3>
+        </OverlayForm>
+      )}
+    
+    
       
+     
+        
+  
+    
+    
+    
 
-      <CenterContainer className="button-container">
-        <ListContainer>
-
-          
-          <ListItem>
-            <Button className={lastButton === "feature" ? "button-active" : ""} onClick={() => handleSearch1("feature")}>
-              특징 검색
-            </Button>
-          </ListItem>
-        </ListContainer>
-      </CenterContainer>
-
-      {errorMessage && <CenterContainer style={{ color: 'red' }}>{errorMessage}</CenterContainer>}
-         
-      <Fieldset>
+      <Fieldset className="result">
         <legend><strong>검색 결과</strong> </legend>
         <List>
+       
           {filteredScholarships.length > 0 ? (
-            filteredScholarships.map((scholarship, index) => (
+             filteredScholarships.map((scholarship, index) => (
               <ScholarshipItem key={index}>
                 <strong>{scholarship.name}</strong>: {scholarship.feature.join(", ")}
+
                 <ScholarshipAmount>
-                  {scholarship.amount + "원"} 
-                  <DownButton 
-                    onClick={() => handleToggleDetails(index)} 
+                  {scholarship.amount + "원"}
+                  <DownButton
+                    onClick={() => handleToggleDetails(index)}
                     src={downImage} // 실제 이미지 경로로 변경
-                    alt="클릭할 이미지" 
+                    alt="클릭할 이미지"
                     id={scholarship.button.id} // 각 장학금에 대해 고유 ID 부여
                   />
+                   <HeartCheckbox /> {/* Checkbox 컴포넌트 사용 */}
 
-<Container>
-      <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange} />
-      <Checkmark isChecked={isChecked} className="checkmark">
-        <svg viewBox="0 0 24 24">
-          <rect fill="none" height="10px" width="10px"></rect>
-          <path
-            d="M224.6,51.9a59.5,59.5,0,0,0-43-19.9,60.5,60.5,0,0,0-44,17.6L128,59.1l-7.5-7.4C97.2,28.3,59.2,26.3,35.9,47.4a59.9,59.9,0,0,0-2.3,87l83.1,83.1a15.9,15.9,0,0,0,22.6,0l81-81C243.7,113.2,245.6,75.2,224.6,51.9Z"
-            strokeWidth="2px"
-            stroke="#000"
-            fill="none"
-          ></path>
-        </svg>
-      </Checkmark>
-    </Container>
-
+                
+                   {serverdata.map((item, index) => (          //serverdata->item 객체 
+          <div key={index} >
+            {item.name} {item.age}  {item.university} {/* 예시로 각 항목의 name을 버튼 텍스트로 사용 */}
+          </div>
+        ))}
 
 
                 </ScholarshipAmount>
