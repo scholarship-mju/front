@@ -8,7 +8,6 @@ import {
     Label,
     SubmitButton,
     FormContainer,
-    ErrorMessage,
     SelectField,
 } from "../style/NewUserPageStyle";
 
@@ -22,51 +21,30 @@ function NewUserPage() {
     const [grade, setGrade] = useState("");
     const [department, setDepartment] = useState("");
     const [incomeQuantile, setIncomeQuantile] = useState("");
-    const [nicknameError, setNicknameError] = useState("");
-
-    const handleNicknameBlur = async () => {
-        try {
-            const response = await axios.get(
-                `http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/check-nickname?nickname=${nickname}`
-            );
-            if (!response.data.available) {
-                setNicknameError("이미 사용 중인 닉네임입니다.");
-            } else {
-                setNicknameError("");
-            }
-        } catch (error) {
-            console.error("닉네임 중복 체크 오류:", error);
-        }
-    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (nicknameError) {
-            alert("닉네임을 수정해주세요.");
-            return;
-        }
 
         const additionalData = {
             nickname,
             phone,
-            age,
+            age: Number(age), // 숫자 변환
             gender,
             city,
             university,
-            grade,
+            grade: Number(grade), // 숫자 변환
             department,
-            incomeQuantile,
+            incomeQuantile: Number(incomeQuantile), // 숫자 변환
         };
 
         try {
             const token = localStorage.getItem("accessToken");
             const response = await axios.post(
-                "http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/login-first",
+                "http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/first-login",
                 additionalData,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
-                        "Content-Type": "application/json",
                     },
                 }
             );
@@ -91,22 +69,22 @@ function NewUserPage() {
                     type="text"
                     value={nickname}
                     onChange={(e) => setNickname(e.target.value)}
-                    onBlur={handleNicknameBlur}
                 />
-                {nicknameError && <ErrorMessage>{nicknameError}</ErrorMessage>}
 
                 <Label>전화번호</Label>
                 <InputField
-                    type="tel"
+                    type="text"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                 />
 
                 <Label>나이</Label>
                 <InputField
-                    type="text"
+                    type="number"
                     value={age}
                     onChange={(e) => setAge(e.target.value)}
+                    min="1"
+                    placeholder="숫자 입력"
                 />
 
                 <Label>성별</Label>
@@ -117,17 +95,11 @@ function NewUserPage() {
                 </SelectField>
 
                 <Label>사는 지역</Label>
-                <SelectField value={city} onChange={(e) => setCity(e.target.value)}>
-                    <option value="">선택</option>
-                    <option value="서울">서울</option>
-                    <option value="부산">부산</option>
-                    <option value="대구">대구</option>
-                    <option value="인천">인천</option>
-                    <option value="광주">광주</option>
-                    <option value="대전">대전</option>
-                    <option value="울산">울산</option>
-                    <option value="경기">경기</option>
-                </SelectField>
+                <InputField
+                    type="text"
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                />
 
                 <Label>대학교</Label>
                 <InputField
@@ -137,14 +109,14 @@ function NewUserPage() {
                 />
 
                 <Label>학년</Label>
-                <SelectField value={grade} onChange={(e) => setGrade(e.target.value)}>
-                    <option value="">선택</option>
-                    <option value="1">1학년</option>
-                    <option value="2">2학년</option>
-                    <option value="3">3학년</option>
-                    <option value="4">4학년</option>
-                    <option value="5">대학원</option>
-                </SelectField>
+                <InputField
+                    type="number"
+                    value={grade}
+                    onChange={(e) => setGrade(e.target.value)}
+                    min="1"
+                    max="5"
+                    placeholder="1~5 사이의 숫자 입력"
+                />
 
                 <Label>학과</Label>
                 <InputField
@@ -154,14 +126,14 @@ function NewUserPage() {
                 />
 
                 <Label>소득분위</Label>
-                <SelectField value={incomeQuantile} onChange={(e) => setIncomeQuantile(e.target.value)}>
-                    <option value="">선택</option>
-                    <option value="1">1분위</option>
-                    <option value="2">2분위</option>
-                    <option value="3">3분위</option>
-                    <option value="4">4분위</option>
-                    <option value="5">5분위</option>
-                </SelectField>
+                <InputField
+                    type="number"
+                    value={incomeQuantile}
+                    onChange={(e) => setIncomeQuantile(e.target.value)}
+                    min="1"
+                    max="10"
+                    placeholder="1~10 사이의 숫자 입력"
+                />
 
                 <SubmitButton type="submit">제출</SubmitButton>
             </FormContainer>
