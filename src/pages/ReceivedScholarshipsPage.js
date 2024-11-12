@@ -138,6 +138,12 @@ function ReceivedScholarshipsPage() {
   const [scholarships, setScholarships] = useState([
     { id: 1, name: "장학금 1", amount: 1000000 },
     { id: 2, name: "장학금 2", amount: 500000 },
+
+    //   {serverdata.map((item, index) => (          //serverdata->item 객체
+    //   <div key={index} >
+    //     {item.name} {item.age}  {item.university} {/* 예시로 각 항목의 name을 버튼 텍스트로 사용 */}
+    //   </div>
+    // ))}
   ]);
 
   const handleAddScholarship = (name) => {
@@ -160,35 +166,6 @@ function ReceivedScholarshipsPage() {
     }
   };
 
-  const handleAddScholarship_server = async (name) => {
-    try {
-      // 서버에 요청 보내기
-      const response = await axios.get(
-        `/api/scholarships?name=${encodeURIComponent(name)}`,
-      );
-
-      // 서버에서 받은 데이터를 변수에 저장
-      const matchingScholarship = response.data; // 서버에서 단일 장학금 객체를 반환한다고 가정
-
-      if (matchingScholarship) {
-        const newId = scholarships.length + 1;
-        setScholarships([
-          ...scholarships,
-          {
-            id: newId,
-            name: matchingScholarship.name,
-            amount: matchingScholarship.amount,
-          },
-        ]);
-      } else {
-        alert("장학금을 찾지 못했습니다.");
-      }
-    } catch (error) {
-      console.error("서버 요청 중 오류 발생:", error);
-      alert("서버와 통신하는 중 오류가 발생했습니다.");
-    }
-  };
-
   const handleDeleteScholarship = (id) => {
     setScholarships((prevScholarships) =>
       prevScholarships
@@ -199,11 +176,6 @@ function ReceivedScholarshipsPage() {
         })),
     );
   };
-
-  const totalAmount = scholarships.reduce(
-    (total, scholarship) => total + scholarship.amount,
-    0,
-  );
 
   const [isVerified, setIsVerified] = useState(false); // 인증 상태
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
@@ -284,12 +256,18 @@ function ReceivedScholarshipsPage() {
       .then((response) => {
         // 응답 데이터를 serverdata에 저장
         setServerdata(response.data);
+        console.log("데이저 출력");
         console.log(response.data); // 데이터 확인용 콘솔 출력
       })
       .catch((error) => {
         console.error("데이터 가져오기 실패:", error);
       });
   }, []);
+
+  const totalAmount = serverdata.reduce(
+    (total, scholarship) => total + scholarship.price,
+    0,
+  );
 
   return (
     <Background>
@@ -323,7 +301,7 @@ function ReceivedScholarshipsPage() {
 
           <TableBody>
             <TransitionGroup component={null}>
-              {scholarships.map((scholarship) => (
+              {serverdata.map((scholarship) => (
                 <CSSTransition
                   key={scholarship.id}
                   timeout={300}
@@ -331,22 +309,11 @@ function ReceivedScholarshipsPage() {
                 >
                   <React.Fragment>
                     <tr>
-                      {/* <TableCell>{scholarship.id}</TableCell> */}
-                      {/* <TableCell>{scholarship.name}</TableCell> */}
-                      {/* <TableCell> */}
-                      {/*   {scholarship.amount.toLocaleString()}원 */}
-                      {/* </TableCell> */}
-                      {serverdata.map((item, index) => (
-                        <>
-                          {/* <TableCell key={`id-${index}`}>{item.id}</TableCell> */}
-                          {/* <TableCell key={`name-${index}`}> */}
-                          {/*   {item.name} */}
-                          {/* </TableCell> */}
-                          <TableCell>{item.id}</TableCell>
-                          <TableCell>{item.name}</TableCell>
-                          <TableCell>{item.price}</TableCell>
-                        </>
-                      ))}
+                      <TableCell>{scholarship.id}</TableCell>
+                      <TableCell>{scholarship.name}</TableCell>
+                      <TableCell>
+                        {scholarship.price.toLocaleString()}원
+                      </TableCell>
 
                       <TableCell>
                         <AuthButton
