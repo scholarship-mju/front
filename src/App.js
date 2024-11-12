@@ -10,6 +10,7 @@ import LoginPage from "./pages/LoginPage";
 import LoginSuccessPage from "./pages/auth/LoginSuccessPage";
 import SignUpFlow from "./pages/SignUpFlow";
 import axios from "axios";
+import NewUserPage from "./pages/NewUserPage";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -52,6 +53,8 @@ function App() {
           <Route path="login" element={<LoginPage setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="auth/success" element={<LoginSuccessPage />} />
           <Route path="signup" element={<SignUpFlow />} />
+          <Route path="new-user" element={<NewUserPage />} />
+
         </Route>
       </Routes>
     </Router>
