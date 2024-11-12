@@ -67,3 +67,33 @@ export const FormContainer = styled.form`
   max-width: 400px;
   text-align: left;
 `;
+
+export const ErrorMessage = styled.div`
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+`;
+
+export const SelectField = styled.select`
+  width: 102%;
+  height: 45px;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid black;
+  font-size: 14px;
+  color: black;
+  appearance: none;
+  cursor: pointer;
+
+  &:focus {
+    border-color: #ff6a00;
+    outline: none;
+  }
+
+  option {
+    color: black;
+    font-size: 14px;
+    padding: 10px;
+  }
+`;

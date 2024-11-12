@@ -70,8 +70,7 @@ const Layout = ({ isLoggedIn, handleLogout }) => {
             </>
           ) : (
             <>
-              <StyledLinkButton to="/login">로그인</StyledLinkButton>
-              <StyledLinkButton to="/signup">회원가입</StyledLinkButton>
+              <StyledLinkButton to="/login">로그인/회원가입</StyledLinkButton>
             </>
           )}
         </ButtonsContainer>

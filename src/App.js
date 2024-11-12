@@ -8,7 +8,6 @@ import ReceivedScholarshipsPage from "./pages/ReceivedScholarshipsPage";
 import MyPage from "./pages/MyPage";
 import LoginPage from "./pages/LoginPage";
 import LoginSuccessPage from "./pages/auth/LoginSuccessPage";
-import SignUpFlow from "./pages/SignUpFlow";
 import axios from "axios";
 import NewUserPage from "./pages/NewUserPage";
 
@@ -26,7 +25,7 @@ function App() {
   const handleLogout = async () => {
     const token = localStorage.getItem("accessToken");
     try {
-      await axios.post("http://localhost:8080/logout", null, {
+      await axios.post("http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/logout", null, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -52,7 +51,6 @@ function App() {
           <Route path="mypage" element={<MyPage />} />
           <Route path="login" element={<LoginPage setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="auth/success" element={<LoginSuccessPage />} />
-          <Route path="signup" element={<SignUpFlow />} />
           <Route path="new-user" element={<NewUserPage />} />
 
         </Route>
