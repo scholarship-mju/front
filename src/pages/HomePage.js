@@ -8,11 +8,12 @@ import Banner1 from "../png/배너001.png";
 import Banner2 from "../png/배너002.png";
 import Banner3 from "../png/배너003.png";
 import Banner4 from "../png/배너004.png";
-import { Banner, MainContent, KingSection, KingText, ListContainer, ListBox, SwiperSlideImage } from "../style/HomePageStyle";
+import { Banner, MainContent, KingSection, KingText, ListContainer, ListBox, SwiperSlideImage, GlobalStyle } from "../style/HomePageStyle";
 
 const HomePage = () => {
   return (
     <div>
+       <GlobalStyle />
       <Banner>
         <Swiper
           spaceBetween={0}
@@ -21,7 +22,6 @@ const HomePage = () => {
           pagination={{ clickable: true }}
           autoplay={{ delay: 2500, disableOnInteraction: false }}
           modules={[Autoplay, Navigation, Pagination]}
-          className="swiper-container"
         >
           <SwiperSlide>
             <SwiperSlideImage src={Banner1} alt="배너1" />
