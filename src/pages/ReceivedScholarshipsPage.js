@@ -1,4 +1,4 @@
-import React, { useState, memo } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import AnimatedNumbers from "react-animated-numbers";
 import axios from "axios";
@@ -10,6 +10,8 @@ import {
   Title,
   Table,
   TableHeader,
+  TableHeaderRight,
+  TableHeaderLeft,
   TableCell,
   TableBody,
   InputContainer,
@@ -34,42 +36,10 @@ import {
   ProgressBar,
   Progress,
   UploadProgress,
+  //Search realted
+  SearchSvg,
+  ResetSvg,
 } from "../style/ReceivedScholarshipsPageStyles";
-
-const SearchSvg = () => (
-  <Svg
-    width="17"
-    height="16"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    role="img"
-    aria-labelledby="search"
-  >
-    <path
-      d="M7.667 12.667A5.333 5.333 0 107.667 2a5.333 5.333 0 000 10.667zM14.334 14l-2.9-2.9"
-      stroke="currentColor"
-      strokeWidth="1.333"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </Svg>
-);
-
-const ResetSvg = () => (
-  <Svg
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth="2"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M6 18L18 6M6 6l12 12"
-    />
-  </Svg>
-);
 
 const MemoizedAnimatedNumbers = memo(({ animateToNumber }) => (
   <AnimatedNumbers
@@ -138,6 +108,12 @@ function ReceivedScholarshipsPage() {
   const [scholarships, setScholarships] = useState([
     { id: 1, name: "장학금 1", amount: 1000000 },
     { id: 2, name: "장학금 2", amount: 500000 },
+
+    //   {serverdata.map((item, index) => (          //serverdata->item 객체
+    //   <div key={index} >
+    //     {item.name} {item.age}  {item.university} {/* 예시로 각 항목의 name을 버튼 텍스트로 사용 */}
+    //   </div>
+    // ))}
   ]);
 
   const handleAddScholarship = (name) => {
@@ -160,35 +136,6 @@ function ReceivedScholarshipsPage() {
     }
   };
 
-  const handleAddScholarship_server = async (name) => {
-    try {
-      // 서버에 요청 보내기
-      const response = await axios.get(
-        `/api/scholarships?name=${encodeURIComponent(name)}`,
-      );
-
-      // 서버에서 받은 데이터를 변수에 저장
-      const matchingScholarship = response.data; // 서버에서 단일 장학금 객체를 반환한다고 가정
-
-      if (matchingScholarship) {
-        const newId = scholarships.length + 1;
-        setScholarships([
-          ...scholarships,
-          {
-            id: newId,
-            name: matchingScholarship.name,
-            amount: matchingScholarship.amount,
-          },
-        ]);
-      } else {
-        alert("장학금을 찾지 못했습니다.");
-      }
-    } catch (error) {
-      console.error("서버 요청 중 오류 발생:", error);
-      alert("서버와 통신하는 중 오류가 발생했습니다.");
-    }
-  };
-
   const handleDeleteScholarship = (id) => {
     setScholarships((prevScholarships) =>
       prevScholarships
@@ -200,10 +147,8 @@ function ReceivedScholarshipsPage() {
     );
   };
 
-  const totalAmount = scholarships.reduce(
-    (total, scholarship) => total + scholarship.amount,
-    0,
-  );
+  // ***********************************************************************************
+  // 파일 관련된 코드
 
   const [isVerified, setIsVerified] = useState(false); // 인증 상태
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
@@ -267,6 +212,39 @@ function ReceivedScholarshipsPage() {
     setFiles((prev) => prev.filter((file) => file.name !== fileName));
   };
 
+  // ***********************************************************************************
+
+  const [serverdata, setServerdata] = useState([]); // 서버 데이터 저장용 state
+
+  useEffect(() => {
+    // 서버로 GET 요청을 보냄
+    const token = localStorage.getItem("accessToken"); // 실제 토큰 값??
+    const response = axios
+      .get(
+        "http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/scholarship/got",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // 토큰이 필요할 경우 포함
+          },
+        },
+      )
+      .then((response) => {
+        // 응답 데이터를 serverdata에 저장
+        setServerdata(response.data);
+        console.log("데이터 출력");
+        console.log(response.data); // 데이터 확인용 콘솔 출력
+      })
+      .catch((error) => {
+        console.error("데이터 가져오기 실패:", error);
+      });
+  }, []);
+
+  // 장학금 총액 계산 함수
+  const totalAmount = serverdata.reduce(
+    (total, scholarship) => total + scholarship.price,
+    0,
+  );
+
   return (
     <Background>
       <ButtonsContainer>
@@ -277,29 +255,17 @@ function ReceivedScholarshipsPage() {
         <Table>
           <thead>
             <tr>
-              <TableHeader
-                style={{
-                  borderTopLeftRadius: "10px",
-                  borderBottomLeftRadius: "10px",
-                }}
-              >
-                고유 번호
-              </TableHeader>
+              <TableHeaderLeft>고유 번호</TableHeaderLeft>
               <TableHeader>장학금</TableHeader>
               <TableHeader>금액</TableHeader>
               <TableHeader>인증 상태</TableHeader>
-              <TableHeader
-                style={{
-                  borderTopRightRadius: "10px",
-                  borderBottomRightRadius: "10px",
-                }}
-              ></TableHeader>
+              <TableHeaderRight></TableHeaderRight>
             </tr>
           </thead>
 
           <TableBody>
             <TransitionGroup component={null}>
-              {scholarships.map((scholarship) => (
+              {serverdata.map((scholarship) => (
                 <CSSTransition
                   key={scholarship.id}
                   timeout={300}
@@ -310,8 +276,9 @@ function ReceivedScholarshipsPage() {
                       <TableCell>{scholarship.id}</TableCell>
                       <TableCell>{scholarship.name}</TableCell>
                       <TableCell>
-                        {scholarship.amount.toLocaleString()}원
+                        {scholarship.price.toLocaleString()}원
                       </TableCell>
+
                       <TableCell>
                         <AuthButton
                           onClick={handleButtonClick}
