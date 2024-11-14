@@ -96,6 +96,8 @@ const SearchForm = ({ onSearch }) => {
   );
 };
 
+// ***********************************************************************************
+
 function ReceivedScholarshipsPage() {
   const scholarshipData = [
     { name: "장학금 A", amount: 1000000 },
@@ -115,6 +117,8 @@ function ReceivedScholarshipsPage() {
     //   </div>
     // ))}
   ]);
+
+  // ***********************************************************************************
 
   const handleAddScholarship = (name) => {
     const matchingScholarship = scholarshipData.find(
