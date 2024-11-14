@@ -1,31 +1,34 @@
 import styled, { createGlobalStyle } from "styled-components";
 
-/* 브라우저 기본 여백 제거 */
 export const GlobalStyle = createGlobalStyle`
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
   body {
     margin: 0;
     padding: 0;
+    width: 100%;
     overflow-x: hidden;
   }
 `;
 
 export const Banner = styled.div`
-  width: 100vw;
-  height: calc(100vw / 5.56);
-  max-width: 100%;
+  width: 100%;
+  height: 360px;
   position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
+  top: 0;
+  left: 0;
+  z-index: 10;
 
   @media (max-width: 768px) {
-    height: calc(100vw / 3);
+    height: 280px;
   }
 
   @media (max-width: 480px) {
-    height: calc(100vw / 2);
+    height: 220px;
   }
 `;
 
@@ -33,7 +36,9 @@ export const SwiperSlideImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 50%;
+  object-position: center;
+  display: block;
+  background-color: #f2f3f6;
 `;
 
 export const MainContent = styled.div`
@@ -45,10 +50,17 @@ export const MainContent = styled.div`
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
-  margin-top: 20px;
+  position: relative;
+  z-index: 1;
 
   @media (max-width: 768px) {
     padding: 10px;
+    gap: 15px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 5px;
+    gap: 10px;
   }
 `;
 
@@ -61,29 +73,32 @@ export const KingSection = styled.div`
   box-sizing: border-box;
 
   @media (max-width: 768px) {
+    padding: 15px 0;
+  }
+
+  @media (max-width: 480px) {
     padding: 10px 0;
   }
 `;
 
-export const KingText = styled.div`
-  font-size: 2em;
-  font-weight: bold;
-  color: black;
-  margin-bottom: 20px;
-  text-align: left;
+export const KingLogo = styled.img`
+  width: 15%;
+  max-width: 200px;
+  margin-bottom: 10px;
+  align-self: flex-start;
 
   @media (max-width: 768px) {
-    font-size: 1.5em;
+    width: 20%;
   }
 
   @media (max-width: 480px) {
-    font-size: 1.2em;
+    width: 25%;
   }
 `;
 
 export const ListContainer = styled.div`
   display: flex;
-  gap: 70px;
+  gap: 60px;
   padding: 10px;
   justify-content: center;
   flex-wrap: wrap;
@@ -105,7 +120,7 @@ export const ListBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.1em;
+  font-size: 1.2em;
   font-weight: bold;
   color: black;
   background-color: #f2f3f6;

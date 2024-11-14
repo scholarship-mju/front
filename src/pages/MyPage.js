@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import mypageLogo from "../png/mypage.png";
 
 // 스타일 정의
 
@@ -28,9 +29,8 @@ const Container = styled.div`
 //   text-align: center;
 // `;
 
-const Title = styled.h1`
-  margin: 0;
-  color: #ff6a00;
+export const MyPageLogo = styled.img`
+  max-width: 12%;
 `;
 
 const Section = styled.div`
@@ -163,7 +163,7 @@ function MyPage() {
   return (
     <Container>
       {/* <Header> */}
-        <Title>마이페이지</Title>
+        <MyPageLogo src={mypageLogo}/>
       {/* </Header> */}
       <Section>
         <SectionTitle>내 정보</SectionTitle>

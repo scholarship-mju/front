@@ -2,12 +2,13 @@ import React, { useState, useEffect, memo } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import AnimatedNumbers from "react-animated-numbers";
 import axios from "axios";
+import receiveLogo from "../png/receiveLogo.png";
 import {
   Background,
   Container,
   ButtonsContainer,
   MyButton,
-  Title,
+  ReceiveLogo,
   Table,
   TableHeader,
   TableHeaderRight,
@@ -251,7 +252,7 @@ function ReceivedScholarshipsPage() {
         <MyButton to="/mypage">마이페이지</MyButton>
       </ButtonsContainer>
       <Container>
-        <Title>받은 장학금</Title>
+        <ReceiveLogo src={receiveLogo} />
         <Table>
           <thead>
             <tr>

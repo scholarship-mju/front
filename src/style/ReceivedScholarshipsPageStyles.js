@@ -20,8 +20,7 @@ export const Container = styled.div`
   background-color: ${colors.white};
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border: 5px solid r
-  max-width: 1100px;
+  max-width: 1800px;
   margin: auto;
   margin-top: 50px;
 `;
@@ -54,11 +53,10 @@ export const MyButton = styled(Link)`
   }
 `;
 
-export const Title = styled.h2`
-  text-align: center;
-  color: ${colors.orange};
-  font-size: 2rem;
-  margin-bottom: 20px;
+export const ReceiveLogo = styled.img`
+  max-width: 13%;
+  display: block;
+  margin: 0 auto;
 `;
 
 export const Table = styled.table`

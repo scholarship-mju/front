@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import axios from "axios";
+import addInfo from "../png/addInfo.png";
 
 import {
     AdditionalInfoContainer,
-    Title,
+    AddInfoLogo,
     InputField,
     Label,
     SubmitButton,
     FormContainer,
-    SelectField,
+    InputGroup,
+    GenderSelectField
 } from "../style/NewUserPageStyle";
 
 function NewUserPage() {
@@ -28,13 +30,13 @@ function NewUserPage() {
         const additionalData = {
             nickname,
             phone,
-            age: Number(age), // 숫자 변환
+            age: Number(age),
             gender,
             city,
             university,
-            grade: Number(grade), // 숫자 변환
+            grade: Number(grade),
             department,
-            incomeQuantile: Number(incomeQuantile), // 숫자 변환
+            incomeQuantile: Number(incomeQuantile),
         };
 
         try {
@@ -62,80 +64,106 @@ function NewUserPage() {
 
     return (
         <AdditionalInfoContainer>
-            <Title>추가 정보 입력</Title>
+            <AddInfoLogo src={addInfo}/>
             <FormContainer onSubmit={handleSubmit}>
-                <Label>닉네임</Label>
-                <InputField
-                    type="text"
-                    value={nickname}
-                    onChange={(e) => setNickname(e.target.value)}
-                />
+                <InputGroup>
+                    <Label>닉네임</Label>
+                    <InputField
+                        type="text"
+                        value={nickname}
+                        onChange={(e) => setNickname(e.target.value)}
+                        placeholder="닉네임을 입력하세요"
+                    />
+                </InputGroup>
 
-                <Label>전화번호</Label>
-                <InputField
-                    type="text"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                />
+                <InputGroup>
+                    <Label>전화번호</Label>
+                    <InputField
+                        type="text"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        placeholder="예: 01012345678"
+                    />
+                </InputGroup>
 
-                <Label>나이</Label>
-                <InputField
-                    type="number"
-                    value={age}
-                    onChange={(e) => setAge(e.target.value)}
-                    min="1"
-                    placeholder="숫자 입력"
-                />
+                <InputGroup>
+                    <Label>나이</Label>
+                    <InputField
+                        type="number"
+                        value={age}
+                        onChange={(e) => setAge(e.target.value)}
+                        min="1"
+                        placeholder="나이를 입력하세요"
+                    />
+                </InputGroup>
 
-                <Label>성별</Label>
-                <SelectField value={gender} onChange={(e) => setGender(e.target.value)}>
-                    <option value="">선택</option>
-                    <option value="male">남성</option>
-                    <option value="female">여성</option>
-                </SelectField>
+                <InputGroup>
+                    <Label>성별</Label>
+                    <GenderSelectField value={gender} onChange={(e) => setGender(e.target.value)}>
+                        <option value="" disabled>
+                            성별을 선택하세요
+                        </option>
+                        <option value="male">남성</option>
+                        <option value="female">여성</option>
+                    </GenderSelectField>
 
-                <Label>사는 지역</Label>
-                <InputField
-                    type="text"
-                    value={city}
-                    onChange={(e) => setCity(e.target.value)}
-                />
+                </InputGroup>
 
-                <Label>대학교</Label>
-                <InputField
-                    type="text"
-                    value={university}
-                    onChange={(e) => setUniversity(e.target.value)}
-                />
+                <InputGroup>
+                    <Label>사는 지역</Label>
+                    <InputField
+                        type="text"
+                        value={city}
+                        onChange={(e) => setCity(e.target.value)}
+                        placeholder="예: 서울시 강남구"
+                    />
+                </InputGroup>
 
-                <Label>학년</Label>
-                <InputField
-                    type="number"
-                    value={grade}
-                    onChange={(e) => setGrade(e.target.value)}
-                    min="1"
-                    max="5"
-                    placeholder="1~5 사이의 숫자 입력"
-                />
+                <InputGroup>
+                    <Label>대학교</Label>
+                    <InputField
+                        type="text"
+                        value={university}
+                        onChange={(e) => setUniversity(e.target.value)}
+                        placeholder="대학교 이름을 입력하세요"
+                    />
+                </InputGroup>
 
-                <Label>학과</Label>
-                <InputField
-                    type="text"
-                    value={department}
-                    onChange={(e) => setDepartment(e.target.value)}
-                />
+                <InputGroup>
+                    <Label>학년</Label>
+                    <InputField
+                        type="number"
+                        value={grade}
+                        onChange={(e) => setGrade(e.target.value)}
+                        min="1"
+                        max="5"
+                        placeholder="1~4 사이의 숫자 입력"
+                    />
+                </InputGroup>
 
-                <Label>소득분위</Label>
-                <InputField
-                    type="number"
-                    value={incomeQuantile}
-                    onChange={(e) => setIncomeQuantile(e.target.value)}
-                    min="1"
-                    max="10"
-                    placeholder="1~10 사이의 숫자 입력"
-                />
+                <InputGroup>
+                    <Label>학과</Label>
+                    <InputField
+                        type="text"
+                        value={department}
+                        onChange={(e) => setDepartment(e.target.value)}
+                        placeholder="학과를 입력하세요"
+                    />
+                </InputGroup>
 
-                <SubmitButton type="submit">제출</SubmitButton>
+                <InputGroup>
+                    <Label>소득분위</Label>
+                    <InputField
+                        type="number"
+                        value={incomeQuantile}
+                        onChange={(e) => setIncomeQuantile(e.target.value)}
+                        min="1"
+                        max="10"
+                        placeholder="1~10 사이의 숫자 입력"
+                    />
+                </InputGroup>
+
+                <SubmitButton type="submit">정보 등록하기</SubmitButton>
             </FormContainer>
         </AdditionalInfoContainer>
     );
