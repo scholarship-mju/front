@@ -228,7 +228,11 @@ function ReceivedScholarshipsPage() {
   // ***********************************************************************************
   // 서버 데이터 불러오기
 
+  // 받은장학금 데이터 배열
   const [serverdata, setServerdata] = useState([]); // 서버 데이터 저장용 state
+
+  // 전체 장학금 데이터 배열
+  const [scholarshipdata, setScholarshipsdata] = useState([]); // 서버 데이터 저장용 state
 
   useEffect(() => {
     // 서버로 GET 요청을 보냄
@@ -251,6 +255,25 @@ function ReceivedScholarshipsPage() {
       .catch((error) => {
         console.error("데이터 가져오기 실패:", error);
       });
+
+    axios
+      .get(
+        "http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/scholarship/all",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // 토큰이 필요할 경우 포함
+          },
+        },
+      )
+      .then((response) => {
+        // 응답 데이터를 serverdata에 저장
+        setScholarshipsdata(response.data);
+        console.log("전체 장학금 데이터 출력");
+        console.log(response.data); // 데이터 확인용 콘솔 출력
+      })
+      .catch((error) => {
+        console.error("데이터 가져오기 실패:", error);
+      });
   }, []);
 
   // ***********************************************************************************
@@ -265,6 +288,31 @@ function ReceivedScholarshipsPage() {
       <ButtonsContainer>
         <MyButton to="/mypage">마이페이지</MyButton>
       </ButtonsContainer>
+
+      {/* <Container> */}
+      {/*   <h1> 전체 장학금 </h1> */}
+      {/*   <Table> */}
+      {/*     <thread> */}
+      {/*       <tr> */}
+      {/*         <TableHeaderLeft>고유번호</TableHeaderLeft> */}
+      {/*         <TableHeader>장학금</TableHeader> */}
+      {/*         <TableHeader>금액</TableHeader> */}
+      {/*         <TableHeader></TableHeader> */}
+      {/*         <TableHeaderRight></TableHeaderRight> */}
+      {/*       </tr> */}
+      {/*     </thread> */}
+      {/*     <TableBody> */}
+      {/*       {scholarshipdata.map((scholarship) => ( */}
+      {/*         <tr> */}
+      {/*           <TableCell>{scholarship.id}</TableCell> */}
+      {/*           <TableCell>{scholarship.name}</TableCell> */}
+      {/*           <TableCell>{scholarship.price.toLocaleString()}원</TableCell> */}
+      {/*         </tr> */}
+      {/*       ))} */}
+      {/*     </TableBody> */}
+      {/*   </Table> */}
+      {/* </Container> */}
+
       <Container>
         <ReceiveLogo src={receiveLogo} />
         <Table>
