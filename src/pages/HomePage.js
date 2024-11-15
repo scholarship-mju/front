@@ -18,12 +18,13 @@ const HomePage = () => {
   // 서버에서 데이터를 가져오는 함수
   const fetchRankings = async () => {
     try {
-      const token = localStorage.getItem("accessToekn");
+      const token = localStorage.getItem("accessToken");
       const response = await axios.get("http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/rank", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
+      console.log("data = ", response.data);
       setRankings(response.data); // 데이터를 상태에 저장
     } catch (error) {
       console.error("데이터를 가져오는데 실패했습니다:", error);
