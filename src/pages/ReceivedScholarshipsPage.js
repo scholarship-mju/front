@@ -111,12 +111,6 @@ function ReceivedScholarshipsPage() {
   const [scholarships, setScholarships] = useState([
     { id: 1, name: "장학금 1", amount: 1000000 },
     { id: 2, name: "장학금 2", amount: 500000 },
-
-    //   {serverdata.map((item, index) => (          //serverdata->item 객체
-    //   <div key={index} >
-    //     {item.name} {item.age}  {item.university} {/* 예시로 각 항목의 name을 버튼 텍스트로 사용 */}
-    //   </div>
-    // ))}
   ]);
 
   // ***********************************************************************************
@@ -142,7 +136,7 @@ function ReceivedScholarshipsPage() {
   };
 
   // ***********************************************************************************
-
+  // 장학금 삭제 함수
   const handleDeleteScholarship = async (id) => {
     try {
       // 서버에 DELETE 요청
@@ -232,6 +226,7 @@ function ReceivedScholarshipsPage() {
   };
 
   // ***********************************************************************************
+  // 서버 데이터 불러오기
 
   const [serverdata, setServerdata] = useState([]); // 서버 데이터 저장용 state
 
@@ -258,6 +253,7 @@ function ReceivedScholarshipsPage() {
       });
   }, []);
 
+  // ***********************************************************************************
   // 장학금 총액 계산 함수
   const totalAmount = serverdata.reduce(
     (total, scholarship) => total + scholarship.price,
@@ -320,23 +316,6 @@ function ReceivedScholarshipsPage() {
                                   닫기
                                 </ModalButton>
                               </div>
-                              {/* <h3>사진 업로드</h3> */}
-                              {/* <input */}
-                              {/*   type="file" */}
-                              {/*   accept="image/*" */}
-                              {/*   onChange={handleFileChange} */}
-                              {/* /> */}
-                              {/* <div */}
-                              {/*   style={{ */}
-                              {/*     display: "flex", */}
-                              {/*     justifyContent: "space-between", */}
-                              {/*     marginTop: "10px", */}
-                              {/*   }} */}
-                              {/* > */}
-                              {/*   <ModalButton onClick={handleUpload}> */}
-                              {/*     업로드 */}
-                              {/*   </ModalButton> */}
-                              {/* </div> */}
                               <UploadContainer>
                                 <h2>File Upload</h2>
                                 <UploadBox
