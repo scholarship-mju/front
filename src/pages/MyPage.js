@@ -6,8 +6,8 @@ import styled from "styled-components";
 
 const SectionTitle = styled.h2`
   margin-bottom: 15px;
-  color: #ff6a00;
-  border-bottom: 2px solid #e67e22;
+  color: black;
+  border-bottom: 2px solid black;
   padding-bottom: 10px;
 `;
 const Container = styled.div`
@@ -30,7 +30,8 @@ const Container = styled.div`
 
 const Title = styled.h1`
   margin: 0;
-  color: #ff6a00;
+  
+  color: black;
 `;
 
 const Section = styled.div`
@@ -38,7 +39,7 @@ const Section = styled.div`
   max-width: 1200px;
   margin: 20px 0;
   padding: 20px;
-  background-color: wtite;
+  background-color: white;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
@@ -53,19 +54,19 @@ const InfoGrid = styled.div`
 const InfoItem = styled.div`
   flex: 1 1 30%;
   padding: 10px;
-  background-color: #fdf3e7;
+  background-color: white;
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 `;
 
 const Label = styled.span`
   font-weight: bold;
-  color: #e67e22;
+  color: black;
 `;
 
 const Value = styled.span`
   margin-left: 10px;
-  color: #e67e22;
+  color: black;
 `;
 
 const Input = styled.input`
@@ -74,8 +75,8 @@ const Input = styled.input`
   margin-top: 5px;
   border-radius: 5px;
   border: 1px solid #ddd;
-  background-color: #fdf3e7;
-  color: #e67e22;
+  background-color: #white;
+  color: wthie;
 `;
 
 const Button = styled.button`
@@ -91,7 +92,7 @@ const Button = styled.button`
 
 const ScholarshipItem = styled.div`
   padding: 15px;
-  background-color: #ff6a00;
+  background-color: black;
   border-radius: 5px;
   margin-bottom: 15px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
