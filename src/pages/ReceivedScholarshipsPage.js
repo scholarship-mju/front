@@ -140,15 +140,29 @@ function ReceivedScholarshipsPage() {
     }
   };
 
-  const handleDeleteScholarship = (id) => {
-    setScholarships((prevScholarships) =>
-      prevScholarships
-        .filter((scholarship) => scholarship.id !== id)
-        .map((scholarship, index) => ({
-          ...scholarship,
-          id: index + 1, // 삭제 후 고유 번호 재설정
-        })),
-    );
+  // ***********************************************************************************
+
+  const handleDeleteScholarship = async (id) => {
+    try {
+      // 서버에 DELETE 요청
+      await axios.delete(
+        `http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/scholarship/got/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`, // 인증 토큰 포함
+          },
+        },
+      );
+
+      // 서버 응답 성공 후, 상태 업데이트
+      setServerdata((prevServerData) =>
+        prevServerData.filter((scholarship) => scholarship.id !== id),
+      );
+
+      console.log(`ID ${id} 장학금 삭제 완료`);
+    } catch (error) {
+      console.error(`ID ${id} 장학금 삭제 실패:`, error);
+    }
   };
 
   // ***********************************************************************************
@@ -223,7 +237,7 @@ function ReceivedScholarshipsPage() {
   useEffect(() => {
     // 서버로 GET 요청을 보냄
     const token = localStorage.getItem("accessToken"); // 실제 토큰 값??
-    const response = axios
+    axios
       .get(
         "http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/scholarship/got",
         {
