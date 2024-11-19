@@ -7,7 +7,7 @@ import {
 
 const HeartCheckbox = () => {
   return (
-    <StyledWrapper>
+    <StyledWrapper style={{display :"flex",justifyContent:"end" }}>
       <div className="con-like">
         <input className="like" type="checkbox" title="like" />
         <div className="checkmark">

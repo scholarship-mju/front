@@ -13,7 +13,7 @@ import { Banner, MainContent, KingSection, KingText, ListContainer, ListBox, Swi
 const HomePage = () => {
   return (
     <div>
-       <GlobalStyle />
+      <GlobalStyle />
       <Banner>
         <Swiper
           spaceBetween={0}
