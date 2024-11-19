@@ -1,6 +1,5 @@
 import styled, { keyframes } from 'styled-components';
 
-
 const colors = {
     primary: '#4CAF50',
     inputBg: '#f3f3f4',
@@ -23,7 +22,7 @@ const colors = {
   align-items: center; /* 수직 중앙 정렬 */
   flex-direction: column; /* 세로 방향으로 정렬 */
   height: 100vh; /* 전체 화면 높이 */
-  background-color: #f8fbfe;
+  background-color: #white;
     
     padding: 0px 15px 15px 15px; 
   `;
@@ -82,27 +81,26 @@ const CenterContainer = styled.div`
     align-items: center;
     text-align:center;
     height:auto
-  `;
 
-  const SearchContainer = styled.div`
-  
-  position:relative;
-  width: 900px;
+  `;const SearchContainer = styled.div`
+  display: flex;
   align-items: center;
+  border: 1px solid black;
+  max-height: 60px;
+  text-align: center;
+  padding: 0;  
 `;
 
 const TextInput = styled.input`
-  width:670px;
-  padding: 10px 12px;
+  width: 95%;
+  height: 5%;
+  padding: 2px;
   font-size: 16px;
-  border: 3px solid transparent;
+  border: 1px solid ;
   border-radius: 8px;
   background-color: ${colors.inputBg};
   color: ${colors.inputText};
-
-  border-color: #fe6f0f;
   background-color: #fff;
-  box-shadow: 0 0 0 4px ${colors.inputShadow};
   
   &::placeholder {
     color: ${colors.placeholderText};
@@ -142,8 +140,6 @@ const FilterButton = styled.button`
   }
 `;
 
-
-
 const SearchButton = styled.img`
 position: absolute;
   margin: 0px;
@@ -154,12 +150,25 @@ position: absolute;
   
 `;
 
+const Selectioncontainer = styled.div`
+  width : 100%
+  line-height: 20px;
+  padding: 1px 2px 1px 2.5px;
+  border: 1px solid #000000;
+  border-radius: 4px;
+  font-size: 15px;
+  margin:   7px;
+  outline: none;
 
+  border-color: ${colors.navy};
+  background-color: #fff;
+  box-shadow: 0 0 0 4px ${colors.inputShadow};
+`;
 
 const ResetButton = styled.button`
-  display: inline-block;
+  flex: 1.5; /* 전체 너비의 15% */
   background-color: transparent;
-  border: 0.125em solid #1A1A1A;
+  border: 1px solid #1A1A1A;
   border-radius: 8px;
   color: ${colors.buttonText};
   font-family: Roobert, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
@@ -188,20 +197,15 @@ const ResetButton = styled.button`
   }
 `;
 
-const Selectioncontainer = styled.div`
-  padding: 1px 2px 1px 2.5px;
-  border: 3px solid #fe6f0f;
-  border-radius: 8px;
-  width: 80%; /* 부모의 크기에 상대적인 너비 */
-  margin: 7.5px;
-  padding: 15px;
-  color: ${colors.inputText};
-  box-shadow: 0 0 0 4px ${colors.inputShadow};
-  justify-content: center; /* 중앙 정렬 */
-  align-items: center; /* 중앙 정렬 */
-  text-align: center;
-  display: flex; /* flexbox 적용 */
-  flex-direction: column; /* 자식 요소들을 세로로 정렬 */
+
+  const SliderContainer = styled.div`
+  border: 1px solid ${colors.navy};
+  border-radius: 5px;
+  padding: 15px; /* 필요에 따라 패딩 추가 */
+  width : 60% 
+  justify-content: center; /* 중앙 정렬 필요시 */
+  align-items: center; /* 중앙 정렬 필요시 */
+  text-align: center; /*
 `;
 
 const Select = styled.select`
@@ -209,9 +213,8 @@ const Select = styled.select`
   padding: 10px;
   font-size: 16px;
   border-radius: 8px;
-  border: 2px solid #fe6f0f;
+  border: 1px solid #fe6f0f;
   background-color: #fff;
-  color: #333;
   cursor: pointer;
   width: 100%;
   box-sizing: border-box; /* Padding 포함해서 전체 크기 맞추기 */
@@ -236,18 +239,7 @@ const Select = styled.select`
 `;
 
 
-const SliderContainer = styled.div`
-  border: 3px solid #fe6f0f;
-  border-radius: 8px;
-  margin: 7.5px;
-  padding: 15px;
-  width: 80%; /* 부모의 크기에 상대적인 너비 */
-  justify-content: center; /* 중앙 정렬 */
-  align-items: center; /* 중앙 정렬 */
-  text-align: center;
-  display: flex; /* flexbox 적용 */
-  flex-direction: column; /* 자식 요소들을 세로로 정렬 */
-`;
+
 
 const Slider = styled.input`
   -webkit-appearance: none; /* 기본 스타일 제거 */
@@ -335,25 +327,35 @@ const FilterForm = styled.div` //흰색 폼
   `;
 
 // 리스트 스타일
-const List = styled.ul`
+const List = styled.div`
   list-style-type: none;
-  display: flex; /* Flexbox 사용 */
-  justify-content: space-between; /* 양쪽 정렬 */
-  flex-direction:column;
-    padding: 0;
-    margin: 5px;
-  `;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(200px, 1fr)); /* 화면 크기에 따라 열 조정 */
+  gap: 10px;
+  padding: 0;
+  margin: 20px;
+  max-height: 700px; /* 적절한 높이로 설정하세요, 10개 항목을 고려한 높이입니다 */
+    overflow-y: auto; /* 스크롤 가능하도록 설정 */
+`;
+
+const LoadMoreButton = styled.button`
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  cursor: pointer;
+`;
+
+
 
 // 리스트 아이템 스타일
 const ScholarshipItem = styled.li`
-    margin: 10px;
-    padding: 15px 10px 10px 15px;
-    font-size: 17px;
-    border:4px solid #fe6f0f;
-    border-radius: 8px;
-    
-    
-  `;
+  margin: 10px;
+  padding: 15px 10px 10px 15px;
+  font-size: 17px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 아래쪽 그림자 추가 */
+`;
+
 // 금액 스타일
 const ScholarshipAmount = styled.div`
     flex-direction: column;
@@ -380,7 +382,7 @@ const DetailBox = styled.div`
   width: 90%; /* 부모의 전체 너비 사용 */
   margin : 20px;
   padding: 10px; /* 안쪽 여백 */
-  border: 1px solid gray; /* 테두리 */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 아래쪽 그림자 추가 */
   border-radius: 6px; /* 모서리 둥글게 */ 
   background-color: rgba(249, 249, 249, 0.5); /* 배경색 */
   color: black; /* 글자색 */
@@ -397,8 +399,10 @@ const ListContainer = styled.ol`
   padding: 0;
 `;
 
-const StyledWrapper = styled.div`
+//하트버튼 
+const StyledWrapper = styled.div` 
   .con-like {
+  
     --red: rgb(255, 50, 50);
     position: relative;
     width: 50px;
@@ -406,6 +410,7 @@ const StyledWrapper = styled.div`
   }
 
   .con-like .like {
+      
     position: absolute;
     width: 100%;
     height: 100%;
@@ -413,8 +418,13 @@ const StyledWrapper = styled.div`
     z-index: 20;
     cursor: pointer;
   }
+.like{
+left : 0px;
+}
 
   .con-like .checkmark {
+   
+    
     width: 100%;
     height: 100%;
     display: flex;
@@ -424,11 +434,13 @@ const StyledWrapper = styled.div`
 
   .con-like .outline,
   .con-like .filled {
+    
     fill: var(--red);
     position: absolute;
   }
 
   .con-like .filled {
+  
     animation: kfr-filled 0.5s;
     display: none;
   }
@@ -482,6 +494,128 @@ const StyledWrapper = styled.div`
   }`;
 
   
+const CardStyledWrapper = styled.div`
+.card {
+ width: 190px;
+ height: 254px;
+ border-radius: 20px;
+ background: #f5f5f5;
+ position: relative;
+ padding: 1.8rem;
+ border: 2px solid #c3c6ce;
+ transition: 0.5s ease-out;
+ overflow: visible;
+}
+
+.card-details {
+ color: black;
+ height: 100%;
+ gap: .5em;
+ display: grid;
+ place-content: center;
+}
+
+.card-button {
+ transform: translate(-50%, 125%);
+ width: 60%;
+ border-radius: 1rem;
+ border: none;
+ background-color: #008bf8;
+ color: #fff;
+ font-size: 1rem;
+ padding: .5rem 1rem;
+ position: absolute;
+ left: 50%;
+ bottom: 0;
+ opacity: 0;
+ transition: 0.3s ease-out;
+}
+
+.text-body {
+ color: rgb(134, 134, 134);
+}
+
+/*Text*/
+.text-title {
+ font-size: 1.5em;
+ font-weight: bold;
+}
+
+/*Hover*/
+.card:hover {
+ border-color: #008bf8;
+ box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+}
+
+.card:hover .card-button {
+ transform: translate(-50%, 50%);
+ opacity: 1;
+}`;
+const MainThree = styled.div`
+ 
+ border-radius: 8px;
+ display:flex;
+ width: 100%;
+ height :800px;
+ margin: 10px;
+ box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 아래쪽 그림자 추가 */
+ 
+`;
+
+const Filterbox = styled.div`
+ width: 19%;
+ margin : 0 30px 0 5px;
+ 
+ 
+ 
+`;
+
+const Display = styled.div`
+ border-left: 1px solid rgba(0, 0, 0, 0.2);
+border-right: 1px solid rgba(0, 0, 0, 0.2);
+
+margin : 5px;
+ width: 60%;
+ height : 100%
+ justify-content: center; /* 수평 중앙 정렬 */
+ align-items: center; /* 수직 중앙 정렬 */
+ padding: 3px;
+ max-height: 90%; /* 적절한 높이로 설정하세요, 10개 항목을 고려한 높이입니다 */
+  overflow-y: auto; /* 스크롤 가능하도록 설정 */
+
+ .imagebox{
+ border-radius: 8px;
+ margin : 10px auto;
+ width: 90%;
+ height: 500px;
+ color: #ffffff;
+ background-color: #FFFFFF;
+ border: 3px solid #000000; 
+ }
+
+ .infobox{
+border-radius: 8px;
+ margin : 10px auto;
+ width: 95%;
+ height : auto;
+ color: #ffffff;
+ background-color: #000000;
+ border: 3px solid #333333; 
+ }
+ 
+`;
+
+const Cardbox = styled.div`
+  width: 21%;
+  height: 90%
+ 
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px;
+
+`;
+
+
   
   export {
     TextInput,
@@ -495,21 +629,23 @@ const StyledWrapper = styled.div`
     Background,
     ListItem,
     ListContainer,
+    Slider,
     SliderContainer,
+    AmountLabel,
     SearchContainer,
     DownButton,
     DetailBox,
     Selectioncontainer,
-    SearchButton,
-    OverlayForm,
-    FilterForm,
-    FilterButton,
-    Slider,
-    AmountLabel,
-    Select,
-    StyledWrapper
+   StyledWrapper,
+   LoadMoreButton,
+   CardStyledWrapper,
     
-    
+    MainThree,
+    Filterbox,
+    Display,
+    Cardbox,
+   
+   
     
     
   };

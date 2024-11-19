@@ -26,9 +26,9 @@ const colors = {
   align-items: center; /* 수직 중앙 정렬 */
   flex-direction: column; /* 세로 방향으로 정렬 */
   height: 100vh; /* 전체 화면 높이 */
-    background-color: ${colors.darkIvory};
-    
-    padding: 0px 15px 15px 15px; 
+  background-color: #ffffff;
+   padding: 0px 15px 15px 15px; 
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   `;
   
   
@@ -101,27 +101,69 @@ const colors = {
   const SearchContainer = styled.div`
   display: flex;
   align-items: center;
-  border: 1px solid black;
+  border: 4px solid black;
   max-height: 60px;
-  width: 800px;
   text-align: center;
   padding: 0;
+
+  
+`;
+
+const Slider = styled.input`
+  -webkit-appearance: none; /* 기본 스타일 제거 */
+  width: 100%; /* 부모 크기에 맞춰 너비 */
+  height: 8px; /* 슬라이더의 높이 */
+  background: #FFFFFF; /* 슬라이더 배경 */
+  border: 3px solid #212124;
+  border-radius: 5px; /* 슬라이더 모서리 둥글게 */
+  
+  transition: background 0.3s; /* 마우스를 올리면 색상 변화 */
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none; /* 기본 thumb 스타일 제거 */
+    appearance: none;
+    width: 20px; /* thumb의 너비 */
+    height: 20px; /* thumb의 높이 */
+    border-radius: 50%; /* thumb을 둥글게 */
+    background: #fe6f0f; /* thumb 색상 */
+    cursor: pointer; /* 마우스 커서 변경 */
+  }
+
+  &::-moz-range-thumb {
+    width: 20px; /* thumb의 너비 */
+    height: 20px; /* thumb의 높이 */
+    border-radius: 50%; /* thumb을 둥글게 */
+    background: #fe6f0f; /* thumb 색상 */
+    cursor: pointer; /* 마우스 커서 변경 */
+  }
+
+  &:hover {
+    background: #ffffff; /* 슬라이더 배경 색상 변화 */
+  }
+
+  &:focus {
+    outline: none; /* 포커스 시 아웃라인 제거 */
+  }
+`;
+const AmountLabel = styled.label`
+  margin: 10px 0;
+  font-size: 16px;
 `;
 
 const TextInput = styled.input`
-  flex: 7; /* 전체 너비의 70% */
-  line-height: 30px;
-  padding: 0 1px 0 2.5px;
-  border: 3px solid transparent;
+  width : 90%;
+  height 10%;
+  
+  border: 1px solid solid;
   border-radius: 8px;
   margin: 5px;
   outline: none;
   background-color: ${colors.inputBg};
   color: ${colors.inputText};
-  transition: 0.3s ease;
-  border-color: ${colors.navy};
+  
+  
   background-color: #fff;
-  box-shadow: 0 0 0 4px ${colors.inputShadow};
+  
   
   &::placeholder {
     color: ${colors.placeholderText};
@@ -129,7 +171,7 @@ const TextInput = styled.input`
 `;
 
 const Selectioncontainer = styled.div`
-  flex: 1.5; /* 전체 너비의 15% */
+  
   line-height: 20px;
   padding: 1px 2px 1px 2.5px;
   border: 3px solid transparent;
@@ -185,7 +227,6 @@ const ResetButton = styled.button`
   justify-content: center; /* 중앙 정렬 필요시 */
   align-items: center; /* 중앙 정렬 필요시 */
   text-align: center; /*
-
 `;
   
   // 필드셋 스타일
@@ -201,23 +242,34 @@ const ResetButton = styled.button`
   
   // 리스트 스타일
   const List = styled.ul`
-  list-style-type: none;
-  display: flex; /* Flexbox 사용 */
-  justify-content: space-between; /* 양쪽 정렬 */
-  flex-direction:column;
-    paddings: 0;
-    margin: 5px;
+ border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  margin: 10px;
   `;
   
   // 리스트 아이템 스타일
   const ScholarshipItem = styled.li`
-    margin: 10px;
-    padding: 15px 10px 10px 15px;
-    font-size: 17px;
-    border:1px solid gray;
-    border-radius: 8px;
-    
-    
+    border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100px;
+  height : 161px;
+  margin: 5px;
+
   `;
   // 금액 스타일
   const ScholarshipAmount = styled.div`
@@ -245,7 +297,7 @@ const DetailBox = styled.div`
   padding: 10px; /* 안쪽 여백 */
   border: 1px solid gray; /* 테두리 */
   border-radius: 6px; /* 모서리 둥글게 */ 
-  background-color: rgba(249, 249, 249, 0.5); /* 배경색 */
+  background-color: #white; /* 배경색 */
   color: black; /* 글자색 */
 `;
 
@@ -320,8 +372,66 @@ const Checkmark = styled.div`
     height: 1em;
   }
 `;
-  
-  
+
+const MainThree = styled.div`
+ border: 1px solid #000000;
+ border-radius: 8px;
+ display:flex;
+ width: 100%;
+ height :800px;
+ margin: 10px;
+ 
+`;
+
+const Filterbox = styled.div`
+ width: 19%;
+ border: 1px solid #000000;
+ 
+ 
+`;
+
+const Display = styled.div`
+ border: 1px solid #000000;
+ width: 54%;
+ height : 100%
+ justify-content: center; /* 수평 중앙 정렬 */
+ align-items: center; /* 수직 중앙 정렬 */
+ padding: 3px;
+
+ .imagebox{
+ border-radius: 8px;
+ margin : 10px auto;
+ width: 90%;
+ height: 500px;
+ color: #ffffff;
+ background-color: #FFFFFF;
+ border: 3px solid #000000; 
+ }
+
+ .infobox{
+border-radius: 8px;
+ margin : 10px auto;
+ width: 95%;
+ height : auto;
+ color: #ffffff;
+ background-color: #000000;
+ border: 3px solid #333333; 
+ }
+ 
+`;
+
+const Cardbox = styled.div`
+  width: 27%;
+  height: 90%
+  border: 5px solid #000000;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px;
+  max-height: 90%; /* 적절한 높이로 설정하세요, 10개 항목을 고려한 높이입니다 */
+  overflow-y: auto; /* 스크롤 가능하도록 설정 */
+`;
+
+
   
   export {
     TextInput,
@@ -335,7 +445,9 @@ const Checkmark = styled.div`
     Background,
     ListItem,
     ListContainer,
+    Slider,
     SliderContainer,
+    AmountLabel,
     SearchContainer,
     DownButton,
     DetailBox,
@@ -343,7 +455,13 @@ const Checkmark = styled.div`
     Container,
     Checkmark,
     likeEffect,
-    dislikeEffect
+    dislikeEffect,
+    MainThree,
+    Filterbox,
+    Display,
+    Cardbox,
+   
+   
     
     
   };
