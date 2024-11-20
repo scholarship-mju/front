@@ -103,19 +103,6 @@ const SearchForm = ({ onSearch }) => {
 // ***********************************************************************************
 
 function ReceivedScholarshipsPage() {
-  const scholarshipData = [
-    { name: "장학금 A", amount: 1000000 },
-    { name: "장학금 B", amount: 1500000 },
-    { name: "장학금 C", amount: 2000000 },
-    { name: "장학금 D", amount: 2500000 },
-    { name: "장학금 E", amount: 10000000 },
-  ];
-
-  const [scholarships, setScholarships] = useState([
-    { id: 1, name: "장학금 1", amount: 1000000 },
-    { id: 2, name: "장학금 2", amount: 500000 },
-  ]);
-
   // ***********************************************************************************
   // 장학금 추가 함수
 
@@ -131,7 +118,7 @@ function ReceivedScholarshipsPage() {
         return;
       }
       // 서버에 POST 요청
-      const response = await axios.post(
+      await axios.post(
         `http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/scholarship/${id}/got`,
         {},
         {
@@ -159,14 +146,6 @@ function ReceivedScholarshipsPage() {
         .catch((error) => {
           console.error("데이터 가져오기 실패:", error);
         });
-
-      // 서버 응답 데이터에서 새 장학금 정보 가져오기
-      const addedScholarship = response.data; // 예시로 서버에서 추가된 데이터를 반환한다고 가정
-      console.log("받은장학금 데이터:", addedScholarship);
-
-      // 상태 업데이트
-      console.log("setServerdata:", serverdata);
-      // setServerdata((prevServerData) => [...prevServerData, addedScholarship]);
 
       console.log(`ID ${id} 장학금 등록 완료`);
       // console.log("장학금 등록 성공", response.data);
