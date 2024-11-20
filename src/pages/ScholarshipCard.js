@@ -49,47 +49,41 @@ const ScholarshipCard = () => {
     <CardStyledWrapper style={{ listStyleType: "none" }} className="Cards"> {/* 스타일 적용된 리스트 */}
       {serverdata.map((scholarshipitem, index) => (
         <ScholarshipItem 
-          key={index} 
-          onClick={() => handleToggleDetails(index)} // 클릭 시 상세정보 토글
-          style={{ cursor: "pointer" }} // 클릭 가능하게 커서 변경
-
-          
-        >
-          <div style={{ float: "left", display: "flex", alignItems: "stretch" }}>
-            <img 
-              src={schoolImage} 
-              style={{ height: "79px", width: "109px", objectFit: "contain" }} 
-              alt="School"
-            />
-          </div>
-
-          <strong>
-            <div display="inline-block"> {scholarshipitem.name}</div>
-          </strong>
-          <HeartCheckbox scholarshipId={scholarshipitem.id}
-            // 이벤트 전파 방지
-          /> {/* 하트 버튼 컴포넌트 */}
-
-          
-
-          
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <span>{scholarshipitem.description}</span>
-            <div>{parseInt(scholarshipitem.price).toLocaleString() + "원"}</div>
-          </div>
-
-          
-
-          {expandedScholarships[index] && (
-            <DetailBox>
-              <p>자세한 내용: {scholarshipitem.notes || "No additional details"}</p>
-              {displayAttachment(scholarshipitem.DetailBox?.attachment)}
-              {scholarshipitem.DetailBox?.link && (
-                <a href={scholarshipitem.DetailBox.link} target="_blank" rel="noopener noreferrer">링크</a>
-              )}
-            </DetailBox>
-          )}
-        </ScholarshipItem>
+        key={index} 
+        onClick={() => handleToggleDetails(index)} // 클릭 시 상세정보 토글
+        style={{ cursor: "pointer" }} // 클릭 가능하게 커서 변경
+      >
+        <div style={{ float: "left", display: "flex", alignItems: "stretch" }}>
+          <img 
+            src={schoolImage} 
+            style={{ height: "79px", width: "109px", objectFit: "contain" }} 
+            alt="School"
+          />
+        </div>
+      
+        <strong>
+          <div display="inline-block"> {scholarshipitem.name}</div>
+        </strong>
+        
+        {/* HeartCheckbox에 이벤트 전파 중단 추가 */}
+          <HeartCheckbox scholarshipId={scholarshipitem.id} />
+        
+      
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <span>{scholarshipitem.description}</span>
+          <div>{parseInt(scholarshipitem.price).toLocaleString() + "원"}</div>
+        </div>
+      
+        {expandedScholarships[index] && (
+          <DetailBox>
+            <p>자세한 내용: {scholarshipitem.notes || "No additional details"}</p>
+            {displayAttachment(scholarshipitem.DetailBox?.attachment)}
+            {scholarshipitem.DetailBox?.link && (
+              <a href={scholarshipitem.DetailBox.link} target="_blank" rel="noopener noreferrer">링크</a>
+            )}
+          </DetailBox>
+        )}
+      </ScholarshipItem>
       ))}
     </CardStyledWrapper>
   );

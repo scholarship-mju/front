@@ -15,18 +15,13 @@ const colors = {
     
   };
   
-  // 스타일링된 컴포넌트
   const Background = styled.div`
-  min-height: 100vh;
   display: flex;
-  justify-content: center; /* 수평 중앙 정렬 */
-  align-items: center; /* 수직 중앙 정렬 */
   flex-direction: column; /* 세로 방향으로 정렬 */
-  height: 100vh; /* 전체 화면 높이 */
-  background-color: #white;
-    
-    padding: 0px 15px 15px 15px; 
-  `;
+  min-height: 100vh; /* 화면 전체를 채우도록 설정 */
+  padding: 5px; /* 여백 설정 */
+  background-color: #fff; /* 배경색 */
+`;
 
 // 버튼 스타일
 const Button = styled.button`
@@ -95,10 +90,12 @@ const CenterContainer = styled.div`
 const TextInput = styled.input`
   width: 60%;
   height: 5%;
-  padding: 2px;
-  font-size: 16px;
+  padding: 10px;
+  margin : 7px;
+  margin-bottom: 10px;
+  font-size: 20px;
   border: 1px solid ;
-  margin-left : 50px;
+  margin-left : 465px;
   border-radius: 8px;
   background-color: ${colors.inputBg};
   color: ${colors.inputText};
@@ -351,7 +348,7 @@ const LoadMoreButton = styled.button`
 
 // 리스트 아이템 스타일
 const ScholarshipItem = styled.li`
-  margin: 10px;
+  margin: 11px;
   padding: 15px 10px 10px 15px;
   font-size: 17px;
   border-radius: 8px;
@@ -404,11 +401,11 @@ const ListContainer = styled.ol`
 //하트버튼 
 const StyledWrapper = styled.div` 
   .con-like {
-  
+    
     --red: rgb(255, 50, 50);
     position: relative;
-    width: 40px;
-    height: 40px;
+    width: 46px;
+    height: 46px;
   }
 
   .con-like .like {
@@ -554,67 +551,60 @@ const CardStyledWrapper = styled.div`
  opacity: 1;
 }`;
 const MainThree = styled.div`
- 
- border-radius: 8px;
- display:flex;
- width: 100%;
- height :100%;
- margin-left: 100px;
- margin-right: 100px;
- box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 아래쪽 그림자 추가 */
+  border-radius: 8px;
+  display: flex;
+  width: 100%;
+  margin-left: 90px;
+  margin-right: 90px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 아래쪽 그림자 추가 */
+  height: auto; /* 고정된 높이 제거 */
+  min-height: 100vh; /* 최소 높이만 설정 */
 `;
+
 
 const Filterbox = styled.div`
  width: 20%;
  margin : 0 20px 0 20px;
- 
- 
- 
 `;
 
 const Display = styled.div`
- border-left: 1px solid rgba(0, 0, 0, 0.2);
-border-right: 1px solid rgba(0, 0, 0, 0.2);
+  border-left: 1px solid rgba(0, 0, 0, 0.2);
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+  margin: 5px;
+  width: 64%;
+  justify-content: center; /* 수평 중앙 정렬 */
+  align-items: center; /* 수직 중앙 정렬 */
+  padding: 3px;
+  overflow-y: visible; /* 스크롤 제거 */
+  height: auto; /* 높이를 내용물에 따라 조정 */
+  
+  .imagebox {
+    border-radius: 8px;
+    margin: 10px auto;
+    width: 90%;
+    height: 500px;
+    color: #ffffff;
+    background-color: #FFFFFF;
+    border: 3px solid #000000; 
+  }
 
-margin : 5px;
- width: 64%;
- height : 100%
- justify-content: center; /* 수평 중앙 정렬 */
- align-items: center; /* 수직 중앙 정렬 */
- padding: 3px;
- max-height: 90%; /* 적절한 높이로 설정하세요, 10개 항목을 고려한 높이입니다 */
-  overflow-y: auto; /* 스크롤 가능하도록 설정 */
-
- .imagebox{
- border-radius: 8px;
- margin : 10px auto;
- width: 90%;
- height: 500px;
- color: #ffffff;
- background-color: #FFFFFF;
- border: 3px solid #000000; 
- }
-
- .infobox{
-border-radius: 8px;
- margin : 10px auto;
- width: 95%;
- height : auto;
- color: #ffffff;
- background-color: #000000;
- border: 3px solid #333333; 
- }
- 
+  .infobox {
+    border-radius: 8px;
+    margin: 10px auto;
+    width: 95%;
+    height: auto;
+    color: #ffffff;
+    background-color: #000000;
+    border: 3px solid #333333; 
+  }
 `;
 
 const Cardbox = styled.div`
   width: 16%;
   height: 90%
- 
   display: flex;
   flex-wrap: wrap;
   margin: 10px;
-
 `;
 
 
@@ -641,7 +631,6 @@ const Cardbox = styled.div`
    StyledWrapper,
    LoadMoreButton,
    CardStyledWrapper,
-    
     MainThree,
     Filterbox,
     Display,
