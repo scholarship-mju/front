@@ -6,8 +6,6 @@ import receiveLogo from "../png/receiveLogo.png";
 import {
   Background,
   Container,
-  ButtonsContainer,
-  MyButton,
   ReceiveLogo,
   Table,
   TableHeader,
@@ -72,7 +70,12 @@ const SearchForm = ({ onSearch }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (inputValue.trim()) {
-      onSearch(inputValue);
+      const numericValue = Number(inputValue); // 문자열을 숫자로 변환
+      if (!isNaN(numericValue)) {
+        onSearch(numericValue); // 변환된 숫자 값을 전달
+      } else {
+        console.error("입력값이 유효한 숫자가 아닙니다.");
+      }
       setInputValue(""); // clear input after search
     }
   };
@@ -114,24 +117,35 @@ function ReceivedScholarshipsPage() {
   ]);
 
   // ***********************************************************************************
+  // 장학금 추가 함수
 
-  const handleAddScholarship = (name) => {
-    const matchingScholarship = scholarshipData.find(
-      (scholarship) => scholarship.name === name,
-    );
+  const handleAddScholarship = async (id) => {
+    try {
+      console.log("Received ID:", id); // ID 값이 무엇인지 확인하기
+      console.log("Typeof:", typeof id); // string
+      const token = localStorage.getItem("accessToken");
 
-    if (matchingScholarship) {
-      const newId = scholarships.length + 1;
-      setScholarships([
-        ...scholarships,
+      if (!token) {
+        console.error("토큰이 존재하지 않습니다.");
+        return;
+      }
+      // 서버에 POST 요청
+      const response = await axios.post(
+        `http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/scholarship/${id}/got`,
+        {},
         {
-          id: newId,
-          name: matchingScholarship.name,
-          amount: matchingScholarship.amount,
+          headers: {
+            Authorization: `Bearer ${token}`, // 인증 토큰 포함
+          },
         },
-      ]);
-    } else {
-      alert("장학금을 찾지 못했습니다.");
+      );
+
+      console.log(`ID ${id} 장학금 등록 완료`);
+      console.log("장학금 등록 성공", response.data);
+    } catch (error) {
+      console.error(`ID ${id} 장학금 등록 실패:`, error);
+      console.log(typeof id); // string
+      console.log(`scholarship/${id}/got`);
     }
   };
 
@@ -155,6 +169,7 @@ function ReceivedScholarshipsPage() {
       );
 
       console.log(`ID ${id} 장학금 삭제 완료`);
+      console.log(typeof id);
     } catch (error) {
       console.error(`ID ${id} 장학금 삭제 실패:`, error);
     }
@@ -249,7 +264,7 @@ function ReceivedScholarshipsPage() {
       .then((response) => {
         // 응답 데이터를 serverdata에 저장
         setServerdata(response.data);
-        console.log("데이터 출력");
+        console.log("받은 장학금 데이터 출력");
         console.log(response.data); // 데이터 확인용 콘솔 출력
       })
       .catch((error) => {
@@ -285,34 +300,6 @@ function ReceivedScholarshipsPage() {
 
   return (
     <Background>
-      <ButtonsContainer>
-        <MyButton to="/mypage">마이페이지</MyButton>
-      </ButtonsContainer>
-
-      {/* <Container> */}
-      {/*   <h1> 전체 장학금 </h1> */}
-      {/*   <Table> */}
-      {/*     <thread> */}
-      {/*       <tr> */}
-      {/*         <TableHeaderLeft>고유번호</TableHeaderLeft> */}
-      {/*         <TableHeader>장학금</TableHeader> */}
-      {/*         <TableHeader>금액</TableHeader> */}
-      {/*         <TableHeader></TableHeader> */}
-      {/*         <TableHeaderRight></TableHeaderRight> */}
-      {/*       </tr> */}
-      {/*     </thread> */}
-      {/*     <TableBody> */}
-      {/*       {scholarshipdata.map((scholarship) => ( */}
-      {/*         <tr> */}
-      {/*           <TableCell>{scholarship.id}</TableCell> */}
-      {/*           <TableCell>{scholarship.name}</TableCell> */}
-      {/*           <TableCell>{scholarship.price.toLocaleString()}원</TableCell> */}
-      {/*         </tr> */}
-      {/*       ))} */}
-      {/*     </TableBody> */}
-      {/*   </Table> */}
-      {/* </Container> */}
-
       <Container>
         <ReceiveLogo src={receiveLogo} />
         <Table>
