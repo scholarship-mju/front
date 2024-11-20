@@ -1,6 +1,7 @@
 import React, { useState ,useEffect } from "react";
 import downImage from '../png/down.png';
 import axios from "axios";
+import receiveLogo from "../png/receiveLogo.png";
 import schoolImage from '../png/5-1.jpg';
 import SearchImage from '../png/search.png';// 이미지 파일을 import
 import HeartCheckbox from './HeartButton';  // ButtonGroup 임포트
@@ -172,6 +173,8 @@ const ScholarshipsPage = () => {
 
 return (
   <Background>
+    
+       
    <TextInput 
         placeholder="검색어 입력" 
         value={searchTerm}
@@ -226,51 +229,20 @@ return (
           </SliderContainer>
       <div className="Filter3"> Filter학교</div>
       <div className="Filter4"> Filter기간</div>
-      <div className="Filter5"> Filter5</div>
-      <div className="Filter6"> Filter6</div>
+      <div className="Filter5"> Filter5나이</div>
+      <div className="Filter6"> Filter6도시</div>
       <div className="Filter6"> Filter6</div>
       <div className="Filter6"> Filter6</div>
     </Filterbox>
    
      <Display className = "display">
-     전체장학금  
+     
     <div className="result">
      
     
     <ScholarshipCard  className="GridTest" />
 
           
-        
-      {/* <List className = "기존List">
-        {[...serverdata].map((scholarshipitem, index) => (
-          <ScholarshipItem key={index}>
-            <strong className="card">{scholarshipitem.name}</strong> :
-            {scholarshipitem.description} 
-            
-            <ScholarshipAmount>
-              {parseInt(scholarshipitem.price).toLocaleString() + "원"}
-              <DownButton
-                onClick={() => handleToggleDetails(index)}
-                src={downImage}
-                alt="Expand details"
-                id={scholarshipitem.button?.id || `button-${index}`}
-              />
-              
-            </ScholarshipAmount>
-
-            {expandedScholarships[index] && (
-              <DetailBox>
-                <p>자세한 내용: {scholarshipitem.DetailBox?.notes || "No additional details"}</p>
-                {displayAttachment(scholarshipitem.DetailBox?.attachment)} 
-                {scholarshipitem.DetailBox?.link && (
-                  <a href={scholarshipitem.DetailBox.link} target="_blank" rel="noopener noreferrer">링크</a>
-                )}
-              </DetailBox>
-            )}
-
-          </ScholarshipItem>
-        ))}
-      </List> */}
       
     </div>
 
@@ -280,36 +252,7 @@ return (
    
        </Cardbox> 
 
-    {/* <Cardbox className="Cardbox">
-   
-   
-        {filteredScholarships.length > 0 ? (
-          filteredScholarships.map((scholarship, index) => (
-            
-            <ScholarshipItem key={index} onClick={handleClick} style={{ cursor: "pointer" }}>
-              <strong>{scholarship.name}</strong>
-              <svg width="100" height="100">
-<defs>
- 
-  <pattern id="imagePattern" patternUnits="userSpaceOnUse" width="100" height="100">
-    <image href={schoolImage} x="0" y="0" width="100" height="100" />
-  </pattern>
-</defs>
-
-
-<circle cx="50" cy="50" r="40" fill="url(#imagePattern)" />
-</svg>
-
-              {scholarship.amount + "원"} 
-            </ScholarshipItem>
-          ))
-        ) : (
-          <CenterContainer>검색 결과가 없습니다.</CenterContainer>
-        )}
- 
-      
-      
-    </Cardbox> */}
+    
 
 
     </MainThree>

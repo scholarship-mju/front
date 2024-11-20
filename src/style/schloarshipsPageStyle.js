@@ -17,6 +17,7 @@ const colors = {
   
   // 스타일링된 컴포넌트
   const Background = styled.div`
+  min-height: 100vh;
   display: flex;
   justify-content: center; /* 수평 중앙 정렬 */
   align-items: center; /* 수직 중앙 정렬 */
@@ -92,11 +93,12 @@ const CenterContainer = styled.div`
 `;
 
 const TextInput = styled.input`
-  width: 95%;
+  width: 60%;
   height: 5%;
   padding: 2px;
   font-size: 16px;
   border: 1px solid ;
+  margin-left : 50px;
   border-radius: 8px;
   background-color: ${colors.inputBg};
   color: ${colors.inputText};
@@ -405,8 +407,8 @@ const StyledWrapper = styled.div`
   
     --red: rgb(255, 50, 50);
     position: relative;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
   }
 
   .con-like .like {
@@ -556,15 +558,15 @@ const MainThree = styled.div`
  border-radius: 8px;
  display:flex;
  width: 100%;
- height :800px;
- margin: 10px;
+ height :100%;
+ margin-left: 100px;
+ margin-right: 100px;
  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 아래쪽 그림자 추가 */
- 
 `;
 
 const Filterbox = styled.div`
- width: 19%;
- margin : 0 30px 0 5px;
+ width: 20%;
+ margin : 0 20px 0 20px;
  
  
  
@@ -575,7 +577,7 @@ const Display = styled.div`
 border-right: 1px solid rgba(0, 0, 0, 0.2);
 
 margin : 5px;
- width: 60%;
+ width: 64%;
  height : 100%
  justify-content: center; /* 수평 중앙 정렬 */
  align-items: center; /* 수직 중앙 정렬 */
@@ -606,7 +608,7 @@ border-radius: 8px;
 `;
 
 const Cardbox = styled.div`
-  width: 21%;
+  width: 16%;
   height: 90%
  
   display: flex;
