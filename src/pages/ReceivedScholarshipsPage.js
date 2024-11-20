@@ -150,6 +150,7 @@ function ReceivedScholarshipsPage() {
       console.log(`ID ${id} 장학금 등록 완료`);
       // console.log("장학금 등록 성공", response.data);
     } catch (error) {
+      alert("이미 등록된 장학금입니다.");
       console.error(`ID ${id} 장학금 등록 실패:`, error);
       console.log(typeof id); // string
       console.log(`scholarship/${id}/got`);
