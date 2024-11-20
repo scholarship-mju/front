@@ -124,6 +124,7 @@ function ReceivedScholarshipsPage() {
       console.log("Received ID:", id); // ID 값이 무엇인지 확인하기
       console.log("Typeof:", typeof id); // string
       const token = localStorage.getItem("accessToken");
+      console.log(token);
 
       if (!token) {
         console.error("토큰이 존재하지 않습니다.");
@@ -140,8 +141,35 @@ function ReceivedScholarshipsPage() {
         },
       );
 
+      axios
+        .get(
+          "http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/scholarship/got",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // 토큰이 필요할 경우 포함
+            },
+          },
+        )
+        .then((response) => {
+          // 응답 데이터를 serverdata에 저장
+          setServerdata(response.data);
+          console.log("받은 장학금 데이터 출력");
+          console.log(response.data); // 데이터 확인용 콘솔 출력
+        })
+        .catch((error) => {
+          console.error("데이터 가져오기 실패:", error);
+        });
+
+      // 서버 응답 데이터에서 새 장학금 정보 가져오기
+      const addedScholarship = response.data; // 예시로 서버에서 추가된 데이터를 반환한다고 가정
+      console.log("받은장학금 데이터:", addedScholarship);
+
+      // 상태 업데이트
+      console.log("setServerdata:", serverdata);
+      // setServerdata((prevServerData) => [...prevServerData, addedScholarship]);
+
       console.log(`ID ${id} 장학금 등록 완료`);
-      console.log("장학금 등록 성공", response.data);
+      // console.log("장학금 등록 성공", response.data);
     } catch (error) {
       console.error(`ID ${id} 장학금 등록 실패:`, error);
       console.log(typeof id); // string
