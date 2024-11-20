@@ -6,8 +6,6 @@ import receiveLogo from "../png/receiveLogo.png";
 import {
   Background,
   Container,
-  ButtonsContainer,
-  MyButton,
   ReceiveLogo,
   Table,
   TableHeader,
@@ -72,7 +70,12 @@ const SearchForm = ({ onSearch }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (inputValue.trim()) {
-      onSearch(inputValue);
+      const numericValue = Number(inputValue); // 문자열을 숫자로 변환
+      if (!isNaN(numericValue)) {
+        onSearch(numericValue); // 변환된 숫자 값을 전달
+      } else {
+        console.error("입력값이 유효한 숫자가 아닙니다.");
+      }
       setInputValue(""); // clear input after search
     }
   };
@@ -111,38 +114,71 @@ function ReceivedScholarshipsPage() {
   const [scholarships, setScholarships] = useState([
     { id: 1, name: "장학금 1", amount: 1000000 },
     { id: 2, name: "장학금 2", amount: 500000 },
-
-    //   {serverdata.map((item, index) => (          //serverdata->item 객체
-    //   <div key={index} >
-    //     {item.name} {item.age}  {item.university} {/* 예시로 각 항목의 name을 버튼 텍스트로 사용 */}
-    //   </div>
-    // ))}
   ]);
 
   // ***********************************************************************************
+  // 장학금 추가 함수
 
-  const handleAddScholarship = (name) => {
-    const matchingScholarship = scholarshipData.find(
-      (scholarship) => scholarship.name === name,
-    );
+  const handleAddScholarship = async (id) => {
+    try {
+      console.log("Received ID:", id); // ID 값이 무엇인지 확인하기
+      console.log("Typeof:", typeof id); // string
+      const token = localStorage.getItem("accessToken");
+      console.log(token);
 
-    if (matchingScholarship) {
-      const newId = scholarships.length + 1;
-      setScholarships([
-        ...scholarships,
+      if (!token) {
+        console.error("토큰이 존재하지 않습니다.");
+        return;
+      }
+      // 서버에 POST 요청
+      const response = await axios.post(
+        `http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/scholarship/${id}/got`,
+        {},
         {
-          id: newId,
-          name: matchingScholarship.name,
-          amount: matchingScholarship.amount,
+          headers: {
+            Authorization: `Bearer ${token}`, // 인증 토큰 포함
+          },
         },
-      ]);
-    } else {
-      alert("장학금을 찾지 못했습니다.");
+      );
+
+      axios
+        .get(
+          "http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/scholarship/got",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // 토큰이 필요할 경우 포함
+            },
+          },
+        )
+        .then((response) => {
+          // 응답 데이터를 serverdata에 저장
+          setServerdata(response.data);
+          console.log("받은 장학금 데이터 출력");
+          console.log(response.data); // 데이터 확인용 콘솔 출력
+        })
+        .catch((error) => {
+          console.error("데이터 가져오기 실패:", error);
+        });
+
+      // 서버 응답 데이터에서 새 장학금 정보 가져오기
+      const addedScholarship = response.data; // 예시로 서버에서 추가된 데이터를 반환한다고 가정
+      console.log("받은장학금 데이터:", addedScholarship);
+
+      // 상태 업데이트
+      console.log("setServerdata:", serverdata);
+      // setServerdata((prevServerData) => [...prevServerData, addedScholarship]);
+
+      console.log(`ID ${id} 장학금 등록 완료`);
+      // console.log("장학금 등록 성공", response.data);
+    } catch (error) {
+      console.error(`ID ${id} 장학금 등록 실패:`, error);
+      console.log(typeof id); // string
+      console.log(`scholarship/${id}/got`);
     }
   };
 
   // ***********************************************************************************
-
+  // 장학금 삭제 함수
   const handleDeleteScholarship = async (id) => {
     try {
       // 서버에 DELETE 요청
@@ -161,6 +197,7 @@ function ReceivedScholarshipsPage() {
       );
 
       console.log(`ID ${id} 장학금 삭제 완료`);
+      console.log(typeof id);
     } catch (error) {
       console.error(`ID ${id} 장학금 삭제 실패:`, error);
     }
@@ -232,8 +269,13 @@ function ReceivedScholarshipsPage() {
   };
 
   // ***********************************************************************************
+  // 서버 데이터 불러오기
 
+  // 받은장학금 데이터 배열
   const [serverdata, setServerdata] = useState([]); // 서버 데이터 저장용 state
+
+  // 전체 장학금 데이터 배열
+  const [scholarshipdata, setScholarshipsdata] = useState([]); // 서버 데이터 저장용 state
 
   useEffect(() => {
     // 서버로 GET 요청을 보냄
@@ -250,7 +292,26 @@ function ReceivedScholarshipsPage() {
       .then((response) => {
         // 응답 데이터를 serverdata에 저장
         setServerdata(response.data);
-        console.log("데이터 출력");
+        console.log("받은 장학금 데이터 출력");
+        console.log(response.data); // 데이터 확인용 콘솔 출력
+      })
+      .catch((error) => {
+        console.error("데이터 가져오기 실패:", error);
+      });
+
+    axios
+      .get(
+        "http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/scholarship/all",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // 토큰이 필요할 경우 포함
+          },
+        },
+      )
+      .then((response) => {
+        // 응답 데이터를 serverdata에 저장
+        setScholarshipsdata(response.data);
+        console.log("전체 장학금 데이터 출력");
         console.log(response.data); // 데이터 확인용 콘솔 출력
       })
       .catch((error) => {
@@ -258,6 +319,7 @@ function ReceivedScholarshipsPage() {
       });
   }, []);
 
+  // ***********************************************************************************
   // 장학금 총액 계산 함수
   const totalAmount = serverdata.reduce(
     (total, scholarship) => total + scholarship.price,
@@ -266,9 +328,6 @@ function ReceivedScholarshipsPage() {
 
   return (
     <Background>
-      <ButtonsContainer>
-        <MyButton to="/mypage">마이페이지</MyButton>
-      </ButtonsContainer>
       <Container>
         <ReceiveLogo src={receiveLogo} />
         <Table>
@@ -320,23 +379,6 @@ function ReceivedScholarshipsPage() {
                                   닫기
                                 </ModalButton>
                               </div>
-                              {/* <h3>사진 업로드</h3> */}
-                              {/* <input */}
-                              {/*   type="file" */}
-                              {/*   accept="image/*" */}
-                              {/*   onChange={handleFileChange} */}
-                              {/* /> */}
-                              {/* <div */}
-                              {/*   style={{ */}
-                              {/*     display: "flex", */}
-                              {/*     justifyContent: "space-between", */}
-                              {/*     marginTop: "10px", */}
-                              {/*   }} */}
-                              {/* > */}
-                              {/*   <ModalButton onClick={handleUpload}> */}
-                              {/*     업로드 */}
-                              {/*   </ModalButton> */}
-                              {/* </div> */}
                               <UploadContainer>
                                 <h2>File Upload</h2>
                                 <UploadBox
