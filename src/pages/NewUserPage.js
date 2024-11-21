@@ -10,7 +10,7 @@ import {
     SubmitButton,
     FormContainer,
     InputGroup,
-    GenderSelectField
+    PlusSelectField,
 } from "../style/NewUserPageStyle";
 
 function NewUserPage() {
@@ -18,10 +18,10 @@ function NewUserPage() {
     const [phone, setPhone] = useState("");
     const [age, setAge] = useState("");
     const [gender, setGender] = useState("");
+    const [province, setProvince] = useState("");
     const [city, setCity] = useState("");
     const [university, setUniversity] = useState("");
     const [grade, setGrade] = useState("");
-    const [department, setDepartment] = useState("");
     const [incomeQuantile, setIncomeQuantile] = useState("");
 
     const handleSubmit = async (e) => {
@@ -32,10 +32,10 @@ function NewUserPage() {
             phone,
             age: Number(age),
             gender,
+            province,
             city,
             university,
             grade: Number(grade),
-            department,
             incomeQuantile: Number(incomeQuantile),
         };
 
@@ -64,7 +64,7 @@ function NewUserPage() {
 
     return (
         <AdditionalInfoContainer>
-            <AddInfoLogo src={addInfo}/>
+            <AddInfoLogo src={addInfo} />
             <FormContainer onSubmit={handleSubmit}>
                 <InputGroup>
                     <Label>닉네임</Label>
@@ -99,23 +99,55 @@ function NewUserPage() {
 
                 <InputGroup>
                     <Label>성별</Label>
-                    <GenderSelectField value={gender} onChange={(e) => setGender(e.target.value)}>
+                    <PlusSelectField
+                        value={gender}
+                        onChange={(e) => setGender(e.target.value)}
+                    >
                         <option value="" disabled>
                             성별을 선택하세요
                         </option>
                         <option value="male">남성</option>
                         <option value="female">여성</option>
-                    </GenderSelectField>
-
+                    </PlusSelectField>
                 </InputGroup>
 
                 <InputGroup>
-                    <Label>사는 지역</Label>
+                    <Label>도/광역시</Label>
+                    <PlusSelectField
+                        value={province}
+                        onChange={(e) => setProvince(e.target.value)}
+                    >
+                        <option value="" disabled>
+                            도/광역시를 선택하세요
+                        </option>
+                        <option value="Busan">부산광역시</option>
+                        <option value="Chungcheongbuk-do">충청북도</option>
+                        <option value="Chungcheongnam-do">충청남도</option>
+                        <option value="Daegu">대구광역시</option>
+                        <option value="Daejeon">대전광역시</option>
+                        <option value="Gangwon">강원특별자치도</option>
+                        <option value="Gwangju">광주광역시</option>
+                        <option value="Gyeonggi">경기도</option>
+                        <option value="Gyeongsangbuk-do">경상북도</option>
+                        <option value="Gyeongsangnam-do">경상남도</option>
+                        <option value="Incheon">인천광역시</option>
+                        <option value="Jeju">제주특별자치도</option>
+                        <option value="Jeollabuk-do">전북특별자치도</option>
+                        <option value="Jeollanam-do">전라남도</option>
+                        <option value="Sejong">세종특별자치시</option>
+                        <option value="Seoul">서울특별시</option>
+                        <option value="Ulsan">울산광역시</option>
+                    </PlusSelectField>
+                </InputGroup>
+
+                <InputGroup>
+                    <Label>시/구/군</Label>
                     <InputField
                         type="text"
                         value={city}
                         onChange={(e) => setCity(e.target.value)}
-                        placeholder="예: 서울시 강남구"
+                        placeholder="시 또는 구/군을 입력하세요 (예시: 강남구)"
+                        disabled={!province}
                     />
                 </InputGroup>
 
@@ -125,42 +157,41 @@ function NewUserPage() {
                         type="text"
                         value={university}
                         onChange={(e) => setUniversity(e.target.value)}
-                        placeholder="대학교 이름을 입력하세요"
+                        placeholder="대학교 이름을 입력하세요 (예시: 명지대학교)"
                     />
                 </InputGroup>
 
                 <InputGroup>
                     <Label>학년</Label>
-                    <InputField
-                        type="number"
+                    <PlusSelectField
                         value={grade}
                         onChange={(e) => setGrade(e.target.value)}
-                        min="1"
-                        max="5"
-                        placeholder="1~4 사이의 숫자 입력"
-                    />
-                </InputGroup>
-
-                <InputGroup>
-                    <Label>학과</Label>
-                    <InputField
-                        type="text"
-                        value={department}
-                        onChange={(e) => setDepartment(e.target.value)}
-                        placeholder="학과를 입력하세요"
-                    />
+                    >
+                        <option value="" disabled>
+                            학년을 선택하세요
+                        </option>
+                        <option value="1">1학년</option>
+                        <option value="2">2학년</option>
+                        <option value="3">3학년</option>
+                        <option value="4">4학년</option>
+                    </PlusSelectField>
                 </InputGroup>
 
                 <InputGroup>
                     <Label>소득분위</Label>
-                    <InputField
-                        type="number"
+                    <PlusSelectField
                         value={incomeQuantile}
                         onChange={(e) => setIncomeQuantile(e.target.value)}
-                        min="1"
-                        max="10"
-                        placeholder="1~10 사이의 숫자 입력"
-                    />
+                    >
+                        <option value="" disabled>
+                            소득분위를 선택하세요
+                        </option>
+                        {[...Array(10).keys()].map((n) => (
+                            <option key={n + 1} value={n + 1}>
+                                {n + 1}분위
+                            </option>
+                        ))}
+                    </PlusSelectField>
                 </InputGroup>
 
                 <SubmitButton type="submit">정보 등록하기</SubmitButton>

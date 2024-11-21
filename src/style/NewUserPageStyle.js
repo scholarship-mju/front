@@ -107,7 +107,7 @@ export const SubmitButton = styled.button`
   }
 `;
 
-export const GenderSelectField = styled.select`
+export const PlusSelectField = styled.select`
   width: auto;
   min-width: 100%;
   padding: 12px 16px;

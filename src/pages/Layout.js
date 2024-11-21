@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, useNavigate } from "react-router-dom";
 import mainlogo from "../png/mainlogo.png";
 
 import {
@@ -16,6 +16,7 @@ import {
 
 const Layout = ({ isLoggedIn, handleLogout }) => {
   const [hoveredLink, setHoveredLink] = useState(null);
+  const navigate = useNavigate();
 
   const handleMouseEnter = (link) => {
     setHoveredLink(link);
@@ -23,6 +24,11 @@ const Layout = ({ isLoggedIn, handleLogout }) => {
 
   const handleMouseLeave = () => {
     setHoveredLink(null);
+  };
+
+  const handleLogoutAndRedirect = () => {
+    handleLogout(); // 기존 로그아웃 로직 실행
+    navigate("/"); // 메인 페이지로 리다이렉트
   };
 
   return (
@@ -64,7 +70,7 @@ const Layout = ({ isLoggedIn, handleLogout }) => {
           {isLoggedIn ? (
             <>
               <StyledLinkButton to="/mypage">마이페이지</StyledLinkButton>
-              <StyledButtonElement onClick={handleLogout}>
+              <StyledButtonElement onClick={handleLogoutAndRedirect}>
                 로그아웃
               </StyledButtonElement>
             </>

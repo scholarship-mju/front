@@ -9,20 +9,16 @@ export const colors = {
 };
 // 스타일링된 컴포넌트
 export const Background = styled.div`
-  background-color: ${colors.white};
   min-height: 100vh;
   padding: 20px;
 `;
 
 export const Container = styled.div`
-  padding: 20px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background-color: ${colors.white};
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 1800px;
-  margin: auto;
-  margin-top: 50px;
+  max-width: 1600px;
+  margin: 0 auto;
 `;
 
 export const ButtonsContainer = styled.div`
@@ -54,7 +50,7 @@ export const MyButton = styled(Link)`
 `;
 
 export const ReceiveLogo = styled.img`
-  max-width: 13%;
+  max-width: 16%;
   display: block;
   margin: 0 auto;
 `;

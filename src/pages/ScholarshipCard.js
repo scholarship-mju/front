@@ -64,16 +64,11 @@ const ScholarshipCard = () => {
         <strong>
           <div display="inline-block"> {scholarshipitem.name}</div>
         </strong>
-        
-        {/* HeartCheckbox에 이벤트 전파 중단 추가 */}
           <HeartCheckbox scholarshipId={scholarshipitem.id} />
-        
-      
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <span>{scholarshipitem.description}</span>
           <div>{parseInt(scholarshipitem.price).toLocaleString() + "원"}</div>
         </div>
-      
         {expandedScholarships[index] && (
           <DetailBox>
             <p>자세한 내용: {scholarshipitem.notes || "No additional details"}</p>

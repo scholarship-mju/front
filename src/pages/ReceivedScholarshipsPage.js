@@ -328,8 +328,8 @@ function ReceivedScholarshipsPage() {
 
   return (
     <Background>
+      <ReceiveLogo src={receiveLogo} />
       <Container>
-        <ReceiveLogo src={receiveLogo} />
         <Table>
           <thead>
             <tr>

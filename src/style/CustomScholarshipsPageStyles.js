@@ -1,6 +1,5 @@
 import styled, { keyframes } from 'styled-components';
 
-
 const colors = {
     primary: '#4CAF50',
     inputBg: '#f3f3f4',
@@ -31,9 +30,12 @@ const colors = {
    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   `;
   
-  
-  
-  
+  export const CustomLogo = styled.img`
+  max-width: 18%;
+  display: block;
+  margin-top: 0 auto;
+`;
+
   // 버튼 스타일
   const Button = styled.button`
     appearance: none;
@@ -62,7 +64,6 @@ const colors = {
     }
   
     &:hover {
-      c
       background-color: ${colors.buttonBgHover};
       box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
       transform: translateY(-2px);
@@ -110,7 +111,7 @@ const colors = {
 `;
 
 const Slider = styled.input`
-  -webkit-appearance: none; /* 기본 스타일 제거 */
+  webkit-appearance: none; /* 기본 스타일 제거 */
   width: 100%; /* 부모 크기에 맞춰 너비 */
   height: 8px; /* 슬라이더의 높이 */
   background: #FFFFFF; /* 슬라이더 배경 */
@@ -152,7 +153,7 @@ const AmountLabel = styled.label`
 
 const TextInput = styled.input`
   width : 90%;
-  height 10%;
+  height: 10%;
   
   border: 1px solid solid;
   border-radius: 8px;
@@ -223,10 +224,10 @@ const ResetButton = styled.button`
   border: 3px solid ${colors.navy};
   border-radius: 5px;
   padding: 15px; /* 필요에 따라 패딩 추가 */
-  width : 60% 
+  width : 60%;
   justify-content: center; /* 중앙 정렬 필요시 */
   align-items: center; /* 중앙 정렬 필요시 */
-  text-align: center; /*
+  text-align: center;
 `;
   
   // 필드셋 스타일
@@ -297,7 +298,6 @@ const DetailBox = styled.div`
   padding: 10px; /* 안쪽 여백 */
   border: 1px solid gray; /* 테두리 */
   border-radius: 6px; /* 모서리 둥글게 */ 
-  background-color: #white; /* 배경색 */
   color: black; /* 글자색 */
 `;
 
@@ -393,7 +393,7 @@ const Filterbox = styled.div`
 const Display = styled.div`
  border: 1px solid #000000;
  width: 54%;
- height : 100%
+ height : 100%;
  justify-content: center; /* 수평 중앙 정렬 */
  align-items: center; /* 수직 중앙 정렬 */
  padding: 3px;
@@ -460,8 +460,4 @@ const Cardbox = styled.div`
     Filterbox,
     Display,
     Cardbox,
-   
-   
-    
-    
   };
