@@ -277,9 +277,6 @@ function ReceivedScholarshipsPage() {
               autoHighlight
               getOptionLabel={(option) => option.name} // 표시할 텍스트 설정
               options={scholarshipdata}
-              onInputChange={(event, newValue) => {
-                // getDataFromAPI(newValue); // 입력값으로 API 호출
-              }}
               onChange={(event, newValue) => {
                 if (newValue) {
                   handleAddScholarship(newValue.id); // ID로 함수 호출
