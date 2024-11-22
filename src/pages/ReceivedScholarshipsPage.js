@@ -262,31 +262,6 @@ function ReceivedScholarshipsPage() {
   );
 
   // ***********************************************************************************
-  // 검색 필터링
-
-  // ***********************************************************************************
-
-  const [myOptions, setMyOptions] = useState([]);
-  const [inputValue, setInputValue] = useState(""); // 입력값 상태 추가
-  const [selectedOption, setSelectedOption] = useState(null); // 선택된 항목
-
-  const getDataFromAPI = (input) => {
-    axios
-      .get(
-        "http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/scholarship/all",
-      )
-      .then((response) => {
-        const options = response.data.map((item) => ({
-          id: item.id, // ID 값 저장
-          name: item.name, // 이름 저장
-        }));
-        setMyOptions(options);
-      })
-      .catch((error) => {
-        console.error("데이터 가져오기 실패:", error);
-      });
-  };
-  // ***********************************************************************************
 
   return (
     <Background>
@@ -301,15 +276,12 @@ function ReceivedScholarshipsPage() {
               autoComplete
               autoHighlight
               getOptionLabel={(option) => option.name} // 표시할 텍스트 설정
-              options={myOptions}
-              inputValue={inputValue} // 입력값과 바인딩
+              options={scholarshipdata}
               onInputChange={(event, newValue) => {
-                setInputValue(newValue);
-                getDataFromAPI(newValue); // 입력값으로 API 호출
+                // getDataFromAPI(newValue); // 입력값으로 API 호출
               }}
               onChange={(event, newValue) => {
                 if (newValue) {
-                  setSelectedOption(newValue); // 선택된 항목 저장
                   handleAddScholarship(newValue.id); // ID로 함수 호출
                 }
               }}
