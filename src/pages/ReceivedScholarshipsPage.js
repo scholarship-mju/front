@@ -337,9 +337,7 @@ function ReceivedScholarshipsPage() {
                         fetchScholarshipById(scholarship.id);
                       }
                     }}
-                  >
-                    hello world
-                  </div>
+                  ></div>
                 </Tab>
                 {/* <Tab> */}
                 {/*   <h3>hello world</h3> */}
