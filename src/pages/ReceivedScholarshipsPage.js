@@ -269,7 +269,6 @@ function ReceivedScholarshipsPage() {
       <Container>
         <InputContainer>
           <div style={{ marginLeft: "10%" }}>
-            <h3>장학금 검색</h3>
             <Autocomplete
               style={{ width: 400 }}
               freeSolo
@@ -283,7 +282,11 @@ function ReceivedScholarshipsPage() {
                 }
               }}
               renderInput={(params) => (
-                <TextField {...params} variant="outlined" label="Search Box" />
+                <TextField
+                  {...params}
+                  variant="outlined"
+                  label="받은 장학금 검색"
+                />
               )}
             />
           </div>
