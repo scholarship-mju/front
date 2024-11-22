@@ -290,8 +290,8 @@ function ReceivedScholarshipsPage() {
 
   return (
     <Background>
+      <ReceiveLogo src={receiveLogo} />
       <Container>
-        <ReceiveLogo src={receiveLogo} />
         <InputContainer>
           <div style={{ marginLeft: "10%" }}>
             <h3>장학금 검색</h3>
