@@ -33,7 +33,6 @@ import {
   Progress,
   UploadProgress,
   // Dropdown page
-  cn,
   Dropdown,
   TriggerWrapper,
   Trigger,
@@ -135,9 +134,30 @@ function ReceivedScholarshipsPage() {
         },
       )
       .then((response) => {
+        console.log("단건조회 ");
         // 응답 데이터를 serverdata에 저장
-        setServerdata(response.data);
-        console.log("받은 장학금 데이터 출력", response.data); // 데이터 확인용 콘솔 출력
+        console.log("받은 장학금 단건 데이터 출력", response.data); // 데이터 확인용 콘솔 출력
+        return (
+          <Table>
+            <thread>
+              <tr>
+                <TableHeaderLeft>고유번호</TableHeaderLeft>
+                <TableHeader>장학금</TableHeader>
+                <TableHeader>금액</TableHeader>
+                <TableHeader>인증 상태</TableHeader>
+                <TableHeaderRight></TableHeaderRight>
+              </tr>
+            </thread>
+            <TableBody>
+              <tr>
+                <TableCell>{response.data.id}</TableCell>
+                <TableCell>{response.data.name}</TableCell>
+                <TableCell>{response.data.price}</TableCell>
+                <TableCell>{response.data.id}</TableCell>
+              </tr>
+            </TableBody>
+          </Table>
+        );
       })
       .catch((error) => {
         console.error("데이터 가져오기 실패:", error);
@@ -164,7 +184,6 @@ function ReceivedScholarshipsPage() {
       );
 
       console.log(`ID ${id} 장학금 삭제 완료`);
-      console.log(typeof id);
     } catch (error) {
       console.error(`ID ${id} 장학금 삭제 실패:`, error);
     }
@@ -312,6 +331,15 @@ function ReceivedScholarshipsPage() {
               <Tabs>
                 <Tab>
                   <h3>my name is sangmin</h3>
+                  <div
+                    onchange={(event, scholarship) => {
+                      if (scholarship) {
+                        fetchScholarshipById(scholarship.id);
+                      }
+                    }}
+                  >
+                    hello world
+                  </div>
                 </Tab>
                 {/* <Tab> */}
                 {/*   <h3>hello world</h3> */}
