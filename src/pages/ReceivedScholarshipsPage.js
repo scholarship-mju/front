@@ -32,7 +32,13 @@ import {
   ProgressBar,
   Progress,
   UploadProgress,
-  //Search realted
+  // Dropdown page
+  cn,
+  Dropdown,
+  TriggerWrapper,
+  Trigger,
+  Tabs,
+  Tab,
 } from "../style/ReceivedScholarshipsPageStyles";
 
 const MemoizedAnimatedNumbers = memo(({ animateToNumber }) => (
@@ -112,6 +118,30 @@ function ReceivedScholarshipsPage() {
       console.log(typeof id); // string
       console.log(`scholarship/${id}/got`);
     }
+  };
+
+  // ***********************************************************************************
+  // 장학금 단건 조회 로직
+
+  const fetchScholarshipById = async (id) => {
+    // 서버에 DELETE 요청
+    await axios
+      .get(
+        `http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/scholarship/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`, // 인증 토큰 포함
+          },
+        },
+      )
+      .then((response) => {
+        // 응답 데이터를 serverdata에 저장
+        setServerdata(response.data);
+        console.log("받은 장학금 데이터 출력", response.data); // 데이터 확인용 콘솔 출력
+      })
+      .catch((error) => {
+        console.error("데이터 가져오기 실패:", error);
+      });
   };
 
   // ***********************************************************************************
@@ -266,6 +296,34 @@ function ReceivedScholarshipsPage() {
   return (
     <Background>
       <ReceiveLogo src={receiveLogo} />
+      <Container>
+        <div className="flex h-96 w-full justify-start p-8 text-neutral-200 md:justify-center">
+          {serverdata.map((scholarship) => (
+            <Dropdown>
+              <TriggerWrapper>
+                <Trigger>
+                  {scholarship.id}
+                  {scholarship.name}
+                  {scholarship.price.toLocaleString()}원
+                </Trigger>
+                {/* <Trigger>{scholarship.name}</Trigger> */}
+                {/* <Trigger>{scholarship.price.toLocaleString()}원</Trigger> */}
+              </TriggerWrapper>
+              <Tabs>
+                <Tab>
+                  <h3>my name is sangmin</h3>
+                </Tab>
+                {/* <Tab> */}
+                {/*   <h3>hello world</h3> */}
+                {/* </Tab> */}
+                {/* <Tab> */}
+                {/*   <h1>nice to meet you</h1> */}
+                {/* </Tab> */}
+              </Tabs>
+            </Dropdown>
+          ))}
+        </div>
+      </Container>
       <Container>
         <InputContainer>
           <div style={{ marginLeft: "10%" }}>
