@@ -3,6 +3,8 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 import AnimatedNumbers from "react-animated-numbers";
 import axios from "axios";
 import receiveLogo from "../png/receiveLogo.png";
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
 import {
   Background,
   Container,
@@ -16,11 +18,6 @@ import {
   InputContainer,
   WarningText,
   TotalAmount,
-  Form,
-  Input,
-  Button,
-  ResetButton,
-  Svg,
   DeleteButton,
   AuthButton,
   Modal,
@@ -36,8 +33,6 @@ import {
   Progress,
   UploadProgress,
   //Search realted
-  SearchSvg,
-  ResetSvg,
 } from "../style/ReceivedScholarshipsPageStyles";
 
 const MemoizedAnimatedNumbers = memo(({ animateToNumber }) => (
@@ -56,68 +51,11 @@ const MemoizedAnimatedNumbers = memo(({ animateToNumber }) => (
   />
 ));
 
-const SearchForm = ({ onSearch }) => {
-  const [inputValue, setInputValue] = useState("");
-
-  const handleInputChange = (e) => {
-    setInputValue(e.target.value);
-  };
-
-  const handleReset = () => {
-    setInputValue("");
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (inputValue.trim()) {
-      const numericValue = Number(inputValue); // 문자열을 숫자로 변환
-      if (!isNaN(numericValue)) {
-        onSearch(numericValue); // 변환된 숫자 값을 전달
-      } else {
-        console.error("입력값이 유효한 숫자가 아닙니다.");
-      }
-      setInputValue(""); // clear input after search
-    }
-  };
-
-  return (
-    <Form onSubmit={handleSubmit}>
-      <Button>
-        <SearchSvg />
-      </Button>
-      <Input
-        className="input"
-        placeholder="받은 장학금 입력"
-        required
-        type="text"
-        value={inputValue}
-        onChange={handleInputChange}
-      />
-      <ResetButton className="reset" type="reset" onClick={handleReset}>
-        <ResetSvg />
-      </ResetButton>
-    </Form>
-  );
-};
-
 // ***********************************************************************************
 
 function ReceivedScholarshipsPage() {
-  const scholarshipData = [
-    { name: "장학금 A", amount: 1000000 },
-    { name: "장학금 B", amount: 1500000 },
-    { name: "장학금 C", amount: 2000000 },
-    { name: "장학금 D", amount: 2500000 },
-    { name: "장학금 E", amount: 10000000 },
-  ];
-
-  const [scholarships, setScholarships] = useState([
-    { id: 1, name: "장학금 1", amount: 1000000 },
-    { id: 2, name: "장학금 2", amount: 500000 },
-  ]);
-
   // ***********************************************************************************
-  // 장학금 추가 함수
+  // 받은 장학금 추가 함수
 
   const handleAddScholarship = async (id) => {
     try {
@@ -131,7 +69,7 @@ function ReceivedScholarshipsPage() {
         return;
       }
       // 서버에 POST 요청
-      const response = await axios.post(
+      await axios.post(
         `http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/scholarship/${id}/got`,
         {},
         {
@@ -160,17 +98,16 @@ function ReceivedScholarshipsPage() {
           console.error("데이터 가져오기 실패:", error);
         });
 
-      // 서버 응답 데이터에서 새 장학금 정보 가져오기
-      const addedScholarship = response.data; // 예시로 서버에서 추가된 데이터를 반환한다고 가정
-      console.log("받은장학금 데이터:", addedScholarship);
-
-      // 상태 업데이트
-      console.log("setServerdata:", serverdata);
-      // setServerdata((prevServerData) => [...prevServerData, addedScholarship]);
-
       console.log(`ID ${id} 장학금 등록 완료`);
       // console.log("장학금 등록 성공", response.data);
     } catch (error) {
+      const token = localStorage.getItem("accessToken");
+      if (!token) {
+        console.error("토큰이 존재하지 않습니다.");
+        alert("로그아웃되었습니다.");
+        return;
+      }
+      alert("이미 등록된 장학금입니다.");
       console.error(`ID ${id} 장학금 등록 실패:`, error);
       console.log(typeof id); // string
       console.log(`scholarship/${id}/got`);
@@ -292,8 +229,7 @@ function ReceivedScholarshipsPage() {
       .then((response) => {
         // 응답 데이터를 serverdata에 저장
         setServerdata(response.data);
-        console.log("받은 장학금 데이터 출력");
-        console.log(response.data); // 데이터 확인용 콘솔 출력
+        console.log("받은 장학금 데이터 출력", response.data); // 데이터 확인용 콘솔 출력
       })
       .catch((error) => {
         console.error("데이터 가져오기 실패:", error);
@@ -311,8 +247,7 @@ function ReceivedScholarshipsPage() {
       .then((response) => {
         // 응답 데이터를 serverdata에 저장
         setScholarshipsdata(response.data);
-        console.log("전체 장학금 데이터 출력");
-        console.log(response.data); // 데이터 확인용 콘솔 출력
+        console.log("전체 장학금 데이터 출력", response.data); // 데이터 확인용 콘솔 출력
       })
       .catch((error) => {
         console.error("데이터 가져오기 실패:", error);
@@ -326,10 +261,64 @@ function ReceivedScholarshipsPage() {
     0,
   );
 
+  // ***********************************************************************************
+  // 검색 필터링
+
+  // ***********************************************************************************
+
+  const [myOptions, setMyOptions] = useState([]);
+  const [inputValue, setInputValue] = useState(""); // 입력값 상태 추가
+  const [selectedOption, setSelectedOption] = useState(null); // 선택된 항목
+
+  const getDataFromAPI = (input) => {
+    axios
+      .get(
+        "http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/scholarship/all",
+      )
+      .then((response) => {
+        const options = response.data.map((item) => ({
+          id: item.id, // ID 값 저장
+          name: item.name, // 이름 저장
+        }));
+        setMyOptions(options);
+      })
+      .catch((error) => {
+        console.error("데이터 가져오기 실패:", error);
+      });
+  };
+  // ***********************************************************************************
+
   return (
     <Background>
       <ReceiveLogo src={receiveLogo} />
       <Container>
+        <InputContainer>
+          <div style={{ marginLeft: "10%" }}>
+            <h3>장학금 검색</h3>
+            <Autocomplete
+              style={{ width: 400 }}
+              freeSolo
+              autoComplete
+              autoHighlight
+              getOptionLabel={(option) => option.name} // 표시할 텍스트 설정
+              options={myOptions}
+              inputValue={inputValue} // 입력값과 바인딩
+              onInputChange={(event, newValue) => {
+                setInputValue(newValue);
+                getDataFromAPI(newValue); // 입력값으로 API 호출
+              }}
+              onChange={(event, newValue) => {
+                if (newValue) {
+                  setSelectedOption(newValue); // 선택된 항목 저장
+                  handleAddScholarship(newValue.id); // ID로 함수 호출
+                }
+              }}
+              renderInput={(params) => (
+                <TextField {...params} variant="outlined" label="Search Box" />
+              )}
+            />
+          </div>
+        </InputContainer>
         <Table>
           <thead>
             <tr>
@@ -447,9 +436,6 @@ function ReceivedScholarshipsPage() {
             </TransitionGroup>
           </TableBody>
         </Table>
-        <InputContainer>
-          <SearchForm onSearch={handleAddScholarship} />
-        </InputContainer>
         <WarningText>이미 등록된 장학금이 있을 수 있습니다.</WarningText>
 
         <TotalAmount>
