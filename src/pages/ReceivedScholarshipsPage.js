@@ -285,7 +285,7 @@ function ReceivedScholarshipsPage() {
                 <TextField
                   {...params}
                   variant="outlined"
-                  label="받은 장학금 검색"
+                  label="받은 장학금 등록"
                 />
               )}
             />
