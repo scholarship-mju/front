@@ -249,7 +249,7 @@ function ReceivedScholarshipsPage() {
       <ReceiveLogo src={receiveLogo} />
       <Container>
         <InputContainer>
-          <div style={{ marginLeft: "10%" }}>
+          <div>
             <Autocomplete
               style={{ width: 400 }}
               freeSolo
