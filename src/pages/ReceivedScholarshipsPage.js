@@ -70,7 +70,7 @@ function ReceivedScholarshipsPage() {
       }
       // 서버에 POST 요청
       await axios.post(
-        `http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/scholarship/${id}/got`,
+        `http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/scholarship/got/${id}`,
         {},
         {
           headers: {
