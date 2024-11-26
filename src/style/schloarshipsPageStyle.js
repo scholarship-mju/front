@@ -607,28 +607,39 @@ export const KingSection = styled.div`
   align-items: center;
   padding: 20px;
   border: 1px solid #ddd;
-  border-radius: 8px;
-  width: 20%;
+  border-radius: 12px;
+  width: 25%;
+  background: linear-gradient(135deg, #f5f5f5, #ffffff);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 `;
 
 export const KingLogo = styled.img`
-  width: 140%;
-  margin-bottom: 10px;
+  width: 120px;
+  margin-bottom: 20px;
 `;
 
 export const KingListContainer = styled.ul`
   list-style: none;
   padding: 0;
   width: 100%;
+  margin: 0;
 `;
 
 export const ListBox = styled.li`
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  margin: 5px 0;
-  padding: 10px;
-  text-align: center;
-  font-size: 14px;
-  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 8px 0;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+
+  span {
+    font-weight: bold;
+  }
 `;
