@@ -109,7 +109,7 @@ function ReceivedScholarshipsPage() {
       }
       alert("이미 등록된 장학금입니다.");
       console.error(`ID ${id} 장학금 등록 실패:`, error);
-      console.log(typeof id); // string
+      // console.log(typeof id); // string
       console.log(`scholarship/${id}/got`);
     }
   };
@@ -133,10 +133,9 @@ function ReceivedScholarshipsPage() {
         prevServerData.filter((scholarship) => scholarship.id !== id),
       );
 
-      console.log(`ID ${id} 장학금 삭제 완료`);
-      console.log(typeof id);
+      console.log(`ID: ${id} 장학금 삭제 완료`);
     } catch (error) {
-      console.error(`ID ${id} 장학금 삭제 실패:`, error);
+      console.error(`ID: ${id} 장학금 삭제 실패:`, error);
     }
   };
 
@@ -144,67 +143,40 @@ function ReceivedScholarshipsPage() {
   // 파일 관련된 코드
 
   const [isVerified, setIsVerified] = useState(false); // 인증 상태
-  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
-  const [selectedFile, setSelectedFile] = useState(null); // 업로드된 파일
 
-  const handleButtonClick = () => {
-    setIsModalOpen(true);
-  };
+  // ***********************************************************************************
+  // 사진 데이터 올리기
+
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [uploadStatus, setUploadStatus] = useState("");
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
   };
 
-  const handleUpload = () => {
-    if (selectedFile) {
-      setIsVerified(true);
-      setIsModalOpen(false);
-      alert("사진이 성공적으로 업로드되었습니다!");
-    } else {
-      alert("사진을 선택해주세요!");
+  const handleUpload = async (id) => {
+    if (!selectedFile) {
+      setUploadStatus("Please select a file first.");
+      return;
+    }
+
+    const apiUrl = `http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/scholarship/got${id}/valid`;
+    const formData = new FormData();
+    formData.append("file", selectedFile);
+
+    try {
+      const response = await axios.post(apiUrl, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      setUploadStatus("Upload successful!");
+      console.log("Response:", response.data);
+    } catch (error) {
+      setUploadStatus("Upload failed. Please try again.");
+      console.error("Error uploading file:", error);
     }
   };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
-
-  const [files, setFiles] = useState([]);
-
-  const handleFileSelect = (e) => {
-    const selectedFiles = Array.from(e.target.files);
-    setFiles((prev) => [...prev, ...selectedFiles]);
-  };
-
-  const simulateUpload = (file) => {
-    let progress = 0;
-    const interval = setInterval(() => {
-      progress += Math.random() * 10;
-      if (progress >= 100) {
-        progress = 100;
-        clearInterval(interval);
-      }
-      setFiles((prev) =>
-        prev.map((f) => (f.name === file.name ? { ...f, progress } : f)),
-      );
-    }, 200);
-  };
-
-  const startUpload = () => {
-    files.forEach((file) => {
-      if (!file.progress) {
-        setFiles((prev) =>
-          prev.map((f) => (f.name === file.name ? { ...f, progress: 0 } : f)),
-        );
-        simulateUpload(file);
-      }
-    });
-  };
-
-  const handleRemoveFile = (fileName) => {
-    setFiles((prev) => prev.filter((file) => file.name !== fileName));
-  };
-
   // ***********************************************************************************
   // 서버 데이터 불러오기
 
@@ -262,6 +234,15 @@ function ReceivedScholarshipsPage() {
   );
 
   // ***********************************************************************************
+  const [activeModalId, setActiveModalId] = useState(null);
+  const handleButtonClick = (id) => {
+    setActiveModalId(id); // 해당 ID의 모달 열기
+  };
+
+  const handleCloseModal = () => {
+    setActiveModalId(null); // 모든 모달 닫기
+  };
+  // ***********************************************************************************
 
   return (
     <Background>
@@ -318,21 +299,21 @@ function ReceivedScholarshipsPage() {
                         {scholarship.price.toLocaleString()}원
                       </TableCell>
 
-                      <TableCell>
+                      <TableCell key={scholarship.id}>
                         <AuthButton
-                          onClick={handleButtonClick}
+                          onClick={() => handleButtonClick(scholarship.id)} // 특정 ID로 설정
                           isVerified={isVerified}
                         >
                           {isVerified ? "인증 O" : "인증 X"}
                         </AuthButton>
-                        {isModalOpen && (
+                        {activeModalId === scholarship.id && ( // 특정 ID의 모달만 열기
                           <>
-                            <Overlay onclick={handleCloseModal} />
+                            <Overlay onClick={handleCloseModal} />
                             <Modal>
                               <div
                                 style={{
                                   display: "flex",
-                                  alignItem: "center",
+                                  alignItems: "center",
                                   justifyContent: "flex-end",
                                 }}
                               >
@@ -340,54 +321,19 @@ function ReceivedScholarshipsPage() {
                                   닫기
                                 </ModalButton>
                               </div>
-                              <UploadContainer>
-                                <h2>File Upload</h2>
-                                <UploadBox
-                                  onClick={() =>
-                                    document
-                                      .getElementById("file-input")
-                                      .click()
-                                  }
-                                >
-                                  <p>Drag files to upload</p>
-                                  <FileSelectButton>
-                                    Select Files
-                                  </FileSelectButton>
-                                  <input
-                                    type="file"
-                                    id="file-input"
-                                    multiple
-                                    hidden
-                                    onChange={handleFileSelect}
-                                  />
-                                </UploadBox>
-                                <UploadProgress>
-                                  {files.map((file, index) => (
-                                    <UploadItem key={index}>
-                                      <p>
-                                        {file.name} (
-                                        {(file.size / 1024 / 1024).toFixed(1)}{" "}
-                                        MB)
-                                      </p>
-                                      <ProgressBar>
-                                        <Progress width={file.progress || 0} />
-                                      </ProgressBar>
-                                      <CloseButton
-                                        onClick={() =>
-                                          handleRemoveFile(file.name)
-                                        }
-                                      >
-                                        ✕
-                                      </CloseButton>
-                                    </UploadItem>
-                                  ))}
-                                </UploadProgress>
-                                {files.length > 0 && (
-                                  <FileSelectButton onClick={startUpload}>
-                                    Start Upload
-                                  </FileSelectButton>
-                                )}
-                              </UploadContainer>
+                              <h1>{scholarship.name}</h1>
+                              <input
+                                type="file"
+                                onChange={(e) =>
+                                  handleFileChange(e, scholarship.id)
+                                }
+                              />
+                              <button
+                                onClick={() => handleUpload(scholarship.id)}
+                              >
+                                Upload
+                              </button>
+                              {uploadStatus && <p>{uploadStatus}</p>}
                             </Modal>
                           </>
                         )}
