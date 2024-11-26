@@ -161,9 +161,14 @@ function ReceivedScholarshipsPage() {
   };
 
   // ***********************************************************************************
-  // 파일 관련된 코드
+  // 인증 관련된 코드
 
-  const [isVerified, setIsVerified] = useState(false); // 인증 상태
+  const getVerificationStatus = (id) => {
+    const scholarship = serverdata.find((item) => item.id === id);
+    // console.log(`ID: ${id}`);
+    // console.log(`Status: ${scholarship.status}`);
+    return scholarship?.status === "VERIFIED"; // 인증됨 상태 여부 확인
+  };
 
   // ***********************************************************************************
   // 증빙 데이터 올리기
@@ -342,9 +347,11 @@ function ReceivedScholarshipsPage() {
                       <TableCell key={scholarship.id}>
                         <AuthButton
                           onClick={() => handleButtonClick(scholarship.id)} // 특정 ID로 설정
-                          isVerified={isVerified}
+                          isVerified={getVerificationStatus(scholarship.id)} // 서버 데이터에서 상태 가져오기
                         >
-                          {isVerified ? "인증 O" : "인증 X"}
+                          {getVerificationStatus(scholarship.id)
+                            ? "인증 O"
+                            : "인증 X"}
                         </AuthButton>
                         {activeModalId === scholarship.id && ( // 특정 ID의 모달만 열기
                           <>
