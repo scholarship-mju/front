@@ -145,7 +145,7 @@ function ReceivedScholarshipsPage() {
   const [isVerified, setIsVerified] = useState(false); // 인증 상태
 
   // ***********************************************************************************
-  // 사진 데이터 올리기
+  // 증빙 데이터 올리기
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploadStatus, setUploadStatus] = useState("");
@@ -172,9 +172,11 @@ function ReceivedScholarshipsPage() {
       });
       setUploadStatus("Upload successful!");
       console.log("Response:", response.data);
+      console.log(`ID: ${id} 증빙 데이터 Upload -> 성공`);
     } catch (error) {
       setUploadStatus("Upload failed. Please try again.");
       console.error("Error uploading file:", error);
+      console.log(`ID: ${id} 증빙 데이터 Upload -> 실패`);
     }
   };
   // ***********************************************************************************
