@@ -70,13 +70,16 @@ const ScholarshipCard = () => {
           <div>{parseInt(scholarshipitem.price).toLocaleString() + "원"}</div>
         </div>
         {expandedScholarships[index] && (
+
           <DetailBox>
-            <p>자세한 내용: {scholarshipitem.notes || "No additional details"}</p>
-            {displayAttachment(scholarshipitem.DetailBox?.attachment)}
-            {scholarshipitem.DetailBox?.link && (
-              <a href={scholarshipitem.DetailBox.link} target="_blank" rel="noopener noreferrer">링크</a>
-            )}
+            <p>세부 설명 <hr></hr>
+            <div>지역 구분 : {scholarshipitem.city}</div></p>
+            <div>학과 구분 : {scholarshipitem.department || "제한 없음"}</div>
+            <div>나이 제한 : {scholarshipitem.minAge}~{scholarshipitem.maxAge}</div>
+            <div>소득 구분 : {scholarshipitem.incomeQuantile}</div> 
+            
           </DetailBox>
+          
         )}
       </ScholarshipItem>
       ))}

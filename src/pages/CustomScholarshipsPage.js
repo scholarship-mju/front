@@ -1,34 +1,26 @@
-import React, { useState } from "react";
-import schoolImage from '../png/5-1.jpg';
+import React, { useState, useEffect } from "react";
 import downImage from '../png/down.png';
-import ScholarshipCard from "./ScholarshipCard.js";
+import axios from "axios";
+import receiveLogo from "../png/receiveLogo.png";
+import schoolImage from '../png/5-1.jpg';
+import SearchImage from '../png/search.png';// 이미지 파일을 import
+import HeartCheckbox from './HeartButton';  // ButtonGroup 임포트
 import customLogo from "../png/customLogo.png";
+import king from "../png/king.png";
+
 import {
-  Background,
-  ResetButton,
-  Fieldset,
-  List,
-  ScholarshipItem,
-  ScholarshipAmount,
-  CenterContainer,
-  TextInput,
-  SearchContainer,
-  SliderContainer,
-  DownButton,
-  DetailBox,
-  Selectioncontainer,
-  MainThree,
-  Filterbox,
-  Display,
-  Cardbox,
-  AmountLabel,
-  Slider,
-  CustomLogo
-
-} from '../style/CustomScholarshipsPageStyles.js';
+  Background, Button, ResetButton, Fieldset, List, ScholarshipItem,
+  ScholarshipAmount, CenterContainer, ListItem, ListContainer, TextInput,
+  SearchContainer, SliderContainer, DownButton, DetailBox, Selectioncontainer,
+  OverlayForm, FilterForm, FilterButton, Slider, AmountLabel
+  , Select, StyledWrapper, Display, Cardbox, MainThree, Filterbox, ScholarLogo, KingSection, KingLogo, KingListContainer, ListBox
+} from '../style/schloarshipsPageStyle';
+import LoadMoreGrid from "./LoadMoreGrid";
+import ScholarshipCard from "./ScholarshipCard";
 
 
-const CustomScholarshipsPage = () => {
+/////////////////////////////////////////////////////////////////////////////////////////////
+const ScholarshipsPage = () => {
   const scholarships = [ // scholarships 배열 이름 변경
     {
       name: "A 장학금",
@@ -76,252 +68,56 @@ const CustomScholarshipsPage = () => {
         attachment: null // 첨부파일이 없는 경우 null
       },
       button: { id: "button-d" }
-    }, {
-      name: "A2 장학금",
-      amount: "1,000,000",
-      feature: ["성적 우수자 대상", "리더십 장려", "교내"],
-      DetailBox: {
-        link: "https://example.com/a",
-        notes: "A 장학금에 대한 특이사항",
-        category: "교내", // 교내 장학금
-        attachment: "https://example.com/a-attachment.pdf" // 첨부파일 URL
-      },
-      button: { id: "button-a" }
-    },
-    {
-      name: "B2 장학금",
-      amount: "500,000",
-      feature: ["저소득층 대상", "학업 성취도", "교외"],
-      DetailBox: {
-        link: "https://example.com/b",
-        notes: "B 장학금에 대한 특이사항",
-        category: "교외", // 교외 장학금
-        attachment: "https://example.com/b-attachment.pdf"
-      },
-      button: { id: "button-b" }
-    },
-    {
-      name: "C2 장학금",
-      amount: "1,500,000",
-      feature: ["우수 체육인 대상", "국제 대회 참가", "교내"],
-      DetailBox: {
-        link: "https://example.com/c",
-        notes: "C 장학금에 대한 특이사항",
-        category: "교내",
-        attachment: null // 첨부파일이 없는 경우 null
-      },
-      button: { id: "button-c" }
-    }, {
-      name: "D2 장학금",
-      amount: "3,500,000",
-      feature: ["우수 체육인 대상", "국제 대회 참가", "교내"],
-      DetailBox: {
-        link: "https://example.com/c",
-        notes: "D 장학금에 대한 특이사항",
-        category: "교내",
-        attachment: null // 첨부파일이 없는 경우 null
-      },
-      button: { id: "button-d" }
-    }, {
-      name: "C 장학금",
-      amount: "1,500,000",
-      feature: ["우수 체육인 대상", "국제 대회 참가", "교내"],
-      DetailBox: {
-        link: "https://example.com/c",
-        notes: "C 장학금에 대한 특이사항",
-        category: "교내",
-        attachment: null // 첨부파일이 없는 경우 null
-      },
-      button: { id: "button-c" }
-    }, {
-      name: "D25 장학금",
-      amount: "3,500,000",
-      feature: ["우수 체육인 대상", "국제 대회 참가", "교내"],
-      DetailBox: {
-        link: "https://example.com/c",
-        notes: "D 장학금에 대한 특이사항",
-        category: "교내",
-        attachment: null // 첨부파일이 없는 경우 null
-      },
-      button: { id: "button-d" }
-    }, {
-      name: "A122 장학금",
-      amount: "1,000,000",
-      feature: ["성적 우수자 대상", "리더십 장려", "교내"],
-      DetailBox: {
-        link: "https://example.com/a",
-        notes: "A 장학금에 대한 특이사항",
-        category: "교내", // 교내 장학금
-        attachment: "https://example.com/a-attachment.pdf" // 첨부파일 URL
-      },
-      button: { id: "button-a" }
-    },
-    {
-      name: "B251 장학금",
-      amount: "500,000",
-      feature: ["저소득층 대상", "학업 성취도", "교외"],
-      DetailBox: {
-        link: "https://example.com/b",
-        notes: "B 장학금에 대한 특이사항",
-        category: "교외", // 교외 장학금
-        attachment: "https://example.com/b-attachment.pdf"
-      },
-      button: { id: "button-b" }
-    },
-    {
-      name: "C22 장학금",
-      amount: "1,500,000",
-      feature: ["우수 체육인 대상", "국제 대회 참가", "교내"],
-      DetailBox: {
-        link: "https://example.com/c",
-        notes: "C 장학금에 대한 특이사항",
-        category: "교내",
-        attachment: null // 첨부파일이 없는 경우 null
-      },
-      button: { id: "button-c" }
-    }, {
-      name: "D23 장학금",
-      amount: "3,500,000",
-      feature: ["우수 체육인 대상", "국제 대회 참가", "교내"],
-      DetailBox: {
-        link: "https://example.com/c",
-        notes: "D 장학금에 대한 특이사항",
-        category: "교내",
-        attachment: null // 첨부파일이 없는 경우 null
-      },
-      button: { id: "button-d" }
-    }, {
-      name: "C 장학금",
-      amount: "1,500,000",
-      feature: ["우수 체육인 대상", "국제 대회 참가", "교내"],
-      DetailBox: {
-        link: "https://example.com/c",
-        notes: "C 장학금에 대한 특이사항",
-        category: "교내",
-        attachment: null // 첨부파일이 없는 경우 null
-      },
-      button: { id: "button-c" }
-    }, {
-      name: "D 장학금",
-      amount: "3,500,000",
-      feature: ["우수 체육인 대상", "국제 대회 참가", "교내"],
-      DetailBox: {
-        link: "https://example.com/c",
-        notes: "D 장학금에 대한 특이사항",
-        category: "교내",
-        attachment: null // 첨부파일이 없는 경우 null
-      },
-      button: { id: "button-d" }
-    }, {
-      name: "A2 장학금",
-      amount: "1,000,000",
-      feature: ["성적 우수자 대상", "리더십 장려", "교내"],
-      DetailBox: {
-        link: "https://example.com/a",
-        notes: "A 장학금에 대한 특이사항",
-        category: "교내", // 교내 장학금
-        attachment: "https://example.com/a-attachment.pdf" // 첨부파일 URL
-      },
-      button: { id: "button-a" }
-    },
-    {
-      name: "B2 장학금",
-      amount: "500,000",
-      feature: ["저소득층 대상", "학업 성취도", "교외"],
-      DetailBox: {
-        link: "https://example.com/b",
-        notes: "B 장학금에 대한 특이사항",
-        category: "교외", // 교외 장학금
-        attachment: "https://example.com/b-attachment.pdf"
-      },
-      button: { id: "button-b" }
-    },
-    {
-      name: "C2 장학금",
-      amount: "1,500,000",
-      feature: ["우수 체육인 대상", "국제 대회 참가", "교내"],
-      DetailBox: {
-        link: "https://example.com/c",
-        notes: "C 장학금에 대한 특이사항",
-        category: "교내",
-        attachment: null // 첨부파일이 없는 경우 null
-      },
-      button: { id: "button-c" }
-    }, {
-      name: "D2 장학금",
-      amount: "3,500,000",
-      feature: ["우수 체육인 대상", "국제 대회 참가", "교내"],
-      DetailBox: {
-        link: "https://example.com/c",
-        notes: "D 장학금에 대한 특이사항",
-        category: "교내",
-        attachment: null // 첨부파일이 없는 경우 null
-      },
-      button: { id: "button-d" }
     },
   ];
 
   const [searchTerm, setSearchTerm] = useState("");
   const [minAmount, setMinAmount] = useState(100000);
   const [maxAmount, setMaxAmount] = useState(5000000);
-  const [searchField, setSearchField] = useState("name");
-  const [lastButton, setLastButton] = useState(null);
-  const [errorMessage, setErrorMessage] = useState("");
   const [expandedScholarships, setExpandedScholarships] = useState({});
   const [selectedCategory, setSelectedCategory] = useState("전체"); // 카테고리 상태 추가
   const [isChecked, setIsChecked] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+
   const parseAmount = (amount) => parseInt(amount.replace(/[^0-9]/g, ''), 10);
 
-  const filterScholarships = (category, searchField, searchTerm, minAmount, maxAmount) => {
+
+  const filterScholarships = (category, minAmount, maxAmount) => {
     return scholarships.filter((scholarship) => {
       const isCategoryMatch = (category === "전체") || (scholarship.DetailBox.category === category);
+      const scholarshipAmount = parseAmount(scholarship.amount);
+      const isAmountMatch = scholarshipAmount >= minAmount && scholarshipAmount <= maxAmount;
 
-      const isMatch = (() => {
-        switch (searchField) {
-          case "name":
-            return scholarship.name.toLowerCase().includes(searchTerm.toLowerCase());
-          case "amount":
-            const scholarshipAmount = parseAmount(scholarship.amount);
-            return scholarshipAmount >= minAmount && scholarshipAmount <= maxAmount;
-          case "feature":
-            return scholarship.feature.join(", ").toLowerCase().includes(searchTerm.toLowerCase());
-          default:
-            return true;
-        }
-      })();
+      // 대소문자 구분 없이 이름 검색
+      const isNameMatch = scholarship.name.toLowerCase().includes(searchTerm.toLowerCase());
 
-      return isCategoryMatch && isMatch;
+      // 특징 검색
+      const isFeatureMatch = scholarship.feature.join(", ").toLowerCase().includes(searchTerm.toLowerCase());
+
+      // 금액 범위 검색
+      const isAmountRangeMatch = scholarshipAmount >= minAmount && scholarshipAmount <= maxAmount;
+
+      // 모든 조건을 만족하는지 확인
+      return isCategoryMatch && isAmountMatch && (isNameMatch || isFeatureMatch) && isAmountRangeMatch;
     });
   };
 
+  //검색 필터 열기 닫기
+  const openFilterForm = () => setIsFilterOpen(true);
+  const closeFilterForm = () => setIsFilterOpen(false);
+
   // 필터링된 장학금 목록을 계산
-  const filteredScholarships = filterScholarships(selectedCategory, searchField, searchTerm, minAmount, maxAmount);
+  const filteredScholarships = filterScholarships(selectedCategory, minAmount, maxAmount);
 
   const resetbutton = () => {
     setSearchTerm("");
     setMinAmount(100000);
     setMaxAmount(5000000);
-    setSearchField("name");
-    setLastButton(null);
-    setErrorMessage("");
     setExpandedScholarships({});
     setSelectedCategory("전체"); // 카테고리 초기화
   };
 
-  const handleSearch1 = (field) => {
-    setSearchField(field);
-    setLastButton(field);
-
-    if (field === "name" && searchTerm.trim() === "") {
-      setErrorMessage("정확한 장학금명을 입력해주세요.");
-    } else if (field === "amount" && (minAmount === "" || maxAmount === "")) {
-      setErrorMessage("최소 또는 최대 금액을 선택해주세요.");
-    } else if (field === "feature" && searchTerm.trim() === "") {
-      setErrorMessage("정확한 특징명을 입력해주세요.");
-    } else {
-      setErrorMessage("");
-    }
-  };
 
   const handleToggleDetails = (index) => {
     setExpandedScholarships((prev) => ({
@@ -330,7 +126,7 @@ const CustomScholarshipsPage = () => {
     }));
   };
 
-  const displayAttachment = (attachment) => { //첨부파일 함수
+  const displayAttachment = (attachment) => { //첨부파일 함수 V 
     if (!attachment) return null;
     return (
       <a href={attachment} target="_blank" rel="noopener noreferrer">
@@ -347,39 +143,78 @@ const CustomScholarshipsPage = () => {
     setIsChecked(!isChecked); // 체크 상태 토글
   };
 
-
   const handleClick = () => {
     console.log("Div clicked!");
   };
 
+
   const [serverdata, setServerdata] = useState([]); // 서버 데이터 저장용 state
 
 
+  useEffect(() => {
+    // 서버로 GET 요청을 보냄
+    const token = " "; // 실제 토큰 값??
+    const response = axios.get("http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/scholarship/all", {
+      headers: {
+        Authorization: `Bearer ${token}`, // 토큰이 필요할 경우 포함
+      },
+    })
+      .then((response) => {
+        // 응답 데이터를 serverdata에 저장
+        setServerdata(response.data);
+        console.log(response.data); // 데이터 확인용 콘솔 출력
+      })
+      .catch((error) => {
+        console.error('데이터 가져오기 실패:', error);
+      });
+  }, []);
+
+  const [rankings, setRankings] = useState([]);
+  const fetchRankings = async () => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      const response = await axios.get("http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/rank", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("data = ", response.data);
+      setRankings(response.data); // 데이터를 상태에 저장
+    } catch (error) {
+      console.error("데이터를 가져오는데 실패했습니다:", error);
+    }
+  };
+  useEffect(() => {
+    fetchRankings();
+  }, []);
+
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   return (
     <Background>
-      <CustomLogo src={customLogo} />
-      <MainThree className="MainThree">
-
-        <Filterbox className="Filterbox">
-          검색 필터
-          <ResetButton>초기화</ResetButton>
-          <SearchContainer className="search">
-
-
-            <Selectioncontainer>
-              <label htmlFor="scholarship-category">장학금 유형:</label>
-              <select
-                id="scholarship-category"
-                value={selectedCategory}
-                onChange={handleSelectChange}
-              >
-                <option value="전체">전체</option>
-                <option value="교내">교내</option>
-                <option value="교외">교외</option>
-              </select>
-              {/* 드롭 다운 - 교내 교외 전체 */}
-            </Selectioncontainer>
-          </SearchContainer>
+      <ScholarLogo src={customLogo} />
+      <TextInput
+        placeholder="검색어 입력"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)} // 검색창 
+      />
+      <MainThree>
+        <Filterbox>
+          <h3>검색 필터</h3>
+          <ResetButton onClick={resetbutton}>초기화</ResetButton>
+          <Selectioncontainer>
+            장학금 유형:
+            <select
+              id="scholarship-category"
+              value={selectedCategory}
+              onChange={handleSelectChange}
+            >
+              <option value="전체">전체</option>
+              <option value="교내">교내</option>
+              <option value="교외">교외</option>
+            </select>
+          </Selectioncontainer>
           <SliderContainer>
             <AmountLabel>
               최소 금액: {minAmount.toLocaleString()}원
@@ -406,78 +241,39 @@ const CustomScholarshipsPage = () => {
           </SliderContainer>
           <div className="Filter3"> Filter학교</div>
           <div className="Filter4"> Filter기간</div>
-          <div className="Filter5"> Filter5</div>
-          <div className="Filter6"> Filter6</div>
+          <div className="Filter5"> Filter5나이</div>
+          <div className="Filter6"> Filter6도시</div>
           <div className="Filter6"> Filter6</div>
           <div className="Filter6"> Filter6</div>
         </Filterbox>
-
-        <Display className="display">
-          <div className="result">
-            <Fieldset>
-              <ScholarshipCard className="GridTest" />
-              <List className="기존List">
-                {[...serverdata].map((scholarshipitem, index) => (
-                  <ScholarshipItem key={index}>
-                    <strong className="card">{scholarshipitem.name}</strong> :
-                    {scholarshipitem.description}
-
-                    <ScholarshipAmount>
-                      {parseInt(scholarshipitem.price).toLocaleString() + "원"}
-                      <DownButton
-                        onClick={() => handleToggleDetails(index)}
-                        src={downImage}
-                        alt="Expand details"
-                        id={scholarshipitem.button?.id || `button-${index}`}
-                      />
-                    </ScholarshipAmount>
-                    {expandedScholarships[index] && (
-                      <DetailBox>
-                        <p>자세한 내용: {scholarshipitem.DetailBox?.notes || "No additional details"}</p>
-                        {displayAttachment(scholarshipitem.DetailBox?.attachment)} {/* Displays attachment if available */}
-                        {scholarshipitem.DetailBox?.link && (
-                          <a href={scholarshipitem.DetailBox.link} target="_blank" rel="noopener noreferrer">링크</a>
-                        )}
-                      </DetailBox>
-                    )}
-
-                  </ScholarshipItem>
-                ))}
-              </List>
-            </Fieldset>
+        <Display>
+          <div>
+            <ScholarshipCard/>
           </div>
         </Display>
-
-        <Cardbox className="Cardbox">
-          <TextInput
-            placeholder="검색어 입력"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)} // 검색창 
-          />
-
-          {filteredScholarships.length > 0 ? (
-            filteredScholarships.map((scholarship, index) => (
-              <ScholarshipItem key={index} onClick={handleClick} style={{ cursor: "pointer" }}>
-                <strong>{scholarship.name}</strong>
-                <svg width="100" height="100">
-                  <defs>
-
-                    <pattern id="imagePattern" patternUnits="userSpaceOnUse" width="100" height="100">
-                      <image href={schoolImage} x="0" y="0" width="100" height="100" />
-                    </pattern>
-                  </defs>
-                  <circle cx="50" cy="50" r="40" fill="url(#imagePattern)" />
-                </svg>
-                {scholarship.amount + "원"}
-              </ScholarshipItem>
-            ))
-          ) : (
-            <CenterContainer>검색 결과가 없습니다.</CenterContainer>
-          )}
+        <Cardbox>
         </Cardbox>
+
+        <KingSection>
+          <KingLogo src={king} alt="이달의 왕" />
+          <ListContainer>
+            {rankings.length > 0 ? (
+              rankings.slice(0, 4).map((user, index) => (
+                <ListBox key={index}>{user.nickname}</ListBox>
+              ))
+            ) : (
+              <>
+                <ListBox>명단1</ListBox>
+                <ListBox>명단2</ListBox>
+                <ListBox>명단3</ListBox>
+                <ListBox>명단4</ListBox>
+              </>
+            )}
+          </ListContainer>
+        </KingSection>
       </MainThree>
     </Background>
   );
 };
 
-export default CustomScholarshipsPage;
+export default ScholarshipsPage;

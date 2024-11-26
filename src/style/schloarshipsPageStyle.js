@@ -170,6 +170,7 @@ export const Selectioncontainer = styled.div`
 `;
 
 export const ResetButton = styled.button`
+  display: inline-block;
   flex: 1.5; /* 전체 너비의 15% */
   background-color: transparent;
   border: 1px solid #1A1A1A;
@@ -181,6 +182,40 @@ export const ResetButton = styled.button`
   line-height: normal;
   margin: 5px;
   padding: 5px;
+  
+  text-align: center;
+  touch-action: manipulation;
+  
+  &:disabled {
+    pointer-events: none;
+  }
+  
+  &:hover {
+    color: #fff;
+    background-color: ${colors.buttonBgHover};
+    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+    transform: translateY(-2px);
+  }
+  
+  &:active {
+    box-shadow: none;
+    transform: translateY(0);
+  }
+`;
+
+export const GoButton = styled.button`
+  flex: 1.5; /* 전체 너비의 15% */
+  background-color: transparent;
+  border: 1px solid #1A1A1A;
+  border-radius: 8px;
+  color: ${colors.buttonText};
+  font-family: Roobert, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  font-size: 18px;
+  font-weight: 600;
+  line-height: normal;
+  margin: 5px;
+  padding: 5px;
+  
   text-align: center;
   touch-action: manipulation;
   
@@ -312,6 +347,24 @@ export const FilterForm = styled.div` //흰색 폼
   margin: 0 auto; /* 부모 요소에서 중앙 정렬 */
 `;
 
+
+export const FilterContainer = styled.div` //흰색 폼
+  display: flex; /* flex로 설정 */
+  background-color: white;
+  padding: 20px 5px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  justify-content: center; /* 중앙 정렬 */
+  align-items: center; /* 중앙 정렬 */
+  text-align: center; /* 텍스트 중앙 정렬 */
+ 
+  max-width: 90%; /* 최대 너비 80% */
+  margin: 12px; auto; /* 부모 요소에서 중앙 정렬 */
+  
+`;
+
+
+
   // 필드셋 스타일
 export const Fieldset = styled.fieldset`
     border: 5px solid ${colors.navy};
@@ -345,11 +398,11 @@ export const LoadMoreButton = styled.button`
 
 // 리스트 아이템 스타일
 export const ScholarshipItem = styled.li`
-  margin: 11px;
+  margin: 13px;
   padding: 15px 10px 10px 15px;
-  font-size: 17px;
+  font-size: 16px;
   border-radius: 8px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 아래쪽 그림자 추가 */
+  box-shadow: 0px 4px 6px rgba(0.01, 0.1, 0, 0.2); /* 아래쪽 그림자 추가 */
 `;
 
 // 금액 스타일
@@ -375,7 +428,7 @@ export const DetailBox = styled.div`
   width: 90%; /* 부모의 전체 너비 사용 */
   margin : 20px;
   padding: 10px; /* 안쪽 여백 */
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 아래쪽 그림자 추가 */
+  box-shadow: 0px 4px 6px rgba(0, 0.1, 0, 0.2); /* 아래쪽 그림자 추가 */
   border-radius: 6px; /* 모서리 둥글게 */ 
   background-color: rgba(249, 249, 249, 0.5); /* 배경색 */
   color: black; /* 글자색 */

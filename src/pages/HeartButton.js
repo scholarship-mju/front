@@ -13,7 +13,7 @@ const HeartCheckbox = ({ scholarshipId }) => {
       if (isLiked) {
         // 찜 상태일 경우: 찜 해제 요청
         await axios.delete(
-          `http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/scholarship/${scholarshipId}/interest`,
+          `http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/scholarship/interest/${scholarshipId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`, // 인증 토큰 포함
