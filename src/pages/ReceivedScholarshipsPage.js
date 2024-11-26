@@ -60,12 +60,19 @@ function ReceivedScholarshipsPage() {
   const handleAddScholarship = async (id) => {
     try {
       console.log("Received ID:", id); // ID 값이 무엇인지 확인하기
-      console.log("Typeof:", typeof id); // string
+      // console.log("Typeof:", typeof id); // string
       const token = localStorage.getItem("accessToken");
       console.log(token);
 
       if (!token) {
         console.error("토큰이 존재하지 않습니다.");
+        return;
+      }
+      // 중복 ID 검사
+      const isDuplicate = serverdata.some((item) => item.id === id);
+      if (isDuplicate) {
+        alert("이미 등록된 장학금입니다.");
+        console.error(`ID ${id}는 이미 serverdata에 존재합니다.`);
         return;
       }
       // 서버에 POST 요청
@@ -107,9 +114,23 @@ function ReceivedScholarshipsPage() {
         alert("로그아웃되었습니다.");
         return;
       }
-      alert("이미 등록된 장학금입니다.");
+      if (error.response) {
+        // 서버에서 응답을 받은 경우
+        const status = error.response.status;
+        if (status === 500) {
+          alert("서버 에러가 발생했습니다. 관리자에게 문의하세요.");
+        } else if (status === 400) {
+          alert("잘못된 요청입니다. 입력 내용을 확인해주세요.");
+        } else if (status === 404) {
+          alert("요청한 데이터를 찾을 수 없습니다.");
+        } else {
+          alert(`오류 발생: ${status}`);
+        }
+        console.error(`HTTP ${status} 오류:`, error.response.data);
+      } else {
+        alert("이미 등록된 장학금입니다.");
+      }
       console.error(`ID ${id} 장학금 등록 실패:`, error);
-      // console.log(typeof id); // string
       console.log(`scholarship/${id}/got`);
     }
   };
@@ -140,12 +161,23 @@ function ReceivedScholarshipsPage() {
   };
 
   // ***********************************************************************************
-  // 파일 관련된 코드
+  // 인증 관련된 코드
 
-  const [isVerified, setIsVerified] = useState(false); // 인증 상태
+  const getVerificationStatus = (id) => {
+    const scholarship = serverdata.find((item) => item.id === id);
+
+    switch (scholarship?.status) {
+      case "NOT_VERIFIED":
+        return 0; // 인증되지 않음
+      case "IN_PROGRESS":
+        return 1; // 인증 진행 중
+      case "VERIFIED":
+        return 2; // 인증 완료
+    }
+  };
 
   // ***********************************************************************************
-  // 사진 데이터 올리기
+  // 증빙 데이터 올리기
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploadStatus, setUploadStatus] = useState("");
@@ -160,21 +192,39 @@ function ReceivedScholarshipsPage() {
       return;
     }
 
-    const apiUrl = `http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/scholarship/got${id}/valid`;
+    const apiUrl = `http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/scholarship/got/${id}/valid`;
     const formData = new FormData();
     formData.append("file", selectedFile);
 
     try {
       const response = await axios.post(apiUrl, formData, {
         headers: {
-          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`, // 인증 토큰 포함
         },
       });
       setUploadStatus("Upload successful!");
       console.log("Response:", response.data);
+      console.log(`ID: ${id} 증빙 데이터 Upload -> 성공`);
     } catch (error) {
-      setUploadStatus("Upload failed. Please try again.");
-      console.error("Error uploading file:", error);
+      if (error.response) {
+        // 서버에서 응답을 받은 경우
+        const status = error.response.status;
+        if (status === 413) {
+          setUploadStatus("파일용량을 초과했습니다.");
+          console.log("파일용량 초과");
+        } else if (status === 400) {
+          alert("잘못된 요청입니다. 입력 내용을 확인해주세요.");
+        } else if (status === 404) {
+          alert("요청한 데이터를 찾을 수 없습니다.");
+        } else {
+          alert(`오류 발생: ${status}`);
+        }
+        console.error(`HTTP ${status} 오류:`, error.response.data);
+      } else {
+        setUploadStatus("Upload failed. Please try again.");
+        console.error("Error uploading file:", error);
+        console.log(`ID: ${id} 증빙 데이터 Upload -> 실패`);
+      }
     }
   };
   // ***********************************************************************************
@@ -296,15 +346,20 @@ function ReceivedScholarshipsPage() {
                       <TableCell>{scholarship.id}</TableCell>
                       <TableCell>{scholarship.name}</TableCell>
                       <TableCell>
-                        {scholarship.price.toLocaleString()}원
+                        {/* {scholarship.price.toLocaleString()}원 */}
+                        {scholarship.maxAge}원
                       </TableCell>
 
                       <TableCell key={scholarship.id}>
                         <AuthButton
                           onClick={() => handleButtonClick(scholarship.id)} // 특정 ID로 설정
-                          isVerified={isVerified}
+                          status={getVerificationStatus(scholarship.id)} // 서버 데이터에서 상태 가져오기
                         >
-                          {isVerified ? "인증 O" : "인증 X"}
+                          {getVerificationStatus(scholarship.id) === 2
+                            ? "인증 O"
+                            : getVerificationStatus(scholarship.id) === 1
+                              ? "인증 중"
+                              : "인증 X"}
                         </AuthButton>
                         {activeModalId === scholarship.id && ( // 특정 ID의 모달만 열기
                           <>
