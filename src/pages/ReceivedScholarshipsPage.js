@@ -145,25 +145,25 @@ function ReceivedScholarshipsPage() {
 
   const [isVerified, setIsVerified] = useState(false); // 인증 상태
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
-  const [selectedFile, setSelectedFile] = useState(null); // 업로드된 파일
+  // const [selectedFile, setSelectedFile] = useState(null); // 업로드된 파일
 
   const handleButtonClick = () => {
     setIsModalOpen(true);
   };
 
-  const handleFileChange = (event) => {
-    setSelectedFile(event.target.files[0]);
-  };
+  // const handleFileChange = (event) => {
+  //   setSelectedFile(event.target.files[0]);
+  // };
 
-  const handleUpload = () => {
-    if (selectedFile) {
-      setIsVerified(true);
-      setIsModalOpen(false);
-      alert("사진이 성공적으로 업로드되었습니다!");
-    } else {
-      alert("사진을 선택해주세요!");
-    }
-  };
+  // const handleUpload = () => {
+  //   if (selectedFile) {
+  //     setIsVerified(true);
+  //     setIsModalOpen(false);
+  //     alert("사진이 성공적으로 업로드되었습니다!");
+  //   } else {
+  //     alert("사진을 선택해주세요!");
+  //   }
+  // };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -204,7 +204,39 @@ function ReceivedScholarshipsPage() {
   const handleRemoveFile = (fileName) => {
     setFiles((prev) => prev.filter((file) => file.name !== fileName));
   };
+  // ***********************************************************************************
+  // 사진 데이터 올리기
 
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [uploadStatus, setUploadStatus] = useState("");
+
+  const handleFileChange = (event) => {
+    setSelectedFile(event.target.files[0]);
+  };
+
+  const handleUpload = async (id) => {
+    if (!selectedFile) {
+      setUploadStatus("Please select a file first.");
+      return;
+    }
+
+    const apiUrl = `http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/scholarship/got${id}/valid`;
+    const formData = new FormData();
+    formData.append("file", selectedFile);
+
+    try {
+      const response = await axios.post(apiUrl, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      setUploadStatus("Upload successful!");
+      console.log("Response:", response.data);
+    } catch (error) {
+      setUploadStatus("Upload failed. Please try again.");
+      console.error("Error uploading file:", error);
+    }
+  };
   // ***********************************************************************************
   // 서버 데이터 불러오기
 
@@ -266,6 +298,19 @@ function ReceivedScholarshipsPage() {
   return (
     <Background>
       <ReceiveLogo src={receiveLogo} />
+      <Container>
+        {serverdata.map((scholarship) => (
+          <div key={scholarship.id}>
+            <h1>{scholarship.name}</h1>
+            <input
+              type="file"
+              onChange={(e) => handleFileChange(e, scholarship.id)}
+            />
+            <button onClick={() => handleUpload(scholarship.id)}>Upload</button>
+            {uploadStatus && <p>{uploadStatus}</p>}
+          </div>
+        ))}
+      </Container>
       <Container>
         <InputContainer>
           <div style={{ marginLeft: "10%" }}>
