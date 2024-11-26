@@ -19,10 +19,9 @@ const HomePage = () => {
   const fetchRankings = async () => {
     const token = localStorage.getItem("accessToken");
     try {
-      const response = await axios.get("http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/rank", {
-      });
+      const response = await axios.get("http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/rank");
 
-      console.log("data ",response.data);
+      console.log("data ", response.data);
 
       // 서버 응답에서 memberList를 사용하도록 수정
       if (response.data && response.data.memberList) {
@@ -56,7 +55,7 @@ const HomePage = () => {
           slidesPerView={1}
           navigation
           pagination={{ clickable: true }}
-          autoplay={{ delay: 2500, disableOnInteraction: false }}
+          autoplay={{ delay: 2600, disableOnInteraction: false }}
           modules={[Autoplay, Navigation, Pagination]}
         >
           <SwiperSlide>
@@ -80,21 +79,28 @@ const HomePage = () => {
           <ListContainer>
             {rankings && rankings.length > 0 ? (
               rankings
-                .filter((member) => member.total >= 0) // total 값이 0인 항목 제외
+                .filter((member) => member.total >= 0) // total 값이 0 이상인 항목만 선택
                 .sort((a, b) => b.total - a.total) // total 값 기준 내림차순 정렬
                 .slice(0, 4) // 상위 4명의 데이터만 선택
                 .map((user, index) => (
-                  <ListBox key={user.id || index}>
-                    {user.username}
-                  </ListBox>
+                  <div key={user.id || index} style={{ textAlign: "center" }}>
+                    <ListBox>{user.nickname || "이름 없음"}</ListBox>
+                    <span style={{ marginTop: "10px", display: "block", fontSize: "1.2em", fontWeight: "bold"}}>
+                      {index + 1}위
+                    </span>
+                  </div>
                 ))
             ) : (
               // 데이터가 없을 경우 기본 리스트 표시
               <>
-                <ListBox>명단1</ListBox>
-                <ListBox>명단2</ListBox>
-                <ListBox>명단3</ListBox>
-                <ListBox>명단4</ListBox>
+                {Array.from({ length: 4 }).map((_, index) => (
+                  <div key={`placeholder-${index}`} style={{ textAlign: "center" }}>
+                    <ListBox>명단{index + 1}</ListBox>
+                    <span style={{ marginTop: "10px", display: "block", fontSize: "1.2em", fontWeight: "bold"}}>
+                      {index + 1}위
+                    </span>
+                  </div>
+                ))}
               </>
             )}
           </ListContainer>
