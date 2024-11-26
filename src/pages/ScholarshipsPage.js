@@ -171,19 +171,21 @@ const ScholarshipsPage = () => {
 
   const [rankings, setRankings] = useState([]);
   const fetchRankings = async () => {
+    const token = localStorage.getItem("accessToken");
     try {
-      const token = localStorage.getItem("accessToken");
       const response = await axios.get("http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/rank", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("data = ", response.data);
-      setRankings(response.data); // 데이터를 상태에 저장
-    } catch (error) {
-      console.error("데이터를 가져오는데 실패했습니다:", error);
+    // 서버 응답에서 memberList를 사용하도록 수정
+    if (response.data && response.data.memberList) {
+      setRankings(response.data.memberList);
     }
-  };
+  } catch (error) {
+    console.error("데이터를 가져오는데 실패했습니다:", error);
+  }
+};
   useEffect(() => {
     fetchRankings();
   }, []);
@@ -248,7 +250,7 @@ const ScholarshipsPage = () => {
         </Filterbox>
         <Display>
           <div>
-            <ScholarshipCard/>
+            <ScholarshipCard />
           </div>
         </Display>
         <Cardbox>
@@ -256,20 +258,24 @@ const ScholarshipsPage = () => {
 
         <KingSection>
           <KingLogo src={king} alt="이달의 왕" />
-          <ListContainer>
-            {rankings.length > 0 ? (
-              rankings.slice(0, 4).map((user, index) => (
-                <ListBox key={index}>{user.nickname}</ListBox>
-              ))
-            ) : (
-              <>
-                <ListBox>명단1</ListBox>
-                <ListBox>명단2</ListBox>
-                <ListBox>명단3</ListBox>
-                <ListBox>명단4</ListBox>
-              </>
-            )}
-          </ListContainer>
+          <KingListContainer>
+            {rankings && rankings.length > 0 ? (
+              rankings
+                .filter((member) => member.total >= 0) // total 값이 0인 항목 제외
+                .sort((a, b) => b.total - a.total) // total 값 기준 내림차순 정렬
+                .slice(0, 10) // 상위 4명의 데이터만 선택
+                .map((user, index) => (
+                  <ListBox key={user.id || index}>
+                    {index + 1}위 {user.username}
+                  </ListBox>
+                ))
+            )
+              : Array.from({ length: 10 }).map((_, index) => (
+                <ListBox key={index} rank={index + 1}>
+                  <span>{index + 1}위</span> 데이터 없음
+                </ListBox>
+              ))}
+          </KingListContainer>
         </KingSection>
       </MainThree>
     </Background>

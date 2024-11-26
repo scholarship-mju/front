@@ -17,15 +17,17 @@ const HomePage = () => {
 
   // 서버에서 데이터를 가져오는 함수
   const fetchRankings = async () => {
+    const token = localStorage.getItem("accessToken");
     try {
-      const token = localStorage.getItem("accessToken");
       const response = await axios.get("http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/rank", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
       });
-      console.log("data = ", response.data);
-      setRankings(response.data); // 데이터를 상태에 저장
+
+      console.log("data ",response.data);
+
+      // 서버 응답에서 memberList를 사용하도록 수정
+      if (response.data && response.data.memberList) {
+        setRankings(response.data.memberList);
+      }
     } catch (error) {
       console.error("데이터를 가져오는데 실패했습니다:", error);
     }
@@ -76,11 +78,18 @@ const HomePage = () => {
         <KingSection>
           <KingLogo src={king} alt="이달의 왕" />
           <ListContainer>
-            {rankings.length > 0 ? (
-              rankings.slice(0, 4).map((user, index) => (
-                <ListBox key={index}>{user.nickname}</ListBox>
-              ))
+            {rankings && rankings.length > 0 ? (
+              rankings
+                .filter((member) => member.total >= 0) // total 값이 0인 항목 제외
+                .sort((a, b) => b.total - a.total) // total 값 기준 내림차순 정렬
+                .slice(0, 4) // 상위 4명의 데이터만 선택
+                .map((user, index) => (
+                  <ListBox key={user.id || index}>
+                    {user.username}
+                  </ListBox>
+                ))
             ) : (
+              // 데이터가 없을 경우 기본 리스트 표시
               <>
                 <ListBox>명단1</ListBox>
                 <ListBox>명단2</ListBox>
