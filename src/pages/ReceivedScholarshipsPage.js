@@ -32,6 +32,7 @@ import {
   ProgressBar,
   Progress,
   UploadProgress,
+  //Search realted
 } from "../style/ReceivedScholarshipsPageStyles";
 
 const MemoizedAnimatedNumbers = memo(({ animateToNumber }) => (
@@ -137,6 +138,11 @@ function ReceivedScholarshipsPage() {
       console.error(`ID: ${id} 장학금 삭제 실패:`, error);
     }
   };
+
+  // ***********************************************************************************
+  // 파일 관련된 코드
+
+  const [isVerified, setIsVerified] = useState(false); // 인증 상태
 
   // ***********************************************************************************
   // 사진 데이터 올리기
