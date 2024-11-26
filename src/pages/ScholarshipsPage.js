@@ -173,19 +173,15 @@ const ScholarshipsPage = () => {
   const fetchRankings = async () => {
     const token = localStorage.getItem("accessToken");
     try {
-      const response = await axios.get("http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/rank", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-    // 서버 응답에서 memberList를 사용하도록 수정
-    if (response.data && response.data.memberList) {
-      setRankings(response.data.memberList);
+      const response = await axios.get("http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/rank");
+      // 서버 응답에서 memberList를 사용하도록 수정
+      if (response.data && response.data.memberList) {
+        setRankings(response.data.memberList);
+      }
+    } catch (error) {
+      console.error("데이터를 가져오는데 실패했습니다:", error);
     }
-  } catch (error) {
-    console.error("데이터를 가져오는데 실패했습니다:", error);
-  }
-};
+  };
   useEffect(() => {
     fetchRankings();
   }, []);
@@ -259,22 +255,23 @@ const ScholarshipsPage = () => {
         <KingSection>
           <KingLogo src={king} alt="이달의 왕" />
           <KingListContainer>
-            {rankings && rankings.length > 0 ? (
+            {rankings?.length > 0 ? (
               rankings
-                .filter((member) => member.total >= 0) // total 값이 0인 항목 제외
+                .filter((member) => member.total >= 0) // total 값이 0 이상인 항목만 선택
                 .sort((a, b) => b.total - a.total) // total 값 기준 내림차순 정렬
-                .slice(0, 10) // 상위 4명의 데이터만 선택
+                .slice(0, 10) // 상위 10명만 선택
                 .map((user, index) => (
-                  <ListBox key={user.id || index}>
-                    {index + 1}위 {user.username}
+                  <ListBox key={user.id || `rank-${index}`}>
+                    {index + 1}위 {user.nickname || "이름 없음"}
                   </ListBox>
                 ))
-            )
-              : Array.from({ length: 10 }).map((_, index) => (
-                <ListBox key={index} rank={index + 1}>
+            ) : (
+              Array.from({ length: 10 }).map((_, index) => (
+                <ListBox key={`placeholder-${index}`}>
                   <span>{index + 1}위</span> 데이터 없음
                 </ListBox>
-              ))}
+              ))
+            )}
           </KingListContainer>
         </KingSection>
       </MainThree>
