@@ -246,7 +246,7 @@ const ScholarshipsPage = () => {
         </Filterbox>
         <Display>
           <div>
-            <ScholarshipCard/>
+            <ScholarshipCard />
           </div>
         </Display>
         <Cardbox>
@@ -255,20 +255,24 @@ const ScholarshipsPage = () => {
 
         <KingSection>
           <KingLogo src={king} alt="이달의 왕" />
-          <ListContainer>
-            {rankings.length > 0 ? (
-              rankings.slice(0, 4).map((user, index) => (
-                <ListBox key={index}>{user.nickname}</ListBox>
-              ))
-            ) : (
-              <>
-                <ListBox>명단1</ListBox>
-                <ListBox>명단2</ListBox>
-                <ListBox>명단3</ListBox>
-                <ListBox>명단4</ListBox>
-              </>
-            )}
-          </ListContainer>
+          <KingListContainer>
+            {rankings && rankings.length > 0 ? (
+              rankings
+                .filter((member) => member.total >= 0) // total 값이 0인 항목 제외
+                .sort((a, b) => b.total - a.total) // total 값 기준 내림차순 정렬
+                .slice(0, 10) // 상위 4명의 데이터만 선택
+                .map((user, index) => (
+                  <ListBox key={user.id || index}>
+                    {index + 1}위 {user.username}
+                  </ListBox>
+                ))
+            )
+              : Array.from({ length: 10 }).map((_, index) => (
+                <ListBox key={index} rank={index + 1}>
+                  <span>{index + 1}위</span> 데이터 없음
+                </ListBox>
+              ))}
+          </KingListContainer>
         </KingSection>
         
       </MainThree>
