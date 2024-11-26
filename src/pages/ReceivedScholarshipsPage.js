@@ -109,7 +109,7 @@ function ReceivedScholarshipsPage() {
       }
       alert("이미 등록된 장학금입니다.");
       console.error(`ID ${id} 장학금 등록 실패:`, error);
-      console.log(typeof id); // string
+      // console.log(typeof id); // string
       console.log(`scholarship/${id}/got`);
     }
   };
@@ -133,10 +133,9 @@ function ReceivedScholarshipsPage() {
         prevServerData.filter((scholarship) => scholarship.id !== id),
       );
 
-      console.log(`ID ${id} 장학금 삭제 완료`);
-      console.log(typeof id);
+      console.log(`ID: ${id} 장학금 삭제 완료`);
     } catch (error) {
-      console.error(`ID ${id} 장학금 삭제 실패:`, error);
+      console.error(`ID: ${id} 장학금 삭제 실패:`, error);
     }
   };
 
@@ -385,54 +384,69 @@ function ReceivedScholarshipsPage() {
                                   닫기
                                 </ModalButton>
                               </div>
-                              <UploadContainer>
-                                <h2>File Upload</h2>
-                                <UploadBox
-                                  onClick={() =>
-                                    document
-                                      .getElementById("file-input")
-                                      .click()
-                                  }
-                                >
-                                  <p>Drag files to upload</p>
-                                  <FileSelectButton>
-                                    Select Files
-                                  </FileSelectButton>
-                                  <input
-                                    type="file"
-                                    id="file-input"
-                                    multiple
-                                    hidden
-                                    onChange={handleFileSelect}
-                                  />
-                                </UploadBox>
-                                <UploadProgress>
-                                  {files.map((file, index) => (
-                                    <UploadItem key={index}>
-                                      <p>
-                                        {file.name} (
-                                        {(file.size / 1024 / 1024).toFixed(1)}{" "}
-                                        MB)
-                                      </p>
-                                      <ProgressBar>
-                                        <Progress width={file.progress || 0} />
-                                      </ProgressBar>
-                                      <CloseButton
-                                        onClick={() =>
-                                          handleRemoveFile(file.name)
-                                        }
-                                      >
-                                        ✕
-                                      </CloseButton>
-                                    </UploadItem>
-                                  ))}
-                                </UploadProgress>
-                                {files.length > 0 && (
-                                  <FileSelectButton onClick={startUpload}>
-                                    Start Upload
-                                  </FileSelectButton>
-                                )}
-                              </UploadContainer>
+                              {/* <UploadContainer> */}
+                              {/*   <h2>File Upload</h2> */}
+                              {/*   <UploadBox */}
+                              {/*     onClick={() => */}
+                              {/*       document */}
+                              {/*         .getElementById("file-input") */}
+                              {/*         .click() */}
+                              {/*     } */}
+                              {/*   > */}
+                              {/*     <p>Drag files to upload</p> */}
+                              {/*     <FileSelectButton> */}
+                              {/*       Select Files */}
+                              {/*     </FileSelectButton> */}
+                              {/*     <input */}
+                              {/*       type="file" */}
+                              {/*       id="file-input" */}
+                              {/*       multiple */}
+                              {/*       hidden */}
+                              {/*       onChange={handleFileSelect} */}
+                              {/*     /> */}
+                              {/*   </UploadBox> */}
+                              {/*   <UploadProgress> */}
+                              {/*     {files.map((file, index) => ( */}
+                              {/*       <UploadItem key={index}> */}
+                              {/*         <p> */}
+                              {/*           {file.name} ( */}
+                              {/*           {(file.size / 1024 / 1024).toFixed(1)}{" "} */}
+                              {/*           MB) */}
+                              {/*         </p> */}
+                              {/*         <ProgressBar> */}
+                              {/*           <Progress width={file.progress || 0} /> */}
+                              {/*         </ProgressBar> */}
+                              {/*         <CloseButton */}
+                              {/*           onClick={() => */}
+                              {/*             handleRemoveFile(file.name) */}
+                              {/*           } */}
+                              {/*         > */}
+                              {/*           ✕ */}
+                              {/*         </CloseButton> */}
+                              {/*       </UploadItem> */}
+                              {/*     ))} */}
+                              {/*   </UploadProgress> */}
+                              {/*   {files.length > 0 && ( */}
+                              {/*     <FileSelectButton onClick={startUpload}> */}
+                              {/*       Start Upload */}
+                              {/*     </FileSelectButton> */}
+                              {/*   )} */}
+                              {/* </UploadContainer> */}
+                              {/* <div key={scholarship.id}> */}
+                              <h1>{scholarship.name}</h1>
+                              <input
+                                type="file"
+                                onChange={(e) =>
+                                  handleFileChange(e, scholarship.id)
+                                }
+                              />
+                              <button
+                                onClick={() => handleUpload(scholarship.id)}
+                              >
+                                Upload
+                              </button>
+                              {uploadStatus && <p>{uploadStatus}</p>}
+                              {/* </div> */}
                             </Modal>
                           </>
                         )}
