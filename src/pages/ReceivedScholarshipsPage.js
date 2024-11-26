@@ -186,14 +186,14 @@ function ReceivedScholarshipsPage() {
       return;
     }
 
-    const apiUrl = `http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/scholarship/got${id}/valid`;
+    const apiUrl = `http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/scholarship/got/${id}/valid`;
     const formData = new FormData();
     formData.append("file", selectedFile);
 
     try {
       const response = await axios.post(apiUrl, formData, {
         headers: {
-          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`, // 인증 토큰 포함
         },
       });
       setUploadStatus("Upload successful!");
