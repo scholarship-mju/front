@@ -195,9 +195,25 @@ function ReceivedScholarshipsPage() {
       console.log("Response:", response.data);
       console.log(`ID: ${id} 증빙 데이터 Upload -> 성공`);
     } catch (error) {
-      setUploadStatus("Upload failed. Please try again.");
-      console.error("Error uploading file:", error);
-      console.log(`ID: ${id} 증빙 데이터 Upload -> 실패`);
+      if (error.response) {
+        // 서버에서 응답을 받은 경우
+        const status = error.response.status;
+        if (status === 413) {
+          setUploadStatus("파일용량을 초과했습니다.");
+          console.log("파일용량 초과");
+        } else if (status === 400) {
+          alert("잘못된 요청입니다. 입력 내용을 확인해주세요.");
+        } else if (status === 404) {
+          alert("요청한 데이터를 찾을 수 없습니다.");
+        } else {
+          alert(`오류 발생: ${status}`);
+        }
+        console.error(`HTTP ${status} 오류:`, error.response.data);
+      } else {
+        setUploadStatus("Upload failed. Please try again.");
+        console.error("Error uploading file:", error);
+        console.log(`ID: ${id} 증빙 데이터 Upload -> 실패`);
+      }
     }
   };
   // ***********************************************************************************
@@ -319,7 +335,8 @@ function ReceivedScholarshipsPage() {
                       <TableCell>{scholarship.id}</TableCell>
                       <TableCell>{scholarship.name}</TableCell>
                       <TableCell>
-                        {scholarship.price.toLocaleString()}원
+                        {/* {scholarship.price.toLocaleString()}원 */}
+                        {scholarship.maxAge}원
                       </TableCell>
 
                       <TableCell key={scholarship.id}>
