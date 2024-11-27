@@ -7,21 +7,23 @@ import {
   Background, Button, ResetButton, Fieldset, List, ScholarshipItem,
   ScholarshipAmount, CenterContainer, ListItem, ListContainer, TextInput,
   SearchContainer, SliderContainer, DownButton, DetailBox, Selectioncontainer,
-  OverlayForm, FilterForm, FilterButton, Slider, AmountLabel,GoButton
-  , Select, StyledWrapper, Display, Cardbox, MainThree, Filterbox, ScholarLogo, KingSection, 
-  KingLogo, KingListContainer, ListBox , FilterContainer
+  OverlayForm, FilterForm, FilterButton, Slider, AmountLabel, GoButton
+  , Select, StyledWrapper, Display, Cardbox, MainThree, Filterbox, ScholarLogo, KingSection,
+  KingLogo, KingListContainer, ListBox, FilterContainer
 } from '../style/schloarshipsPageStyle';
 import LoadMoreGrid from "./LoadMoreGrid";
 import ScholarshipCard from "./ScholarshipCard";
 
-
 /////////////////////////////////////////////////////////////////////////////////////////////
 const ScholarshipsPage = () => {
- 
+
   const [searchTerm, setSearchTerm] = useState("");
   const [minAmount, setMinAmount] = useState(100000);
   const [maxAmount, setMaxAmount] = useState(5000000);
+  const [expandedScholarships, setExpandedScholarships] = useState({});
   const [selectedCategory, setSelectedCategory] = useState("전체"); // 카테고리 상태 추가
+  const [isChecked, setIsChecked] = useState(false);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
   const parseAmount = (amount) => parseInt(amount.replace(/[^0-9]/g, ''), 10);
 
   const resetbutton = () => {
@@ -67,20 +69,17 @@ const ScholarshipsPage = () => {
   const fetchRankings = async () => {
     try {
       const token = localStorage.getItem("accessToken");
-      const response = await axios.get("http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/rank", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      console.log("data = ", response.data);
-      setRankings(response.data); // 데이터를 상태에 저장
+      const response = await axios.get("http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/rank");
+
+      if (response.data && response.data.memberList) {
+        setRankings(response.data.memberList);
+      }
     } catch (error) {
       console.error("데이터를 가져오는데 실패했습니다:", error);
     }
   };
-
   useEffect(() => { //이달의왕
-    fetchRankings(); 
+    fetchRankings();
   }, []);
 
   const scholarships = [ // scholarships 배열 이름 변경
@@ -132,7 +131,7 @@ const ScholarshipsPage = () => {
       button: { id: "button-d" }
     },
   ];
-  
+
   const filterScholarships = (category, minAmount, maxAmount) => {
     return scholarships.filter((scholarship) => {
       const isCategoryMatch = (category === "전체") || (scholarship.DetailBox.category === category);
@@ -158,19 +157,97 @@ const ScholarshipsPage = () => {
       // 서버에서 데이터 가져오기
       const response = await fetch('http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/scholarship/all');
       const data = await response.json(); // JSON 형식으로 변환
-  
+
       // 필터 조건: `type`이 "active"인 데이터만 가져오기
       const filteredData = data.filter(item => item.gender === "여성");
-  
+
       // 필요한 속성만 추출
       const processedData = filteredData.map(item => ({
         id: item.id,
         name: item.name,
       }));
-  
+
       // 결과 출력
       console.log(processedData);
-  
+
+      // DOM에 데이터 렌더링
+      const container = document.qu("data-container");
+      container.innerHTML = processedData
+        .map(item => `<div>ID: ${item.id}, Name: ${item.name}, Value: ${item.value}</div>`)
+        .join('');
+    } catch (error) {
+      console.error("데이터 가져오기 실패:", error);
+    }
+  }
+  fetchDataAndDisplay();
+
+  //검색 필터 열기 닫기
+  const openFilterForm = () => setIsFilterOpen(true);
+  const closeFilterForm = () => setIsFilterOpen(false);
+
+  // 필터링된 장학금 목록을 계산
+  const filteredScholarships = filterScholarships(selectedCategory, minAmount, maxAmount);
+
+  const handleToggleDetails = (index) => {
+    setExpandedScholarships((prev) => ({
+      ...prev,
+      [index]: !prev[index] // 해당 인덱스의 장학금 항목을 토글
+    }));
+  };
+
+  const displayAttachment = (attachment) => { //첨부파일 함수 V 
+    if (!attachment) return null;
+    return (
+      <a href={attachment} target="_blank" rel="noopener noreferrer">
+        첨부파일 보기
+      </a>
+    );
+  };
+
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked); // 체크 상태 토글
+  };
+
+  const handleClick = () => {
+    console.log("Div clicked!");
+  };
+
+  useEffect(() => {
+    // 서버로 GET 요청을 보냄
+    const token = " "; // 실제 토큰 값??
+    const response = axios.get("http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/scholarship/all", {
+      headers: {
+        Authorization: `Bearer ${token}`, // 토큰이 필요할 경우 포함
+      },
+    })
+      .then((response) => {
+        // 응답 데이터를 serverdata에 저장
+        setServerdata(response.data);
+        console.log(response.data); // 데이터 확인용 콘솔 출력
+      })
+      .catch((error) => {
+        console.error('데이터 가져오기 실패:', error);
+      });
+  }, []);
+
+  async function fetchDataAndDisplay() {
+    try {
+      // 서버에서 데이터 가져오기
+      const response = await fetch('http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/scholarship/all');
+      const data = await response.json(); // JSON 형식으로 변환
+
+      // 필터 조건: `type`이 "active"인 데이터만 가져오기
+      const filteredData = data.filter(item => item.gender === "여성");
+
+      // 필요한 속성만 추출
+      const processedData = filteredData.map(item => ({
+        id: item.id,
+        name: item.name,
+      }));
+
+      // 결과 출력
+      console.log(processedData);
+
       // DOM에 데이터 렌더링
       const container = document.qu("data-container");
       container.innerHTML = processedData
@@ -200,7 +277,7 @@ const ScholarshipsPage = () => {
           <ResetButton onClick={resetbutton}>초기화</ResetButton>
           <GoButton onClick={Gobutton}>적용</GoButton>
           <FilterContainer>
-            장학금 유형: 
+            장학금 유형:
             <Select
               id="scholarship-category"
               value={selectedCategory}
@@ -242,7 +319,7 @@ const ScholarshipsPage = () => {
           <FilterContainer className="Filter3"> Filter대학</FilterContainer>
           <FilterContainer className="Filter3"> Filter성별</FilterContainer>
           <FilterContainer className="Filter3"> Filter학과</FilterContainer>
-         
+
         </Filterbox>
         <Display>
           <div>
@@ -250,32 +327,31 @@ const ScholarshipsPage = () => {
           </div>
         </Display>
         <Cardbox>
+
+        </Cardbox>
+
         <KingSection>
           <KingLogo src={king} alt="이달의 왕" />
           <KingListContainer>
-            {rankings && rankings.length > 0 ? (
+            {rankings?.length > 0 ? (
               rankings
-                .filter((member) => member.total >= 0) // total 값이 0인 항목 제외
+                .filter((member) => member.total >= 0) // total 값이 0 이상인 항목만 선택
                 .sort((a, b) => b.total - a.total) // total 값 기준 내림차순 정렬
-                .slice(0, 10) // 상위 4명의 데이터만 선택
+                .slice(0, 10) // 상위 10명만 선택
                 .map((user, index) => (
-                  <ListBox key={user.id || index}>
-                    {index + 1}위 {user.username}
+                  <ListBox key={user.id || `rank-${index}`}>
+                    {index + 1}위 {user.nickname || "이름 없음"}
                   </ListBox>
                 ))
-            )
-              : Array.from({ length: 10 }).map((_, index) => (
-                <ListBox key={index} rank={index + 1}>
+            ) : (
+              Array.from({ length: 10 }).map((_, index) => (
+                <ListBox key={`placeholder-${index}`}>
                   <span>{index + 1}위</span> 데이터 없음
                 </ListBox>
-              ))}
+              ))
+            )}
           </KingListContainer>
         </KingSection>
-          
-        </Cardbox>
-
-       
-        
       </MainThree>
     </Background>
   );

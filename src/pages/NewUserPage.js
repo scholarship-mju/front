@@ -162,19 +162,13 @@ function NewUserPage() {
                 </InputGroup>
 
                 <InputGroup>
-                    <Label>학년</Label>
-                    <PlusSelectField
-                        value={grade}
+                <Label>학점</Label>
+                    <InputField
+                        type="text"
+                        value={city}
                         onChange={(e) => setGrade(e.target.value)}
-                    >
-                        <option value="" disabled>
-                            학년을 선택하세요
-                        </option>
-                        <option value="1">1학년</option>
-                        <option value="2">2학년</option>
-                        <option value="3">3학년</option>
-                        <option value="4">4학년</option>
-                    </PlusSelectField>
+                        placeholder="학점을 입력하세요 (예시: 3.5)"
+                    />
                 </InputGroup>
 
                 <InputGroup>

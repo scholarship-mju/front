@@ -245,7 +245,16 @@ export const DeleteButton = styled.button`
 `;
 
 export const AuthButton = styled.button`
-  background-color: ${(props) => (props.isVerified ? "#2ecc71" : "#e74c3c")};
+  background-color: ${(props) => {
+    switch (props.status) {
+      case 2: // VERIFIED
+        return "#2ecc71";
+      case 1: // VERIFYING
+        return "#f39c12";
+      default: // NOT_VERIFIED
+        return "#e74c3c";
+    }
+  }};
   color: white;
   border: none;
   border-radius: 5px;
@@ -254,7 +263,16 @@ export const AuthButton = styled.button`
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: ${(props) => (props.isVerified ? "#27ae60" : "#c0392b")};
+    background-color: ${(props) => {
+      switch (props.status) {
+        case 2: // VERIFIED
+          return "#27ae60";
+        case 1: // VERIFYING
+          return "#d68910";
+        default: // NOT_VERIFIED
+          return "#c0392b";
+      }
+    }};
   }
 `;
 

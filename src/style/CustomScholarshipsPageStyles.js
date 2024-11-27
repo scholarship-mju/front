@@ -24,7 +24,7 @@ export const Background = styled.div`
 `;
 
 export const ScholarLogo = styled.img`
-  max-width: 15.5%;
+  width: 17.5%;
   display: block;
   margin: 0 auto;
   margin-top: 13px;
@@ -312,7 +312,7 @@ export const FilterForm = styled.div` //흰색 폼
   margin: 0 auto; /* 부모 요소에서 중앙 정렬 */
 
   .select{
-    -webkit-appearance: none
+    -webkit-appearance: none;
     padding: 7px 40px 7px 12px
     width: 100%
     border: 1px solid #E8EAED

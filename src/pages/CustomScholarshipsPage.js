@@ -14,7 +14,7 @@ import {
   SearchContainer, SliderContainer, DownButton, DetailBox, Selectioncontainer,
   OverlayForm, FilterForm, FilterButton, Slider, AmountLabel
   , Select, StyledWrapper, Display, Cardbox, MainThree, Filterbox, ScholarLogo, KingSection, KingLogo, KingListContainer, ListBox
-} from '../style/schloarshipsPageStyle';
+} from '../style/CustomScholarshipsPageStyles';
 import LoadMoreGrid from "./LoadMoreGrid";
 import ScholarshipCard from "./ScholarshipCard";
 
@@ -194,11 +194,6 @@ const ScholarshipsPage = () => {
   return (
     <Background>
       <ScholarLogo src={customLogo} />
-      <TextInput
-        placeholder="검색어 입력"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)} // 검색창 
-      />
       <MainThree>
         <Filterbox>
           <h3>검색 필터</h3>
