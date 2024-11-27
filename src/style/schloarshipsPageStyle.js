@@ -14,6 +14,8 @@ export const colors = {
     heartColor: 'rgb(255, 91, 137)',
     
   };
+
+  
   
 export const Background = styled.div`
   display: flex;
@@ -24,10 +26,10 @@ export const Background = styled.div`
 `;
 
 export const ScholarLogo = styled.img`
-  max-width: 15.5%;
+  max-width: 16%;
   display: block;
   margin: 0 auto;
-  margin-top: 13px;
+  margin-top: 17px;
 `;
 
 // 버튼 스타일
@@ -99,11 +101,10 @@ export const TextInput = styled.input`
   width: 50%;
   height: 5%;
   padding: 10px;
-  margin : 7px;
-  margin-bottom: 10px;
+  margin : 0 auto;
   font-size: 20px;
   border: 1px solid ;
-  margin-left : 465px;
+
   border-radius: 8px;
   background-color: ${colors.inputBg};
   color: ${colors.inputText};
@@ -171,17 +172,15 @@ export const Selectioncontainer = styled.div`
 
 export const ResetButton = styled.button`
   display: inline-block;
-  flex: 1.5; /* 전체 너비의 15% */
+  
   background-color: transparent;
   border: 1px solid #1A1A1A;
   border-radius: 8px;
-  color: ${colors.buttonText};
   font-family: Roobert, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
   font-size: 18px;
   font-weight: 600;
-  line-height: normal;
-  margin: 5px;
-  padding: 5px;
+  margin: 0 auto;
+  padding : 3px;
   
   text-align: center;
   touch-action: manipulation;
@@ -204,7 +203,7 @@ export const ResetButton = styled.button`
 `;
 
 export const GoButton = styled.button`
-  flex: 1.5; /* 전체 너비의 15% */
+  
   background-color: transparent;
   border: 1px solid #1A1A1A;
   border-radius: 8px;
@@ -213,8 +212,8 @@ export const GoButton = styled.button`
   font-size: 18px;
   font-weight: 600;
   line-height: normal;
-  margin: 5px;
-  padding: 5px;
+  margin: 0 auto;
+  padding: 3px;
   
   text-align: center;
   touch-action: manipulation;
@@ -332,33 +331,23 @@ export const OverlayForm = styled.div` //검은 바탕
   border-radius: 8px; /* 모서리를 둥글게 */
 `;
 
-export const FilterForm = styled.div` //흰색 폼
-  display: flex; /* flex로 설정 */
-  flex-direction: column; /* 세로로 정렬 */
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  justify-content: center; /* 중앙 정렬 */
-  align-items: center; /* 중앙 정렬 */
-  text-align: center; /* 텍스트 중앙 정렬 */
-  gap: 20px; /* 항목 간 간격을 동일하게 설정 */
-  max-width: 80%; /* 최대 너비 80% */
-  margin: 0 auto; /* 부모 요소에서 중앙 정렬 */
-`;
 
 
-export const FilterContainer = styled.div` //흰색 폼
+
+
+export const FiltersmallContainer = styled.div` //흰색 폼
   display: flex; /* flex로 설정 */
+  height: 2%;
   background-color: white;
-  padding: 20px 5px;
+  padding:  5px;
   border-radius: 8px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  font-size : 13px;
+  background-color: transparent;
   justify-content: center; /* 중앙 정렬 */
   align-items: center; /* 중앙 정렬 */
   text-align: center; /* 텍스트 중앙 정렬 */
  
-  max-width: 90%; /* 최대 너비 80% */
+  max-width: 100%; /* 최대 너비 80% */
   margin: 12px; auto; /* 부모 요소에서 중앙 정렬 */
   
 `;
@@ -596,35 +585,70 @@ export const CardStyledWrapper = styled.div`
 
 export const MainThree = styled.div`
   display: flex;
+  justify-content: space-between;
   width: 100%;
-  padding: 20px;
-  gap: 10px;
+  padding: 15px;
+  gap: 5px;
   min-height: 100vh;
 `;
 
 export const Filterbox = styled.div`
   display: block;
-  width: 600px;
-  padding: 20px;
-  background-color: #f5f5f5;
+  height : auto;
+  width: 13%;
+  padding: 5px;
+  background-color: #white;
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  margin-left: 0;
+      
 `;
 
-export const Display = styled.div`
-  display: block;
-  width: 160%;
+export const FilterForm = styled.div` //흰색 폼
+  display: flex; /* flex로 설정 */
+  flex-direction: column; /* 세로로 정렬 */
+  background-color: white;
   padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  justify-content: center; /* 중앙 정렬 */
+  align-items: center; /* 중앙 정렬 */
+  text-align: center; /* 텍스트 중앙 정렬 */
+  gap: 20px; /* 항목 간 간격을 동일하게 설정 */
+  max-width: 80%; /* 최대 너비 80% */
+  margin: 0 auto; /* 부모 요소에서 중앙 정렬 */
+`;
+export const FilterContainer = styled.div` //흰색 폼
+  display: flex; /* flex로 설정 */
+  height: auto;
+  background-color: white;
+  padding: 15px 15px;
+  border-radius: 8px;
+  font-size : 14px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  justify-content: center; /* 중앙 정렬 */
+  align-items: center; /* 중앙 정렬 */
+  text-align: center; /* 텍스트 중앙 정렬 */
+ 
+  max-width: 95%; /* 최대 너비 80% */
+  margin: 12px; auto; /* 부모 요소에서 중앙 정렬 */
+  
+`;
+
+
+export const Display = styled.div`
+  display: flex-block;
+  width: 68%;
+  padding: 10px;
   background-color: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   overflow-y: auto; /* 스크롤 허용 */
   height: auto; /* 높이를 내용물에 따라 조정 */
-  margin-left: 20px;
-  
+  margin: 0 auto;
+
+
   .imagebox {
     border-radius: 8px;
     margin: 10px auto;
@@ -647,8 +671,9 @@ export const Display = styled.div`
 `;
 
 export const Cardbox = styled.div`
-  width: 200px;
-  height: 90%;
+  width: 11%;
+  padding: 16px;
+  height: 100%;
   display: flex;
   flex-wrap: wrap;
   margin: 0px;
@@ -658,8 +683,8 @@ export const KingSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px;
-  border: 1px solid #ddd;
+  
+  border: 1px solid #black;
   border-radius: 12px;
   width: 80%;
   background: linear-gradient(135deg, #f5f5f5, #ffffff);
@@ -673,8 +698,9 @@ export const KingLogo = styled.img`
 
 export const KingListContainer = styled.ul`
   list-style: none;
+  border-bottom: 1px solid #ddd;
   padding: 0;
-  width: 100%;
+  width: 80%;
   margin: 0;
 `;
 

@@ -9,7 +9,7 @@ import {
   SearchContainer, SliderContainer, DownButton, DetailBox, Selectioncontainer,
   OverlayForm, FilterForm, FilterButton, Slider, AmountLabel, GoButton
   , Select, StyledWrapper, Display, Cardbox, MainThree, Filterbox, ScholarLogo, KingSection,
-  KingLogo, KingListContainer, ListBox, FilterContainer
+  KingLogo, KingListContainer, ListBox, FilterContainer,FiltersmallContainer
 } from '../style/schloarshipsPageStyle';
 import LoadMoreGrid from "./LoadMoreGrid";
 import ScholarshipCard from "./ScholarshipCard";
@@ -152,34 +152,7 @@ const ScholarshipsPage = () => {
     });
   };
 
-  async function fetchDataAndDisplay() {
-    try {
-      // 서버에서 데이터 가져오기
-      const response = await fetch('http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/scholarship/all');
-      const data = await response.json(); // JSON 형식으로 변환
 
-      // 필터 조건: `type`이 "active"인 데이터만 가져오기
-      const filteredData = data.filter(item => item.gender === "여성");
-
-      // 필요한 속성만 추출
-      const processedData = filteredData.map(item => ({
-        id: item.id,
-        name: item.name,
-      }));
-
-      // 결과 출력
-      console.log(processedData);
-
-      // DOM에 데이터 렌더링
-      const container = document.qu("data-container");
-      container.innerHTML = processedData
-        .map(item => `<div>ID: ${item.id}, Name: ${item.name}, Value: ${item.value}</div>`)
-        .join('');
-    } catch (error) {
-      console.error("데이터 가져오기 실패:", error);
-    }
-  }
-  fetchDataAndDisplay();
 
   //검색 필터 열기 닫기
   const openFilterForm = () => setIsFilterOpen(true);
@@ -211,7 +184,7 @@ const ScholarshipsPage = () => {
   const handleClick = () => {
     console.log("Div clicked!");
   };
-
+  
   useEffect(() => {
     // 서버로 GET 요청을 보냄
     const token = " "; // 실제 토큰 값??
@@ -230,34 +203,6 @@ const ScholarshipsPage = () => {
       });
   }, []);
 
-  async function fetchDataAndDisplay() {
-    try {
-      // 서버에서 데이터 가져오기
-      const response = await fetch('http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/scholarship/all');
-      const data = await response.json(); // JSON 형식으로 변환
-
-      // 필터 조건: `type`이 "active"인 데이터만 가져오기
-      const filteredData = data.filter(item => item.gender === "여성");
-
-      // 필요한 속성만 추출
-      const processedData = filteredData.map(item => ({
-        id: item.id,
-        name: item.name,
-      }));
-
-      // 결과 출력
-      console.log(processedData);
-
-      // DOM에 데이터 렌더링
-      const container = document.qu("data-container");
-      container.innerHTML = processedData
-        .map(item => `<div>ID: ${item.id}, Name: ${item.name}, Value: ${item.value}</div>`)
-        .join('');
-    } catch (error) {
-      console.error("데이터 가져오기 실패:", error);
-    }
-  }
-  fetchDataAndDisplay();
 
 
 
@@ -272,24 +217,21 @@ const ScholarshipsPage = () => {
         onChange={(e) => setSearchTerm(e.target.value)} // 검색창 
       />
       <MainThree>
+        
         <Filterbox>
-          <strong>검색 필터</strong>
-          <ResetButton onClick={resetbutton}>초기화</ResetButton>
+        <FiltersmallContainer>
+        <div style={{ fontSize: "16px", fontWeight: "bold" }}>검색필터</div>
+
+          </FiltersmallContainer>
+          <FiltersmallContainer>
+            <ResetButton onClick={resetbutton}>초기화</ResetButton>
           <GoButton onClick={Gobutton}>적용</GoButton>
-          <FilterContainer>
-            장학금 유형:
-            <Select
-              id="scholarship-category"
-              value={selectedCategory}
-              onChange={handleSelectChange}
-            >
-              <option value="전체">전체</option>
-              <option value="교내">교내</option>
-              <option value="교외">교외</option>
-            </Select>
-          </FilterContainer>
-          <FilterContainer>
-            <AmountLabel>
+          </FiltersmallContainer>
+          
+        
+         
+          <FilterContainer>Filter금액 
+           {/*  <AmountLabel>
               최소 금액: {minAmount.toLocaleString()}원
               <Slider
                 type="range"
@@ -310,22 +252,23 @@ const ScholarshipsPage = () => {
                 value={maxAmount}
                 onChange={(e) => setMaxAmount(parseInt(e.target.value))}
               />
-            </AmountLabel>
+            </AmountLabel> */}
           </FilterContainer>
-          <FilterContainer className="Filter3"> Filter소득 구분</FilterContainer>
-          <FilterContainer className="Filter3"> Filter기간</FilterContainer>
-          <FilterContainer className="Filter3"> Filter나이</FilterContainer>
-          <FilterContainer className="Filter3"> Filter지역</FilterContainer>
-          <FilterContainer className="Filter3"> Filter대학</FilterContainer>
-          <FilterContainer className="Filter3"> Filter성별</FilterContainer>
-          <FilterContainer className="Filter3"> Filter학과</FilterContainer>
-
+                   
+          <FilterContainer>Filter나이</FilterContainer>
+          <FilterContainer>Filter성별</FilterContainer>
+          <FilterContainer>Filter학교</FilterContainer>
+          <FilterContainer>Filter학과</FilterContainer>
+          <FilterContainer>Filter지역</FilterContainer>
+          <FilterContainer>Filter</FilterContainer>
+ 
         </Filterbox>
         <Display>
           <div>
             <ScholarshipCard />
           </div>
         </Display>
+        
         <Cardbox>
         <KingSection>
           <KingLogo src={king} alt="이달의 왕" />
