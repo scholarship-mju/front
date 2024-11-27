@@ -17,6 +17,7 @@ import {
   TableBody,
   InputContainer,
   WarningText,
+  SingleDataButton,
   TotalAmount,
   DeleteButton,
   AuthButton,
@@ -158,6 +159,33 @@ function ReceivedScholarshipsPage() {
     } catch (error) {
       console.error(`ID: ${id} 장학금 삭제 실패:`, error);
     }
+  };
+
+  // ***********************************************************************************
+  // 단건정보 함수
+  const [isHovered, setIsHovered] = useState(false);
+  const [modalData, setModalData] = useState(null);
+
+  const fetchSingleData = async (id) => {
+    try {
+      const response = await axios.get(
+        `http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/scholarship/${id}`,
+      );
+      setModalData(response.data); // 서버에서 받은 데이터를 상태에 저장
+      console.log(`단건정보 데이터ID: ${id}   ${response.data}`);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setModalData("Failed to load data");
+    }
+  };
+
+  const handleMouseEnter = (id) => {
+    setIsHovered(true);
+    fetchSingleData(id); // hover 시 데이터 로드
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
   };
 
   // ***********************************************************************************
@@ -344,7 +372,32 @@ function ReceivedScholarshipsPage() {
                   <React.Fragment>
                     <tr>
                       <TableCell>{scholarship.id}</TableCell>
-                      <TableCell>{scholarship.name}</TableCell>
+                      <TableCell>
+                        {/* <SingleDataButton>{scholarship.name}</SingleDataButton> */}
+                        <SingleDataButton
+                          onMouseEnter={() => handleMouseEnter(scholarship.id)} // 함수 자체 전달
+                          onMouseLeave={handleMouseLeave} // 필요 시 leave 핸들러 추가
+                        >
+                          {scholarship.name}
+                        </SingleDataButton>
+                        {isHovered && modalData && (
+                          <Modal>
+                            <h2>{modalData.name}</h2>
+                            <p>{modalData.description}</p>
+                            <p>{modalData.price}</p>
+                            <p>{modalData.category}</p>
+                            <p>{modalData.university}</p>
+                            <p>{modalData.minAge}</p>
+                            <p>{modalData.maxAge}</p>
+                            <p>{modalData.gender}</p>
+                            <p>{modalData.province}</p>
+                            <p>{modalData.city}</p>
+                            <p>{modalData.department}</p>
+                            <p>{modalData.grade}</p>
+                            <p>{modalData.incomeQuantile}</p>
+                          </Modal>
+                        )}
+                      </TableCell>
                       <TableCell>
                         {/* {scholarship.price.toLocaleString()}원 */}
                         {scholarship.maxAge}원
