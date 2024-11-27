@@ -250,9 +250,6 @@ const ScholarshipsPage = () => {
           </div>
         </Display>
         <Cardbox>
-          
-        </Cardbox>
-
         <KingSection>
           <KingLogo src={king} alt="이달의 왕" />
           <KingListContainer>
@@ -274,6 +271,10 @@ const ScholarshipsPage = () => {
               ))}
           </KingListContainer>
         </KingSection>
+          
+        </Cardbox>
+
+       
         
       </MainThree>
     </Background>

@@ -615,7 +615,7 @@ export const Filterbox = styled.div`
 
 export const Display = styled.div`
   display: block;
-  width: 180%;
+  width: 160%;
   padding: 20px;
   background-color: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.2);
@@ -651,17 +651,17 @@ export const Cardbox = styled.div`
   height: 90%;
   display: flex;
   flex-wrap: wrap;
-  margin: 10px;
+  margin: 0px;
 `;
 
 export const KingSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  padding: 10px;
   border: 1px solid #ddd;
   border-radius: 12px;
-  width: 25%;
+  width: 80%;
   background: linear-gradient(135deg, #f5f5f5, #ffffff);
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 `;
