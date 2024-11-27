@@ -244,6 +244,20 @@ export const DeleteButton = styled.button`
   }
 `;
 
+export const SingleDataButton = styled.button`
+  background-color: white;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 16px;
+
+  &:hover {
+    background-color: #ff6a00;
+    color: white;
+  }
+`;
+
 export const AuthButton = styled.button`
   background-color: ${(props) => {
     switch (props.status) {
