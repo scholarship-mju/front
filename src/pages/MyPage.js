@@ -20,17 +20,8 @@ const Container = styled.div`
   align-items: center;
 `;
 
-// const Header = styled.header`
-//   width: 100%;
-//   background-color: #fdf3e7;
-//   padding: 20px;
-//   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-//   text-align: center;
-// `;
-
 const Title = styled.h1`
   margin: 0;
-  
   color: black;
 `;
 
@@ -75,8 +66,8 @@ const Input = styled.input`
   margin-top: 5px;
   border-radius: 5px;
   border: 1px solid #ddd;
-  background-color: #white;
-  color: wthie;
+  background-color: white;
+  color: black;
 `;
 
 const Button = styled.button`
@@ -163,14 +154,25 @@ function MyPage() {
 
   return (
     <Container>
-      {/* <Header> */}
-        <Title>마이페이지</Title>
-      {/* </Header> */}
+      <Title>마이페이지</Title>
       <Section>
         <SectionTitle>내 정보</SectionTitle>
         <InfoGrid>
-          {["username", "email", "phone", "password", "university", "age", "gender", "city", "department", "grade", "incomeQuantile"].map((field) =>
-            renderInfoField(field.charAt(0).toUpperCase() + field.slice(1), field, field === "password" ? "password" : "text")
+          {[
+            { label: "닉네임", name: "nickname" },
+            { label: "사용자 이름", name: "username" },
+            { label: "이메일", name: "email" },
+            { label: "전화번호", name: "phone" },
+            { label: "대학교", name: "university" },
+            { label: "나이", name: "age" },
+            { label: "성별", name: "gender" },
+            { label: "도", name: "province" },
+            { label: "시", name: "city" },
+            { label: "학과", name: "department" },
+            { label: "학년", name: "grade" },
+            { label: "소득 분위", name: "incomeQuantile" },
+          ].map((field) =>
+            renderInfoField(field.label, field.name, field.name === "password" ? "password" : "text")
           )}
         </InfoGrid>
         {isEditing ? <Button onClick={handleSaveClick}>저장</Button> : <Button onClick={() => setIsEditing(true)}>수정</Button>}
