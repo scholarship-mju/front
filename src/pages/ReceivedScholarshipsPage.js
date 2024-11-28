@@ -399,8 +399,7 @@ function ReceivedScholarshipsPage() {
                         )}
                       </TableCell>
                       <TableCell>
-                        {/* {scholarship.price.toLocaleString()}원 */}
-                        {scholarship.maxAge}원
+                        {scholarship.price.toLocaleString()}원
                       </TableCell>
 
                       <TableCell key={scholarship.id}>
