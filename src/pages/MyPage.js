@@ -7,8 +7,8 @@ import mypageLogo from "../png/mypage.png";
 
 const SectionTitle = styled.h2`
   margin-bottom: 15px;
-  color: #ff6a00;
-  border-bottom: 2px solid #e67e22;
+  color: black;
+  border-bottom: 2px solid black;
   padding-bottom: 10px;
 `;
 const Container = styled.div`
@@ -38,7 +38,7 @@ const Section = styled.div`
   max-width: 1200px;
   margin: 20px 0;
   padding: 20px;
-  background-color: wtite;
+  background-color: white;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
@@ -53,19 +53,19 @@ const InfoGrid = styled.div`
 const InfoItem = styled.div`
   flex: 1 1 30%;
   padding: 10px;
-  background-color: #fdf3e7;
+  background-color: white;
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 `;
 
 const Label = styled.span`
   font-weight: bold;
-  color: #e67e22;
+  color: black;
 `;
 
 const Value = styled.span`
   margin-left: 10px;
-  color: #e67e22;
+  color: black;
 `;
 
 const Input = styled.input`
@@ -74,8 +74,8 @@ const Input = styled.input`
   margin-top: 5px;
   border-radius: 5px;
   border: 1px solid #ddd;
-  background-color: #fdf3e7;
-  color: #e67e22;
+  background-color: white;
+  color: black;
 `;
 
 const Button = styled.button`
@@ -91,7 +91,7 @@ const Button = styled.button`
 
 const ScholarshipItem = styled.div`
   padding: 15px;
-  background-color: #ff6a00;
+  background-color: black;
   border-radius: 5px;
   margin-bottom: 15px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -168,8 +168,21 @@ function MyPage() {
       <Section>
         <SectionTitle>내 정보</SectionTitle>
         <InfoGrid>
-          {["username", "email", "phone", "password", "university", "age", "gender", "city", "department", "grade", "incomeQuantile"].map((field) =>
-            renderInfoField(field.charAt(0).toUpperCase() + field.slice(1), field, field === "password" ? "password" : "text")
+          {[
+            { label: "닉네임", name: "nickname" },
+            { label: "사용자 이름", name: "username" },
+            { label: "이메일", name: "email" },
+            { label: "전화번호", name: "phone" },
+            { label: "대학교", name: "university" },
+            { label: "나이", name: "age" },
+            { label: "성별", name: "gender" },
+            { label: "도", name: "province" },
+            { label: "시", name: "city" },
+            { label: "학과", name: "department" },
+            { label: "학년", name: "grade" },
+            { label: "소득 분위", name: "incomeQuantile" },
+          ].map((field) =>
+            renderInfoField(field.label, field.name, field.name === "password" ? "password" : "text")
           )}
         </InfoGrid>
         {isEditing ? <Button onClick={handleSaveClick}>저장</Button> : <Button onClick={() => setIsEditing(true)}>수정</Button>}
