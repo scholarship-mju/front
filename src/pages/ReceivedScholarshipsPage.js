@@ -23,7 +23,6 @@ import {
   AuthButton,
   Modal,
   Overlay,
-  // UploadContainer
   UploadContainer,
   UploadBox,
   FileSelectButton,
@@ -34,7 +33,6 @@ import {
   InfoItem,
   InfoList,
   Title,
-  //Search realted
 } from "../style/ReceivedScholarshipsPageStyles";
 
 const MemoizedAnimatedNumbers = memo(({ animateToNumber }) => (
