@@ -61,7 +61,6 @@ function ReceivedScholarshipsPage() {
   const handleAddScholarship = async (id) => {
     try {
       console.log("Received ID:", id); // ID 값이 무엇인지 확인하기
-      // console.log("Typeof:", typeof id); // string
       const token = localStorage.getItem("accessToken");
       console.log(token);
 
@@ -107,7 +106,6 @@ function ReceivedScholarshipsPage() {
         });
 
       console.log(`ID ${id} 장학금 등록 완료`);
-      // console.log("장학금 등록 성공", response.data);
     } catch (error) {
       const token = localStorage.getItem("accessToken");
       if (!token) {
@@ -374,7 +372,6 @@ function ReceivedScholarshipsPage() {
                     <tr>
                       <TableCell>{scholarship.id}</TableCell>
                       <TableCell>
-                        {/* <SingleDataButton>{scholarship.name}</SingleDataButton> */}
                         <SingleDataButton
                           onMouseEnter={() => handleMouseEnter(scholarship.id)} // 함수 자체 전달
                           onMouseLeave={handleMouseLeave} // 필요 시 leave 핸들러 추가
