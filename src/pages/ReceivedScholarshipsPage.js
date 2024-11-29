@@ -33,6 +33,9 @@ import {
   ProgressBar,
   Progress,
   UploadProgress,
+  ModalHeader,
+  StyledInput,
+  ModalTitle,
   //Search realted
 } from "../style/ReceivedScholarshipsPageStyles";
 
@@ -214,7 +217,7 @@ function ReceivedScholarshipsPage() {
 
   const handleUpload = async (id) => {
     if (!selectedFile) {
-      setUploadStatus("Please select a file first.");
+      setUploadStatus("먼저 파일을 선택해주세요.");
       return;
     }
 
@@ -228,7 +231,7 @@ function ReceivedScholarshipsPage() {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`, // 인증 토큰 포함
         },
       });
-      setUploadStatus("Upload successful!");
+      setUploadStatus("업로드가 성공적으로 완료되었습니다!");
       console.log("Response:", response.data);
       console.log(`ID: ${id} 증빙 데이터 Upload -> 성공`);
     } catch (error) {
@@ -247,7 +250,7 @@ function ReceivedScholarshipsPage() {
         }
         console.error(`HTTP ${status} 오류:`, error.response.data);
       } else {
-        setUploadStatus("Upload failed. Please try again.");
+        setUploadStatus("업로드 실패, 다시 시도해주세요.");
         console.error("Error uploading file:", error);
         console.log(`ID: ${id} 증빙 데이터 Upload -> 실패`);
       }
@@ -415,29 +418,33 @@ function ReceivedScholarshipsPage() {
                           <>
                             <Overlay onClick={handleCloseModal} />
                             <Modal>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  alignItems: "center",
-                                  justifyContent: "flex-end",
-                                }}
-                              >
-                                <ModalButton onClick={handleCloseModal}>
-                                  닫기
-                                </ModalButton>
-                              </div>
-                              <h1>{scholarship.name}</h1>
-                              <input
-                                type="file"
-                                onChange={(e) =>
-                                  handleFileChange(e, scholarship.id)
-                                }
-                              />
-                              <button
-                                onClick={() => handleUpload(scholarship.id)}
-                              >
-                                Upload
-                              </button>
+                              <ModalHeader>
+                                <ModalTitle>{scholarship.name}</ModalTitle>
+                                <CloseButton onClick={handleCloseModal}>
+                                  X
+                                </CloseButton>
+                              </ModalHeader>
+                              <UploadContainer>
+                                <div style={{ color: "red" }}>
+                                  하나의 PDF파일로 제출하세요.
+                                </div>
+                                <div style={{ color: "green" }}>
+                                  파일명: 이름_이메일_받은장학금명.pdf
+                                </div>
+                                <UploadBox>
+                                  <StyledInput
+                                    type="file"
+                                    onChange={(e) =>
+                                      handleFileChange(e, scholarship.id)
+                                    }
+                                  />
+                                </UploadBox>
+                                <FileSelectButton
+                                  onClick={() => handleUpload(scholarship.id)}
+                                >
+                                  Upload
+                                </FileSelectButton>
+                              </UploadContainer>
                               {uploadStatus && <p>{uploadStatus}</p>}
                             </Modal>
                           </>

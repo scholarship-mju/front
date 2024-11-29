@@ -301,6 +301,15 @@ export const Modal = styled.div`
   padding: 20px;
   z-index: 1000;
 `;
+export const ModalTitle = styled.div`
+  font-size: 34px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin: 10px;
+  padding: 0;
+  line-height: 1.4;
+`;
 
 export const Overlay = styled.div`
   position: fixed;
@@ -325,7 +334,24 @@ export const ModalButton = styled.button`
     background-color: #2980b9;
   }
 `;
+export const ModalHeader = styled.div`
+  // display: flex;
+  align-items: center;
+  justify-content: space-between;
+  // margin-bottom: 20px;
+`;
 
+export const StyledInput = styled.input`
+  margin: 20px 0;
+  padding: 10px;
+  width: 90%;
+  border: 2px dashed #d1d5db;
+  border-radius: 5px;
+  background-color: #fafafa;
+  text-align: center;
+  color: #6b7280;
+  cursor: pointer;
+`;
 // UploadContainer
 
 export const UploadContainer = styled.div`
