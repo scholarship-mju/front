@@ -307,7 +307,8 @@ function ReceivedScholarshipsPage() {
   // ***********************************************************************************
   // 장학금 총액 계산 함수
   const totalAmount = serverdata.reduce(
-    (total, scholarship) => total + scholarship.price,
+    (total, scholarship) =>
+      scholarship.status === "VERIFIED" ? total + scholarship.price : total,
     0,
   );
 
