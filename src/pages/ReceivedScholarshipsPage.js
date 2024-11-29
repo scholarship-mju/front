@@ -113,7 +113,6 @@ function ReceivedScholarshipsPage() {
         return;
       }
       if (error.response) {
-        // 서버에서 응답을 받은 경우
         const status = error.response.status;
         if (status === 500) {
           alert("서버 에러가 발생했습니다. 관리자에게 문의하세요.");
@@ -233,7 +232,6 @@ function ReceivedScholarshipsPage() {
       console.log(`ID: ${id} 증빙 데이터 Upload -> 성공`);
     } catch (error) {
       if (error.response) {
-        // 서버에서 응답을 받은 경우
         const status = error.response.status;
         if (status === 413) {
           setUploadStatus("파일용량을 초과했습니다.");
@@ -293,7 +291,6 @@ function ReceivedScholarshipsPage() {
         },
       )
       .then((response) => {
-        // 응답 데이터를 serverdata에 저장
         setScholarshipsdata(response.data);
         console.log("전체 장학금 데이터 출력", response.data); // 데이터 확인용 콘솔 출력
       })
