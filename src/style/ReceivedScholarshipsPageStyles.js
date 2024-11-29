@@ -409,6 +409,29 @@ export const CloseButton = styled.button`
   }
 `;
 
+export const Title = styled.h1`
+  background-color: #ff7a00;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 5px;
+  color: white;
+`;
+
+export const InfoList = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+`;
+
+export const InfoItem = styled.li`
+  margin-bottom: 10px;
+
+  & > span {
+    font-weight: bold;
+    color: #555;
+  }
+`;
+
 export const ProgressBar = styled.div`
   width: 100%;
   background-color: #e0e0e0;

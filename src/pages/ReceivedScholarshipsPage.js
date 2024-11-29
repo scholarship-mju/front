@@ -23,19 +23,17 @@ import {
   AuthButton,
   Modal,
   Overlay,
-  ModalButton,
   // UploadContainer
   UploadContainer,
   UploadBox,
   FileSelectButton,
-  UploadItem,
   CloseButton,
-  ProgressBar,
-  Progress,
-  UploadProgress,
   ModalHeader,
   StyledInput,
   ModalTitle,
+  InfoItem,
+  InfoList,
+  Title,
   //Search realted
 } from "../style/ReceivedScholarshipsPageStyles";
 
@@ -174,6 +172,7 @@ function ReceivedScholarshipsPage() {
       );
       setModalData(response.data); // 서버에서 받은 데이터를 상태에 저장
       console.log(`단건정보 데이터ID: ${id}   ${response.data}`);
+      console.log(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
       setModalData("Failed to load data");
@@ -383,19 +382,46 @@ function ReceivedScholarshipsPage() {
                         </SingleDataButton>
                         {isHovered && modalData && (
                           <Modal>
-                            <h2>{modalData.name}</h2>
-                            <p>{modalData.description}</p>
-                            <p>{modalData.price}</p>
-                            <p>{modalData.category}</p>
-                            <p>{modalData.university}</p>
-                            <p>{modalData.minAge}</p>
-                            <p>{modalData.maxAge}</p>
-                            <p>{modalData.gender}</p>
-                            <p>{modalData.province}</p>
-                            <p>{modalData.city}</p>
-                            <p>{modalData.department}</p>
-                            <p>{modalData.grade}</p>
-                            <p>{modalData.incomeQuantile}</p>
+                            <Title>{modalData.name}</Title>
+                            <InfoList>
+                              <InfoItem>
+                                <span>상세 설명:</span> {modalData.description}
+                              </InfoItem>
+                              <InfoItem>
+                                <span>장학금 금액:</span> {modalData.price}
+                              </InfoItem>
+                              <InfoItem>
+                                <span>유형:</span> {modalData.category}
+                              </InfoItem>
+                              <InfoItem>
+                                <span>대학교:</span> {modalData.university}
+                              </InfoItem>
+                              <InfoItem>
+                                <span>최소 나이:</span> {modalData.minAge}
+                              </InfoItem>
+                              <InfoItem>
+                                <span>최대 나이:</span> {modalData.maxAge}
+                              </InfoItem>
+                              <InfoItem>
+                                <span>성별:</span> {modalData.gender}
+                              </InfoItem>
+                              <InfoItem>
+                                <span>도/광역시:</span> {modalData.province}
+                              </InfoItem>
+                              <InfoItem>
+                                <span>시/구/군:</span> {modalData.city}
+                              </InfoItem>
+                              <InfoItem>
+                                <span>학과:</span> {modalData.department}
+                              </InfoItem>
+                              <InfoItem>
+                                <span>학년:</span> {modalData.grade}
+                              </InfoItem>
+                              <InfoItem>
+                                <span>소득분위:</span>{" "}
+                                {modalData.incomeQuantile}
+                              </InfoItem>
+                            </InfoList>
                           </Modal>
                         )}
                       </TableCell>
