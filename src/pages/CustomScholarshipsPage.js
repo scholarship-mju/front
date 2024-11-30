@@ -15,7 +15,7 @@ import {
   OverlayForm, FilterForm, FilterButton, Slider, AmountLabel
   , Select, StyledWrapper, Display, Cardbox, MainThree, Filterbox, ScholarLogo, KingSection, KingLogo, KingListContainer, ListBox
 } from '../style/CustomScholarshipsPageStyles';
-import LoadMoreGrid from "./LoadMoreGrid";
+
 import ScholarshipCard from "./ScholarshipCard";
 
 

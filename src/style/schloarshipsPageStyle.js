@@ -422,6 +422,38 @@ export const DetailBox = styled.div`
   background-color: rgba(249, 249, 249, 0.5); /* 배경색 */
   color: black; /* 글자색 */
 `;
+export const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+`;
+
+export const ModalContent = styled.div`
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+`;
+
+export const ModalClose = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+`;
 
 export const ListItem = styled.li`
   margin: 35px;
@@ -594,7 +626,7 @@ export const MainThree = styled.div`
 
 export const Filterbox = styled.div`
   display: block;
-  height : auto;
+  height : 100%;
   width: 13%;
   padding: 5px;
   background-color: #white;
