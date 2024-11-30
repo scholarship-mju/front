@@ -15,7 +15,7 @@ import {
   OverlayForm, FilterForm, FilterButton, Slider, AmountLabel
   , Select, StyledWrapper, Display, Cardbox, MainThree, Filterbox, ScholarLogo, KingSection, KingLogo, KingListContainer, ListBox
 } from '../style/CustomScholarshipsPageStyles';
-import LoadMoreGrid from "./LoadMoreGrid";
+
 import ScholarshipCard from "./ScholarshipCard";
 
 
@@ -247,8 +247,6 @@ const ScholarshipsPage = () => {
           </div>
         </Display>
         <Cardbox>
-        </Cardbox>
-
         <KingSection>
           <KingLogo src={king} alt="이달의 왕" />
           <ListContainer>
@@ -266,6 +264,9 @@ const ScholarshipsPage = () => {
             )}
           </ListContainer>
         </KingSection>
+        </Cardbox>
+
+        
       </MainThree>
     </Background>
   );

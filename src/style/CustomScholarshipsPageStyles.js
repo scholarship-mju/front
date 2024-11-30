@@ -14,6 +14,8 @@ export const colors = {
     heartColor: 'rgb(255, 91, 137)',
     
   };
+
+  
   
 export const Background = styled.div`
   display: flex;
@@ -24,10 +26,10 @@ export const Background = styled.div`
 `;
 
 export const ScholarLogo = styled.img`
-  width: 17.5%;
+  max-width: 16%;
   display: block;
   margin: 0 auto;
-  margin-top: 13px;
+  margin-top: 17px;
 `;
 
 // 버튼 스타일
@@ -99,11 +101,10 @@ export const TextInput = styled.input`
   width: 50%;
   height: 5%;
   padding: 10px;
-  margin : 7px;
-  margin-bottom: 10px;
+  margin : 0 auto;
   font-size: 20px;
   border: 1px solid ;
-  margin-left : 465px;
+
   border-radius: 8px;
   background-color: ${colors.inputBg};
   color: ${colors.inputText};
@@ -170,6 +171,7 @@ export const Selectioncontainer = styled.div`
 `;
 
 export const ResetButton = styled.button`
+  display: inline-block;
   flex: 1.5; /* 전체 너비의 15% */
   background-color: transparent;
   border: 1px solid #1A1A1A;
@@ -181,6 +183,40 @@ export const ResetButton = styled.button`
   line-height: normal;
   margin: 5px;
   padding: 5px;
+  
+  text-align: center;
+  touch-action: manipulation;
+  
+  &:disabled {
+    pointer-events: none;
+  }
+  
+  &:hover {
+    color: #fff;
+    background-color: ${colors.buttonBgHover};
+    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+    transform: translateY(-2px);
+  }
+  
+  &:active {
+    box-shadow: none;
+    transform: translateY(0);
+  }
+`;
+
+export const GoButton = styled.button`
+  flex: 1.5; /* 전체 너비의 15% */
+  background-color: transparent;
+  border: 1px solid #1A1A1A;
+  border-radius: 8px;
+  color: ${colors.buttonText};
+  font-family: Roobert, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  font-size: 18px;
+  font-weight: 600;
+  line-height: normal;
+  margin: 5px;
+  padding: 5px;
+  
   text-align: center;
   touch-action: manipulation;
   
@@ -310,37 +346,25 @@ export const FilterForm = styled.div` //흰색 폼
   gap: 20px; /* 항목 간 간격을 동일하게 설정 */
   max-width: 80%; /* 최대 너비 80% */
   margin: 0 auto; /* 부모 요소에서 중앙 정렬 */
-
-  .select{
-    -webkit-appearance: none;
-    padding: 7px 40px 7px 12px
-    width: 100%
-    border: 1px solid #E8EAED
-    border-radius: 5px
-    background: white
-    box-shadow: 0 1px 3px -2px #9098A9
-    cursor: pointer
-    font-family: inherit
-    font-size: 16px
-    transition: all 150ms ease
-    &:required:invalid
-      color: #5A667F
-    
-    option
-      color: #223254
-      &[value=""][disabled]
-          display: none
-    
-    &:focus
-      outline: none
-      border-color: #0077FF
-      box-shadow: 0 0 0 2px rgba(#0077FF,.2)
-
-    &:hover
-      stroke: #0077FF
-
-  }
 `;
+
+
+export const FilterContainer = styled.div` //흰색 폼
+  display: flex; /* flex로 설정 */
+  background-color: white;
+  padding: 20px 5px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  justify-content: center; /* 중앙 정렬 */
+  align-items: center; /* 중앙 정렬 */
+  text-align: center; /* 텍스트 중앙 정렬 */
+ 
+  max-width: 90%; /* 최대 너비 80% */
+  margin: 12px; auto; /* 부모 요소에서 중앙 정렬 */
+  
+`;
+
+
 
   // 필드셋 스타일
 export const Fieldset = styled.fieldset`
@@ -375,11 +399,11 @@ export const LoadMoreButton = styled.button`
 
 // 리스트 아이템 스타일
 export const ScholarshipItem = styled.li`
-  margin: 11px;
+  margin: 13px;
   padding: 15px 10px 10px 15px;
-  font-size: 17px;
+  font-size: 16px;
   border-radius: 8px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 아래쪽 그림자 추가 */
+  box-shadow: 0px 4px 6px rgba(0.01, 0.1, 0, 0.2); /* 아래쪽 그림자 추가 */
 `;
 
 // 금액 스타일
@@ -405,7 +429,7 @@ export const DetailBox = styled.div`
   width: 90%; /* 부모의 전체 너비 사용 */
   margin : 20px;
   padding: 10px; /* 안쪽 여백 */
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 아래쪽 그림자 추가 */
+  box-shadow: 0px 4px 6px rgba(0, 0.1, 0, 0.2); /* 아래쪽 그림자 추가 */
   border-radius: 6px; /* 모서리 둥글게 */ 
   background-color: rgba(249, 249, 249, 0.5); /* 배경색 */
   color: black; /* 글자색 */
@@ -573,35 +597,37 @@ export const CardStyledWrapper = styled.div`
 
 export const MainThree = styled.div`
   display: flex;
+  justify-content: space-between;
   width: 100%;
-  padding: 20px;
-  gap: 10px;
+  padding: 15px;
+  gap: 5px;
   min-height: 100vh;
 `;
 
 export const Filterbox = styled.div`
   display: block;
-  width: 600px;
-  padding: 20px;
+  width: 11%;
+  padding: 12px;
   background-color: #f5f5f5;
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  margin-left: 0;
+      
 `;
 
 export const Display = styled.div`
-  display: block;
-  width: 180%;
-  padding: 20px;
+  display: flex-block;
+  width: 68%;
+  padding: 10px;
   background-color: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   overflow-y: auto; /* 스크롤 허용 */
   height: auto; /* 높이를 내용물에 따라 조정 */
-  margin-left: 20px;
-  
+  margin: 0 auto;
+
+
   .imagebox {
     border-radius: 8px;
     margin: 10px auto;
@@ -624,41 +650,54 @@ export const Display = styled.div`
 `;
 
 export const Cardbox = styled.div`
-  width: 200px;
-  height: 90%;
+  width: 11%;
+  padding: 16px;
+  height: 100%;
   display: flex;
   flex-wrap: wrap;
-  margin: 10px;
+  margin: 0px;
 `;
 
 export const KingSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  width: 20%;
+  
+  border: 1px solid #black;
+  border-radius: 12px;
+  width: 80%;
+  background: linear-gradient(135deg, #f5f5f5, #ffffff);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 `;
 
 export const KingLogo = styled.img`
-  width: 140%;
-  margin-bottom: 10px;
+  width: 120px;
+  margin-bottom: 20px;
 `;
 
 export const KingListContainer = styled.ul`
   list-style: none;
+  border-bottom: 1px solid #ddd;
   padding: 0;
-  width: 100%;
+  width: 80%;
+  margin: 0;
 `;
 
 export const ListBox = styled.li`
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  margin: 5px 0;
-  padding: 10px;
-  text-align: center;
-  font-size: 14px;
-  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 8px 0;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+
+  span {
+    font-weight: bold;
+  }
 `;
