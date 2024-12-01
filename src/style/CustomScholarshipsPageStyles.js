@@ -109,6 +109,84 @@ export const FiltersmallContainer = styled.div` //흰색 폼
   
 `;
 
+
+
+  // 필드셋 스타일
+export const Fieldset = styled.fieldset`
+    border: 5px solid ${colors.navy};
+    border-radius: 8px;
+    padding: 10px 10px 10px 0px; 
+    width: 95%;
+    margin-top: 40px;
+    margin: 0 auto;
+    max-height: 700px; /* 적절한 높이로 설정하세요, 10개 항목을 고려한 높이입니다 */
+    overflow-y: auto; /* 스크롤 가능하도록 설정 */
+  `;
+
+// 리스트 스타일
+export const List = styled.div`
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(200px, 1fr)); /* 화면 크기에 따라 열 조정 */
+  gap: 10px;
+  padding: 0;
+  margin: 20px;
+  max-height: 700px; /* 적절한 높이로 설정하세요, 10개 항목을 고려한 높이입니다 */
+    overflow-y: auto; /* 스크롤 가능하도록 설정 */
+`;
+
+export const LoadMoreButton = styled.button`
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  cursor: pointer;
+`;
+
+// 리스트 아이템 스타일
+export const ScholarshipItem = styled.li`
+  margin: 15px;
+  padding: 15px 10px 10px 15px;
+  font-size: 16px;
+  border-radius: 8px;
+  box-shadow: 1px 4px 6px 1px rgba(0, 0, 0, 0.2);
+
+  display: flex; /* Flexbox로 설정 */
+  width: auto; /* 부모에 맞게 크기 조정 */
+`;
+
+export const CardStyledWrapper = styled.div`
+
+
+
+}`;
+// 금액 스타일
+export const ScholarshipAmount = styled.div`
+    flex-direction: column;
+    text-align: right;
+    font-size: 20px;
+  `;
+
+export const DownButton = styled.img`
+  margin-left: 10px;
+  width: 30px; /* 버튼의 크기 설정 */
+  height: 30px; /* 버튼의 크기 설정 */
+  border: 1px solid gray; /* 테두리 */
+  border-radius: 4px; /* 모서리 둥글게 */ 
+  background-color: rgba(249, 249, 249, 0.5); /* 배경색 */
+`;
+
+export const DetailBox = styled.div`
+  line-height: 170%;
+  flex-direction: column; /*
+  margin: 15px 20px 20px 10px;
+  width: 90%; /* 부모의 전체 너비 사용 */
+  margin : 20px;
+  padding: 10px; /* 안쪽 여백 */
+  box-shadow: 0px 4px 6px rgba(0, 0.1, 0, 0.2); /* 아래쪽 그림자 추가 */
+  border-radius: 6px; /* 모서리 둥글게 */ 
+  background-color: rgba(249, 249, 249, 0.5); /* 배경색 */
+  color: black; /* 글자색 */
+`;
 export const ModalOverlay = styled.div`
   position: fixed;
   top: 0;
@@ -129,9 +207,11 @@ export const FilterModalContent = styled.div`
   max-width: 500px;
   width: 100%;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  border: 1px solid black;
+  
   position: relative;
 `;
+
+
 
 export const ModalClose = styled.button`
   position: absolute;
@@ -142,6 +222,137 @@ export const ModalClose = styled.button`
   font-size: 20px;
   cursor: pointer;
 `;
+
+export const ListItem = styled.li`
+  margin: 35px;
+  padding: 1px;
+  display: inline-block;
+`;
+
+
+export const ListContainer = styled.ol`
+  margin: 0;
+  padding: 0;
+`;
+
+export const StyledWrapper = styled.div`
+  .con-like {
+    --red: rgb(255, 50, 50);
+    position: relative;
+    width: 46px;
+    height: 46px;
+  }
+
+  .con-like .like {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 20;
+    cursor: pointer;
+  }
+
+  .like {
+    left: 0px;
+  }
+
+  .con-like .checkmark {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .con-like .outline,
+  .con-like .filled {
+    fill: var(--red);
+    position: absolute;
+  }
+
+  .con-like .filled {
+    display: none;
+  }
+
+  .con-like .celebrate {
+    position: absolute;
+    display: none;
+  }
+
+  /* 체크된 상태: filled와 celebrate 애니메이션 */
+  .con-like .like:checked ~ .checkmark .filled {
+    display: block;
+    animation: kfr-filled 0.5s forwards;
+  }
+
+  .con-like .like:checked ~ .checkmark .celebrate {
+    display: block;
+    animation: kfr-celebrate 0.5s forwards;
+  }
+
+  /* 체크 해제: unfilled 애니메이션 */
+  .con-like .like:not(:checked) ~ .checkmark .filled {
+    display: block;
+    animation: kfr-unfilled 0.5s forwards;
+  }
+
+  /* Keyframes for filled animation */
+  @keyframes kfr-filled {
+    0% {
+      opacity: 0;
+      transform: scale(0);
+    }
+
+    50% {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  /* Keyframes for celebrate animation */
+  @keyframes kfr-celebrate {
+    0% {
+      transform: scale(0);
+    }
+
+    50% {
+      opacity: 0.8;
+    }
+
+    100% {
+      transform: scale(1.2);
+      opacity: 0;
+      display: none;
+    }
+  }
+
+  /* Keyframes for unfilled animation */
+  @keyframes kfr-unfilled {
+    0% {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    50% {
+      opacity: 0.5;
+      transform: scale(0.8);
+    }
+
+    100% {
+      opacity: 0;
+      transform: scale(0);
+      display: none;
+    }
+  }
+`;
+
+
+  
+
 
 export const MainThree = styled.div`
   display: flex;
@@ -162,6 +373,7 @@ export const Filterbox = styled.div`
   border-radius: 8px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);   
 `;
+
 
 export const FilterContainer = styled.div` 
   display: flex; /* flex로 설정 */
@@ -186,6 +398,8 @@ export const FilterContainer = styled.div`
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3); /* 그림자 강화 */
   }
 `;
+
+
 
 export const Display = styled.div`
   display: flex-block;
