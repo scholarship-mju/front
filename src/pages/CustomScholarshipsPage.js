@@ -230,6 +230,7 @@ const ScholarshipsPage = () => {
         <Display>
           <div>
             <ScholarshipCard />
+            <ScholarshipCard />
           </div>
         </Display>
         

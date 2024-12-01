@@ -365,8 +365,6 @@ const ScholarshipsPage = () => {
         </KingSection>
 
         </Cardbox>
-
-        
       </MainThree>
 
 
