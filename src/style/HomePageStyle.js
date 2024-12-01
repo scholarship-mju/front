@@ -45,7 +45,7 @@ export const MainContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 20px;
+  padding: 0 auto;
   gap: 20px;
   width: 90%;
   max-width: 1200px;

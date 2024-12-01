@@ -21,6 +21,7 @@ function NewUserPage() {
     const [province, setProvince] = useState("");
     const [city, setCity] = useState("");
     const [university, setUniversity] = useState("");
+    const [department, setDepartment] = useState("");
     const [grade, setGrade] = useState("");
     const [incomeQuantile, setIncomeQuantile] = useState("");
 
@@ -158,6 +159,16 @@ function NewUserPage() {
                         value={university}
                         onChange={(e) => setUniversity(e.target.value)}
                         placeholder="대학교 이름을 입력하세요 (예시: 명지대학교)"
+                    />
+                </InputGroup>
+
+                <InputGroup>
+                    <Label>학과</Label>
+                    <InputField
+                        type="text"
+                        value={department}
+                        onChange={(e) => setDepartment(e.target.value)}
+                        placeholder="학과를 입력하세요 (예시: 컴퓨터공학과)"
                     />
                 </InputGroup>
 

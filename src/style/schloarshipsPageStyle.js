@@ -363,8 +363,6 @@ export const FilterContainer = styled.div` //흰색 폼
   
 `;
 
-
-
   // 필드셋 스타일
 export const Fieldset = styled.fieldset`
     border: 5px solid ${colors.navy};
