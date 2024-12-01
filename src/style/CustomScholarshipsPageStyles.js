@@ -1,20 +1,6 @@
 import styled from 'styled-components';
 
 export const colors = {
-  primary: '#4CAF50',
-  inputBg: '#f3f3f4',
-  inputText: '#0d0c22',
-  inputBorderHover: 'rgba(247, 127, 0, 0.4)',
-  inputShadow: 'rgb(247 127 0 / 10%)',
-  placeholderText: '#9e9ea7',
-  buttonText: '#3B3B3B',
-  buttonBgHover: '#1A1A1A',
-  buttonBgActive: '#1A1A1A',
-  orange : '#fe6f0f',
-  heartColor: 'rgb(255, 91, 137)',
-  
-};
-  
     primary: '#4CAF50',
     inputBg: '#f3f3f4',
     inputText: '#0d0c22',
@@ -28,8 +14,6 @@ export const colors = {
     heartColor: 'rgb(255, 91, 137)',
     
   };
-
-  
   
 export const Background = styled.div`
   display: flex;
@@ -40,14 +24,12 @@ export const Background = styled.div`
 `;
 
 export const ScholarLogo = styled.img`
-  max-width: 18%;
   max-width: 16%;
   display: block;
   margin: 0 auto;
   margin-top: 17px;
 `;
 
-export const ResetButton = styled.button`
 // 버튼 스타일
 export const Button = styled.button`
     appearance: none;
@@ -133,18 +115,16 @@ export const TextInput = styled.input`
 
 export const FilterButton = styled.button`
   display: inline-block;
-  flex: 1.5; /* 전체 너비의 15% */
   background-color: transparent;
-  border: 1px solid #1A1A1A;
+  border: 0.125em solid #1A1A1A;
   border-radius: 8px;
   color: ${colors.buttonText};
   font-family: Roobert, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
   font-size: 18px;
   font-weight: 600;
   line-height: normal;
-  margin: 5px;
+  margin: 10px;
   padding: 5px;
-  
   text-align: center;
   touch-action: manipulation;
   
@@ -165,8 +145,6 @@ export const FilterButton = styled.button`
   }
 `;
 
-export const GoButton = styled.button`
-  flex: 1.5; /* 전체 너비의 15% */
 export const SearchButton = styled.img`
   position: absolute;
   margin: 0px;
@@ -232,9 +210,6 @@ export const GoButton = styled.button`
   font-size: 18px;
   font-weight: 600;
   line-height: normal;
-  margin: 5px;
-  padding: 5px;
-  
   margin: 0 auto;
   padding: 3px;
   
@@ -256,6 +231,16 @@ export const GoButton = styled.button`
     box-shadow: none;
     transform: translateY(0);
   }
+`;
+
+export const SliderContainer = styled.div`
+  border: 1px solid ${colors.navy};
+  border-radius: 5px;
+  padding: 15px; /* 필요에 따라 패딩 추가 */
+  width : 60%;
+  justify-content: center; /* 중앙 정렬 필요시 */
+  align-items: center; /* 중앙 정렬 필요시 */
+  text-align: center;
 `;
 
 export const Select = styled.select`
@@ -329,9 +314,21 @@ export const AmountLabel = styled.label`
   font-size: 16px;
 `;
 
+export const OverlayForm = styled.div` //검은 바탕
+  position: fixed;
+  top: 00px;
+  left: 00px;
+  width: 100vw; /* 폼의 너비를 화면의 80%로 설정 */
+  height: 100vh; /* 폼의 높이를 화면의 80%로 설정 */
+  background-color: rgba(0, 0, 0, 0.7);
+  
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 2px; /* 내부 여백 추가 */
+  border-radius: 8px; /* 모서리를 둥글게 */
+`;
 
-
-export const FilterContainer = styled.div` //흰색 폼
 
 
 
@@ -340,7 +337,6 @@ export const FiltersmallContainer = styled.div` //흰색 폼
   display: flex; /* flex로 설정 */
   height: 2%;
   background-color: white;
-  padding: 20px 5px;
   padding:  5px;
   border-radius: 8px;
   font-size : 13px;
@@ -350,7 +346,7 @@ export const FiltersmallContainer = styled.div` //흰색 폼
   text-align: center; /* 텍스트 중앙 정렬 */
  
   max-width: 100%; /* 최대 너비 80% */
-  margin: 12px; auto; /* 부모 요소에서 중앙 정렬 */
+  margin: 12px auto; /* 부모 요소에서 중앙 정렬 */
   
 `;
 
@@ -631,7 +627,7 @@ export const Filterbox = styled.div`
   height : 100%;
   width: 13%;
   padding: 5px;
-  background-color: #white;
+  background-color: white;
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
@@ -665,7 +661,7 @@ export const FilterContainer = styled.div` //흰색 폼
   text-align: center; /* 텍스트 중앙 정렬 */
  
   max-width: 95%; /* 최대 너비 80% */
-  margin: 12px; auto; /* 부모 요소에서 중앙 정렬 */
+  margin: 12px auto; /* 부모 요소에서 중앙 정렬 */
   
 `;
 
@@ -711,21 +707,14 @@ export const Cardbox = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin: 0px;
-  margin: 0px;
 `;
 
 export const KingSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  width: 80%;
-  background: linear-gradient(135deg, #f5f5f5, #ffffff);
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   
-  border: 1px solid #black;
+  border: 1px solid black;
   border-radius: 12px;
   width: 80%;
   background: linear-gradient(135deg, #f5f5f5, #ffffff);
@@ -735,16 +724,12 @@ export const KingSection = styled.div`
 export const KingLogo = styled.img`
   width: 120px;
   margin-bottom: 20px;
-  width: 120px;
-  margin-bottom: 20px;
 `;
 
 export const KingListContainer = styled.ul`
   list-style: none;
   border-bottom: 1px solid #ddd;
   padding: 0;
-  width: 100%;
-  margin: 0;
   width: 80%;
   margin: 0;
 `;
