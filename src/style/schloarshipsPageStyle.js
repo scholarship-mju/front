@@ -442,6 +442,18 @@ export const ModalContent = styled.div`
   max-width: 500px;
   width: 100%;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  
+  position: relative;
+`;
+
+export const FilterModalContent = styled.div`
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border: 1px solid black;
   position: relative;
 `;
 
@@ -650,22 +662,30 @@ export const FilterForm = styled.div` //흰색 폼
   max-width: 80%; /* 최대 너비 80% */
   margin: 0 auto; /* 부모 요소에서 중앙 정렬 */
 `;
-export const FilterContainer = styled.div` //흰색 폼
+export const FilterContainer = styled.div` 
   display: flex; /* flex로 설정 */
-  height: auto;
+  height: 10%;
   background-color: white;
-  padding: 15px 15px;
+  padding: 15px 10px;
   border-radius: 8px;
-  font-size : 14px;
+  font-size: 14px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   justify-content: center; /* 중앙 정렬 */
   align-items: center; /* 중앙 정렬 */
   text-align: center; /* 텍스트 중앙 정렬 */
- 
-  max-width: 95%; /* 최대 너비 80% */
-  margin: 12px; auto; /* 부모 요소에서 중앙 정렬 */
+  max-width: 80%; /* 최대 너비 95% */
+  margin: 15px auto; /* 부모 요소에서 중앙 정렬 */
   
+  /* 마우스를 올렸을 때 스타일 */
+  cursor: pointer; /* 마우스 커서를 포인터로 변경 */
+  transition: background-color 0.3s ease; /* 배경색 전환 애니메이션 */
+
+  &:hover {
+    background-color: #f8f8f8; /* 마우스 올렸을 때 배경색 변경 */
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3); /* 그림자 강화 */
+  }
 `;
+
 
 
 export const Display = styled.div`

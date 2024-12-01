@@ -172,17 +172,15 @@ export const Selectioncontainer = styled.div`
 
 export const ResetButton = styled.button`
   display: inline-block;
-  flex: 1.5; /* 전체 너비의 15% */
+  
   background-color: transparent;
   border: 1px solid #1A1A1A;
   border-radius: 8px;
-  color: ${colors.buttonText};
   font-family: Roobert, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
   font-size: 18px;
   font-weight: 600;
-  line-height: normal;
-  margin: 5px;
-  padding: 5px;
+  margin: 0 auto;
+  padding : 3px;
   
   text-align: center;
   touch-action: manipulation;
@@ -205,7 +203,7 @@ export const ResetButton = styled.button`
 `;
 
 export const GoButton = styled.button`
-  flex: 1.5; /* 전체 너비의 15% */
+  
   background-color: transparent;
   border: 1px solid #1A1A1A;
   border-radius: 8px;
@@ -214,8 +212,8 @@ export const GoButton = styled.button`
   font-size: 18px;
   font-weight: 600;
   line-height: normal;
-  margin: 5px;
-  padding: 5px;
+  margin: 0 auto;
+  padding: 3px;
   
   text-align: center;
   touch-action: manipulation;
@@ -333,33 +331,23 @@ export const OverlayForm = styled.div` //검은 바탕
   border-radius: 8px; /* 모서리를 둥글게 */
 `;
 
-export const FilterForm = styled.div` //흰색 폼
-  display: flex; /* flex로 설정 */
-  flex-direction: column; /* 세로로 정렬 */
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  justify-content: center; /* 중앙 정렬 */
-  align-items: center; /* 중앙 정렬 */
-  text-align: center; /* 텍스트 중앙 정렬 */
-  gap: 20px; /* 항목 간 간격을 동일하게 설정 */
-  max-width: 80%; /* 최대 너비 80% */
-  margin: 0 auto; /* 부모 요소에서 중앙 정렬 */
-`;
 
 
-export const FilterContainer = styled.div` //흰색 폼
+
+
+export const FiltersmallContainer = styled.div` //흰색 폼
   display: flex; /* flex로 설정 */
+  height: 2%;
   background-color: white;
-  padding: 20px 5px;
+  padding:  5px;
   border-radius: 8px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  font-size : 13px;
+  background-color: transparent;
   justify-content: center; /* 중앙 정렬 */
   align-items: center; /* 중앙 정렬 */
   text-align: center; /* 텍스트 중앙 정렬 */
  
-  max-width: 90%; /* 최대 너비 80% */
+  max-width: 100%; /* 최대 너비 80% */
   margin: 12px; auto; /* 부모 요소에서 중앙 정렬 */
   
 `;
@@ -433,6 +421,38 @@ export const DetailBox = styled.div`
   border-radius: 6px; /* 모서리 둥글게 */ 
   background-color: rgba(249, 249, 249, 0.5); /* 배경색 */
   color: black; /* 글자색 */
+`;
+export const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+`;
+
+export const ModalContent = styled.div`
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+`;
+
+export const ModalClose = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
 `;
 
 export const ListItem = styled.li`
@@ -606,14 +626,47 @@ export const MainThree = styled.div`
 
 export const Filterbox = styled.div`
   display: block;
-  width: 11%;
-  padding: 12px;
-  background-color: #f5f5f5;
+  height : 100%;
+  width: 13%;
+  padding: 5px;
+  background-color: #white;
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
       
 `;
+
+export const FilterForm = styled.div` //흰색 폼
+  display: flex; /* flex로 설정 */
+  flex-direction: column; /* 세로로 정렬 */
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  justify-content: center; /* 중앙 정렬 */
+  align-items: center; /* 중앙 정렬 */
+  text-align: center; /* 텍스트 중앙 정렬 */
+  gap: 20px; /* 항목 간 간격을 동일하게 설정 */
+  max-width: 80%; /* 최대 너비 80% */
+  margin: 0 auto; /* 부모 요소에서 중앙 정렬 */
+`;
+export const FilterContainer = styled.div` //흰색 폼
+  display: flex; /* flex로 설정 */
+  height: auto;
+  background-color: white;
+  padding: 15px 15px;
+  border-radius: 8px;
+  font-size : 14px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  justify-content: center; /* 중앙 정렬 */
+  align-items: center; /* 중앙 정렬 */
+  text-align: center; /* 텍스트 중앙 정렬 */
+ 
+  max-width: 95%; /* 최대 너비 80% */
+  margin: 12px; auto; /* 부모 요소에서 중앙 정렬 */
+  
+`;
+
 
 export const Display = styled.div`
   display: flex-block;

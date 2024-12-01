@@ -1,41 +1,18 @@
 import styled from "styled-components";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   ModalClose,
   ModalOverlay,
   ModalContent,
   ScholarshipItem,
 } from "../style/schloarshipsPageStyle";
-import axios from "axios";
 import HeartCheckbox from "./HeartButton"; // HeartCheckbox 컴포넌트
 import schoolImage from "../png/5-1.jpg";
 import { CardStyledWrapper } from "../style/schloarshipsPageStyle";
 
-const ScholarshipCard = () => {
-  const [serverdata, setServerdata] = useState([]); // 서버에서 가져온 데이터
+const ScholarshipCard = ({ scholarships }) => {
   const [selectedScholarship, setSelectedScholarship] = useState(null); // 모달에 표시할 데이터
   const [likedItems, setLikedItems] = useState({}); // 좋아요 상태
-
-  // 서버에서 데이터 가져오기
-  useEffect(() => {
-    const token = localStorage.getItem("accessToken") || ""; // 토큰 저장 방식에 따라 가져오기
-    axios
-      .get(
-        "http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/scholarship/all",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`, // 토큰이 필요할 경우 포함
-          },
-        }
-      )
-      .then((response) => {
-        setServerdata(response.data);
-        console.log(response.data); // 데이터 확인용 콘솔 출력
-      })
-      .catch((error) => {
-        console.error("데이터 가져오기 실패:", error);
-      });
-  }, []);
 
   // 모달 닫기 핸들러
   const handleCloseModal = () => {
@@ -59,7 +36,7 @@ const ScholarshipCard = () => {
   return (
     <CardStyledWrapper style={{ listStyleType: "none" }} className="Cards">
       {/* 스타일 적용된 리스트 */}
-      {serverdata.map((scholarshipitem, index) => (
+      {scholarships.map((scholarshipitem, index) => (
         <ScholarshipItem
           key={index}
           onClick={() => handleItemClick(scholarshipitem)} // 클릭 시 상태 업데이트
@@ -103,6 +80,7 @@ const ScholarshipCard = () => {
           <ModalContent onClick={(e) => e.stopPropagation()}>
             <ModalClose onClick={handleCloseModal}>&times;</ModalClose>
             <h3>{selectedScholarship.name}</h3>
+            <p>성별 구분 : {selectedScholarship.gender} </p>
             <p>지역 구분: {selectedScholarship.city}</p>
             <p>학과 구분: {selectedScholarship.department || "제한 없음"}</p>
             <p>

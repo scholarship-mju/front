@@ -12,7 +12,7 @@ import {
   Background, Button, ResetButton, Fieldset, List, ScholarshipItem,
   ScholarshipAmount, CenterContainer, ListItem, ListContainer, TextInput,
   SearchContainer, SliderContainer, DownButton, DetailBox, Selectioncontainer,
-  OverlayForm, FilterForm, FilterButton, Slider, AmountLabel
+  OverlayForm, FilterForm, FilterButton, Slider, AmountLabel,FilterContainer,GoButton,FiltersmallContainer
   , Select, StyledWrapper, Display, Cardbox, MainThree, Filterbox, ScholarLogo, KingSection, KingLogo, KingListContainer, ListBox
 } from '../style/CustomScholarshipsPageStyles';
 
@@ -118,6 +118,10 @@ const ScholarshipsPage = () => {
     setSelectedCategory("전체"); // 카테고리 초기화
   };
 
+  const Gobutton = () => {
+   
+  };
+
 
   const handleToggleDetails = (index) => {
     setExpandedScholarships((prev) => ({
@@ -126,26 +130,8 @@ const ScholarshipsPage = () => {
     }));
   };
 
-  const displayAttachment = (attachment) => { //첨부파일 함수 V 
-    if (!attachment) return null;
-    return (
-      <a href={attachment} target="_blank" rel="noopener noreferrer">
-        첨부파일 보기
-      </a>
-    );
-  };
 
-  const handleSelectChange = (event) => { // 카테고리 선택 변경 핸들러
-    setSelectedCategory(event.target.value);
-  };
 
-  const handleCheckboxChange = () => {
-    setIsChecked(!isChecked); // 체크 상태 토글
-  };
-
-  const handleClick = () => {
-    console.log("Div clicked!");
-  };
 
 
   const [serverdata, setServerdata] = useState([]); // 서버 데이터 저장용 state
@@ -195,23 +181,21 @@ const ScholarshipsPage = () => {
     <Background>
       <ScholarLogo src={customLogo} />
       <MainThree>
+        
         <Filterbox>
-          <h3>검색 필터</h3>
-          <ResetButton onClick={resetbutton}>초기화</ResetButton>
-          <Selectioncontainer>
-            장학금 유형:
-            <select
-              id="scholarship-category"
-              value={selectedCategory}
-              onChange={handleSelectChange}
-            >
-              <option value="전체">전체</option>
-              <option value="교내">교내</option>
-              <option value="교외">교외</option>
-            </select>
-          </Selectioncontainer>
-          <SliderContainer>
-            <AmountLabel>
+        <FiltersmallContainer>
+        <div>검색필터</div>
+
+          </FiltersmallContainer>
+          <FiltersmallContainer>
+            <ResetButton onClick={resetbutton}>초기화</ResetButton>
+            <GoButton onClick={Gobutton}>적용</GoButton>
+          </FiltersmallContainer>
+          
+        
+         
+          <FilterContainer>Filter금액 
+           {/*  <AmountLabel>
               최소 금액: {minAmount.toLocaleString()}원
               <Slider
                 type="range"
@@ -232,38 +216,47 @@ const ScholarshipsPage = () => {
                 value={maxAmount}
                 onChange={(e) => setMaxAmount(parseInt(e.target.value))}
               />
-            </AmountLabel>
-          </SliderContainer>
-          <div className="Filter3"> Filter학교</div>
-          <div className="Filter4"> Filter기간</div>
-          <div className="Filter5"> Filter5나이</div>
-          <div className="Filter6"> Filter6도시</div>
-          <div className="Filter6"> Filter6</div>
-          <div className="Filter6"> Filter6</div>
+            </AmountLabel> */}
+          </FilterContainer>
+                   
+          <FilterContainer>Filter나이</FilterContainer>
+          <FilterContainer>Filter성별</FilterContainer>
+          <FilterContainer>Filter학교</FilterContainer>
+          <FilterContainer>Filter학과</FilterContainer>
+          <FilterContainer>Filter지역</FilterContainer>
+          <FilterContainer>Filter</FilterContainer>
+ 
         </Filterbox>
         <Display>
           <div>
-            <ScholarshipCard/>
+            <ScholarshipCard />
           </div>
         </Display>
+        
         <Cardbox>
         <KingSection>
           <KingLogo src={king} alt="이달의 왕" />
-          <ListContainer>
-            {rankings.length > 0 ? (
-              rankings.slice(0, 4).map((user, index) => (
-                <ListBox key={index}>{user.nickname}</ListBox>
-              ))
+          <KingListContainer>
+            {rankings?.length > 0 ? (
+              rankings
+                .filter((member) => member.total >= 0) // total 값이 0 이상인 항목만 선택
+                .sort((a, b) => b.total - a.total) // total 값 기준 내림차순 정렬
+                .slice(0, 10) // 상위 10명만 선택
+                .map((user, index) => (
+                  <ListBox key={user.id || `rank-${index}`}>
+                    {index + 1}위 {user.nickname || "이름 없음"}
+                  </ListBox>
+                ))
             ) : (
-              <>
-                <ListBox>명단1</ListBox>
-                <ListBox>명단2</ListBox>
-                <ListBox>명단3</ListBox>
-                <ListBox>명단4</ListBox>
-              </>
+              Array.from({ length: 10 }).map((_, index) => (
+                <ListBox key={`placeholder-${index}`}>
+                  <span>{index + 1}위</span> 데이터 없음
+                </ListBox>
+              ))
             )}
-          </ListContainer>
+          </KingListContainer>
         </KingSection>
+
         </Cardbox>
 
         
