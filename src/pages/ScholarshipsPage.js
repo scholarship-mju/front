@@ -4,12 +4,9 @@ import scholarLogo from "../png/scholarLogo.png";
 import king from "../png/king.png";
 
 import {
-  Background, Button, ResetButton,  ScholarshipItem,
-   TextInput,
-   Selectioncontainer,
-  OverlayForm, FilterForm, FilterButton, Slider, AmountLabel, GoButton,FilterModalContent
-  , Select, StyledWrapper, Display, Cardbox, MainThree, Filterbox, ScholarLogo, KingSection,
-  KingLogo, KingListContainer, ListBox, FilterContainer,FiltersmallContainer,ModalClose,ModalContent,ModalOverlay
+  Background, ResetButton, TextInput, GoButton,FilterModalContent, Display,
+  Cardbox, MainThree, Filterbox, ScholarLogo, KingSection, KingLogo, KingListContainer, 
+  ListBox, FilterContainer,FiltersmallContainer,ModalClose,ModalOverlay
 } from '../style/schloarshipsPageStyle';
 import ScholarshipCard from "./ScholarshipCard";
 
@@ -17,16 +14,9 @@ import ScholarshipCard from "./ScholarshipCard";
 const ScholarshipsPage = () => {
 
   const [searchTerm, setSearchTerm] = useState("");
-  
-  const [expandedScholarships, setExpandedScholarships] = useState({});
-  const [selectedCategory, setSelectedCategory] = useState("전체"); // 카테고리 상태 추가
-  const [isChecked, setIsChecked] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const parseAmount = (amount) => parseInt(amount.replace(/[^0-9]/g, ''), 10);
-
   const resetbutton = () => {
-    
-  
     // formData 초기화
     setFormData({
       minAge: "",
@@ -34,8 +24,6 @@ const ScholarshipsPage = () => {
       gender: "",
       university: "",
       department: "",
-    
-      
     });
   };
 

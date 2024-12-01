@@ -12,11 +12,8 @@ export const colors = {
     buttonBgActive: '#1A1A1A',
     orange : '#fe6f0f',
     heartColor: 'rgb(255, 91, 137)',
-    
   };
 
-  
-  
 export const Background = styled.div`
   display: flex;
   flex-direction: column; /* 세로 방향으로 정렬 */
@@ -30,71 +27,6 @@ export const ScholarLogo = styled.img`
   display: block;
   margin: 0 auto;
   margin-top: 17px;
-`;
-
-// 버튼 스타일
-export const Button = styled.button`
-    appearance: none;
-    background-color: ${(props) => (props.isClicked ? colors.buttonBgActive : "transparent")};
-    border: 3px solid #fe6f0f;
-    border-radius: 10px;
-    box-sizing: border-box;
-    color: #212124 ;
-    cursor: pointer;
-    display: inline-block;
-    font-family: Roobert, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-    font-size: 18px;
-    font-weight: 600;
-    line-height: normal;
-    margin: 13px;
-    min-height: 3.75em;
-    padding: 1em 2.3em;
-    text-align: center;
-    text-decoration: none;
-    transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
-    user-select: none;
-    touch-action: manipulation;
-    
-    &:disabled {
-      pointer-events: none;
-    }
-  
-    &:hover {
-      color: #fff;
-      background-color: ${colors.buttonBgHover};
-      box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
-      transform: translateY(-2px);
-    }
-  
-    &:active {
-      box-shadow: none;
-      transform: translateY(0);
-    }
-
-    ${(props) =>
-    props.isClicked &&
-    `
-        background-color: ${colors.buttonBgActive}; 
-        
-      `}
-  `;
-
-// 컨테이너 스타일
-export const CenterContainer = styled.div`
-    justify-content: center;
-    align-items: center;
-    text-align:center;
-    height:auto
-
-`;
-  
-export const SearchContainer = styled.div`
-  display: flex;
-  align-items: center;
-  border: 1px solid black;
-  max-height: 60px;
-  text-align: center;
-  padding: 0;  
 `;
 
 export const TextInput = styled.input`
@@ -115,64 +47,17 @@ export const TextInput = styled.input`
   }
 `;
 
-export const FilterButton = styled.button`
-  display: inline-block;
-  background-color: transparent;
-  border: 0.125em solid #1A1A1A;
+// 리스트 아이템 스타일
+export const ScholarshipItem = styled.li`
+  margin: 13px;
+  padding: 15px 10px 10px 15px;
+  font-size: 16px;
   border-radius: 8px;
-  color: ${colors.buttonText};
-  font-family: Roobert, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-  font-size: 18px;
-  font-weight: 600;
-  line-height: normal;
-  margin: 10px;
-  padding: 5px;
-  text-align: center;
-  touch-action: manipulation;
-  
-  &:disabled {
-    pointer-events: none;
-  }
-  
-  &:hover {
-    color: #fff;
-    background-color: ${colors.buttonBgHover};
-    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
-    transform: translateY(-2px);
-  }
-  
-  &:active {
-    box-shadow: none;
-    transform: translateY(0);
-  }
-`;
-
-export const SearchButton = styled.img`
-  position: absolute;
-  margin: 0px;
-  width: 17px; /* 버튼의 크기 설정 */
-  top:6.5px;
-  right:12px;
-  height: 30px; /* 버튼의 크기 설정 */
-`;
-
-export const Selectioncontainer = styled.div`
-  width: 100%;
-  line-height: 20px;
-  padding: 1px 2px 1px 2.5px;
-  border: 1px solid #000000;
-  border-radius: 4px;
-  font-size: 15px;
-  margin: 7px;
-  outline: none;
-  border-color: ${colors.navy};
-  background-color: #fff;
-  box-shadow: 0 0 0 4px ${colors.inputShadow};
+  box-shadow: 0px 4px 6px rgba(0.01, 0.1, 0, 0.2); /* 아래쪽 그림자 추가 */
 `;
 
 export const ResetButton = styled.button`
   display: inline-block;
-  
   background-color: transparent;
   border: 1px solid #1A1A1A;
   border-radius: 8px;
@@ -203,7 +88,6 @@ export const ResetButton = styled.button`
 `;
 
 export const GoButton = styled.button`
-  
   background-color: transparent;
   border: 1px solid #1A1A1A;
   border-radius: 8px;
@@ -235,106 +119,6 @@ export const GoButton = styled.button`
   }
 `;
 
-export const SliderContainer = styled.div`
-  border: 1px solid ${colors.navy};
-  border-radius: 5px;
-  padding: 15px; /* 필요에 따라 패딩 추가 */
-  width : 60%;
-  justify-content: center; /* 중앙 정렬 필요시 */
-  align-items: center; /* 중앙 정렬 필요시 */
-  text-align: center;
-`;
-
-export const Select = styled.select`
-  margin-top: 10px;
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 8px;
-  border: 1px solid #fe6f0f;
-  background-color: #fff;
-  cursor: pointer;
-  width: 100%;
-  box-sizing: border-box; /* Padding 포함해서 전체 크기 맞추기 */
-
-  /* 드롭다운 화살표 스타일 */
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"%3E%3Cpath fill="none" stroke="%23666666" stroke-width="2" d="M12 4L8 8L4 4" /%3E%3C/svg%3E');
-  background-repeat: no-repeat;
-  background-position: right 10px center;
-  background-size: 20px;
-  
-  &:focus {
-    outline: none;
-    border-color: #fe6f0f;
-  }
-
-  option {
-    padding: 10px;
-  }
-`;
-
-export const Slider = styled.input`
-  width: 100%; /* 부모 크기에 맞춰 너비 */
-  height: 8px; /* 슬라이더의 높이 */
-  background: #FFFFFF; /* 슬라이더 배경 */
-  border: 3px solid #212124;
-  border-radius: 5px; /* 슬라이더 모서리 둥글게 */
-  
-  transition: background 0.3s; /* 마우스를 올리면 색상 변화 */
-
-  &::-webkit-slider-thumb {
-    -webkit-appearance: none; /* 기본 thumb 스타일 제거 */
-    appearance: none;
-    width: 20px; /* thumb의 너비 */
-    height: 20px; /* thumb의 높이 */
-    border-radius: 50%; /* thumb을 둥글게 */
-    background: #fe6f0f; /* thumb 색상 */
-    cursor: pointer; /* 마우스 커서 변경 */
-  }
-
-  &::-moz-range-thumb {
-    width: 20px; /* thumb의 너비 */
-    height: 20px; /* thumb의 높이 */
-    border-radius: 50%; /* thumb을 둥글게 */
-    background: #fe6f0f; /* thumb 색상 */
-    cursor: pointer; /* 마우스 커서 변경 */
-  }
-
-  &:hover {
-    background: #ffffff; /* 슬라이더 배경 색상 변화 */
-  }
-
-  &:focus {
-    outline: none; /* 포커스 시 아웃라인 제거 */
-  }
-`;
-
-export const AmountLabel = styled.label`
-  margin: 10px 0;
-  font-size: 16px;
-`;
-
-export const OverlayForm = styled.div` //검은 바탕
-  position: fixed;
-  top: 00px;
-  left: 00px;
-  width: 100vw; /* 폼의 너비를 화면의 80%로 설정 */
-  height: 100vh; /* 폼의 높이를 화면의 80%로 설정 */
-  background-color: rgba(0, 0, 0, 0.7);
-  
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  padding: 2px; /* 내부 여백 추가 */
-  border-radius: 8px; /* 모서리를 둥글게 */
-`;
-
-
-
-
-
 export const FiltersmallContainer = styled.div` //흰색 폼
   display: flex; /* flex로 설정 */
   height: 2%;
@@ -348,78 +132,10 @@ export const FiltersmallContainer = styled.div` //흰색 폼
   text-align: center; /* 텍스트 중앙 정렬 */
  
   max-width: 100%; /* 최대 너비 80% */
-  margin: 12px; auto; /* 부모 요소에서 중앙 정렬 */
+  margin: 12px auto; /* 부모 요소에서 중앙 정렬 */
   
 `;
 
-  // 필드셋 스타일
-export const Fieldset = styled.fieldset`
-    border: 5px solid ${colors.navy};
-    border-radius: 8px;
-    padding: 10px 10px 10px 0px; 
-    width: 95%;
-    margin-top: 40px;
-    margin: 0 auto;
-    max-height: 700px; /* 적절한 높이로 설정하세요, 10개 항목을 고려한 높이입니다 */
-    overflow-y: auto; /* 스크롤 가능하도록 설정 */
-  `;
-
-// 리스트 스타일
-export const List = styled.div`
-  list-style-type: none;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(200px, 1fr)); /* 화면 크기에 따라 열 조정 */
-  gap: 10px;
-  padding: 0;
-  margin: 20px;
-  max-height: 700px; /* 적절한 높이로 설정하세요, 10개 항목을 고려한 높이입니다 */
-    overflow-y: auto; /* 스크롤 가능하도록 설정 */
-`;
-
-export const LoadMoreButton = styled.button`
-  display: block;
-  margin: 20px auto;
-  padding: 10px 20px;
-  cursor: pointer;
-`;
-
-// 리스트 아이템 스타일
-export const ScholarshipItem = styled.li`
-  margin: 13px;
-  padding: 15px 10px 10px 15px;
-  font-size: 16px;
-  border-radius: 8px;
-  box-shadow: 0px 4px 6px rgba(0.01, 0.1, 0, 0.2); /* 아래쪽 그림자 추가 */
-`;
-
-// 금액 스타일
-export const ScholarshipAmount = styled.div`
-    flex-direction: column;
-    text-align: right;
-    font-size: 20px;
-  `;
-
-export const DownButton = styled.img`
-  margin-left: 10px;
-  width: 30px; /* 버튼의 크기 설정 */
-  height: 30px; /* 버튼의 크기 설정 */
-  border: 1px solid gray; /* 테두리 */
-  border-radius: 4px; /* 모서리 둥글게 */ 
-  background-color: rgba(249, 249, 249, 0.5); /* 배경색 */
-`;
-
-export const DetailBox = styled.div`
-  line-height: 170%;
-  flex-direction: column; /*
-  margin: 15px 20px 20px 10px;
-  width: 90%; /* 부모의 전체 너비 사용 */
-  margin : 20px;
-  padding: 10px; /* 안쪽 여백 */
-  box-shadow: 0px 4px 6px rgba(0, 0.1, 0, 0.2); /* 아래쪽 그림자 추가 */
-  border-radius: 6px; /* 모서리 둥글게 */ 
-  background-color: rgba(249, 249, 249, 0.5); /* 배경색 */
-  color: black; /* 글자색 */
-`;
 export const ModalOverlay = styled.div`
   position: fixed;
   top: 0;
@@ -433,17 +149,6 @@ export const ModalOverlay = styled.div`
   z-index: 1000;
 `;
 
-export const ModalContent = styled.div`
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  max-width: 500px;
-  width: 100%;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  
-  position: relative;
-`;
-
 export const FilterModalContent = styled.div`
   background: white;
   padding: 20px;
@@ -455,6 +160,16 @@ export const FilterModalContent = styled.div`
   position: relative;
 `;
 
+export const ModalContent = styled.div`
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+`;
+
 export const ModalClose = styled.button`
   position: absolute;
   top: 10px;
@@ -463,17 +178,6 @@ export const ModalClose = styled.button`
   border: none;
   font-size: 20px;
   cursor: pointer;
-`;
-
-export const ListItem = styled.li`
-  margin: 35px;
-  padding: 1px;
-  display: inline-block;
-`;
-
-export const ListContainer = styled.ol`
-  margin: 0;
-  padding: 0;
 `;
 
 //하트버튼 
@@ -625,6 +329,7 @@ export const CardStyledWrapper = styled.div`
  opacity: 1;
 }`;
 
+
 export const MainThree = styled.div`
   display: flex;
   justify-content: space-between;
@@ -639,27 +344,12 @@ export const Filterbox = styled.div`
   height : 100%;
   width: 13%;
   padding: 5px;
-  background-color: #white;
+  background-color: white;
   border: 1px solid #ddd;
   border-radius: 8px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-      
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);   
 `;
 
-export const FilterForm = styled.div` //흰색 폼
-  display: flex; /* flex로 설정 */
-  flex-direction: column; /* 세로로 정렬 */
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  justify-content: center; /* 중앙 정렬 */
-  align-items: center; /* 중앙 정렬 */
-  text-align: center; /* 텍스트 중앙 정렬 */
-  gap: 20px; /* 항목 간 간격을 동일하게 설정 */
-  max-width: 80%; /* 최대 너비 80% */
-  margin: 0 auto; /* 부모 요소에서 중앙 정렬 */
-`;
 export const FilterContainer = styled.div` 
   display: flex; /* flex로 설정 */
   height: 10%;
@@ -683,8 +373,6 @@ export const FilterContainer = styled.div`
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3); /* 그림자 강화 */
   }
 `;
-
-
 
 export const Display = styled.div`
   display: flex-block;
@@ -733,11 +421,10 @@ export const KingSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  
-  border: 1px solid #black;
+  border: 1px solid #ddd;
   border-radius: 12px;
   width: 80%;
-  background: linear-gradient(135deg, #f5f5f5, #ffffff);
+  background: white;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 `;
 
