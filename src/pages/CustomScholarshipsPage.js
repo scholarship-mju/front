@@ -12,7 +12,7 @@ import ScholarshipCard from "./ScholarshipCard";
 const CustomScholarshipsPage = () => {
 
   const [rankings, setRankings] = useState([]);
-  const [serverdata, setServerdata] = useState([]); // 서버 데이터 저장용 state
+  const [customScholarships, setCustomScholarships] = useState([]); // 맞춤 장학금 데이터
 
 
   const fetchRankings = async () => {
@@ -33,47 +33,40 @@ const CustomScholarshipsPage = () => {
     fetchRankings();
   }, []);
 
-  
 
-// 장학금 데이터 가져오기 함수
-const fetchScholarships = async (filters = {}) => {
-  try {
-    const token = localStorage.getItem("accessToken");
-    const response = await axios.get(
-      "http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/my-scholarship",
-      {
-        params: {
-          minAge: filters.minAge || undefined,
-          maxAge: filters.maxAge || undefined,
-          gender: filters.gender || undefined,
-          university: filters.university || undefined,
-          department: filters.department || undefined,
-          incomeQuantile: filters.incomeQuantile || undefined,
-          name: filters.name || undefined,
-        },
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    setServerdata(response.data);
-  } catch (error) {
-    console.error("데이터를 가져오는데 실패했습니다:", error);
-  }
-};
+
+  // 맞춤 장학금 데이터 가져오기
+  const fetchCustomScholarships = async () => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      const response = await axios.get(
+        "http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/scholarship/my-scholarship",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      setCustomScholarships(response.data); // 맞춤 장학금 데이터 저장
+    } catch (error) {
+      console.error("맞춤 장학금을 가져오는데 실패했습니다:", error);
+    }
+  };
+  useEffect(() => {
+    fetchCustomScholarships();
+  }, []);
+
   return (
     <Background>
       <ScholarLogo src={CustomLogo} />
       <MainThree>
         <Filterbox>
-        
-            <div>안내문</div>
-         
+
+          <div>안내문</div>
+
         </Filterbox>
 
         <Display>
-        <div>
-          <ScholarshipCard scholarships={serverdata} />
+          <div>
+            <ScholarshipCard scholarships={customScholarships} />
           </div>
         </Display>
 
