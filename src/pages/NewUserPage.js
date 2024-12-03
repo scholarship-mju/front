@@ -35,6 +35,7 @@ function NewUserPage() {
             gender,
             province,
             city,
+            department,
             university,
             grade: Number(grade),
             incomeQuantile: Number(incomeQuantile),
@@ -176,7 +177,7 @@ function NewUserPage() {
                 <Label>학점</Label>
                     <InputField
                         type="text"
-                        value={city}
+                        value={grade}
                         onChange={(e) => setGrade(e.target.value)}
                         placeholder="학점을 입력하세요 (예시: 3.5)"
                     />
@@ -193,7 +194,7 @@ function NewUserPage() {
                         </option>
                         {[...Array(10).keys()].map((n) => (
                             <option key={n + 1} value={n + 1}>
-                                {n + 1}분위
+                                {n + 1}
                             </option>
                         ))}
                     </PlusSelectField>

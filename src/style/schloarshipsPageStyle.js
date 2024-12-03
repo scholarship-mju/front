@@ -480,7 +480,7 @@ export const FilterContainer = styled.div`
 
 export const Display = styled.div`
   display: flex-block;
-  width: 68%;
+  width: 80%;
   padding: 10px;
   background-color: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.2);
@@ -489,6 +489,7 @@ export const Display = styled.div`
   overflow-y: auto; /* 스크롤 허용 */
   height: auto; /* 높이를 내용물에 따라 조정 */
   margin: 0 auto;
+  margin-left: 10px;
 
 
   .imagebox {
@@ -514,7 +515,7 @@ export const Display = styled.div`
 
 export const Cardbox = styled.div`
   width: 11%;
-  padding: 16px;
+  padding: 0px;
   height: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -527,9 +528,10 @@ export const KingSection = styled.div`
   align-items: center;
   border: 1px solid #ddd;
   border-radius: 12px;
-  width: 80%;
+  width: 100%;
   background: white;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  margin-left: 10px;
 `;
 
 export const KingLogo = styled.img`

@@ -79,7 +79,7 @@ const HomePage = () => {
           <ListContainer>
             {rankings && rankings.length > 0 ? (
               rankings
-                .filter((member) => member.total >= 0) // total 값이 0 이상인 항목만 선택
+                .filter((member) => member.total > 0)
                 .sort((a, b) => b.total - a.total) // total 값 기준 내림차순 정렬
                 .slice(0, 4) // 상위 4명의 데이터만 선택
                 .map((user, index) => (

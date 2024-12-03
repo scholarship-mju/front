@@ -29,6 +29,24 @@ export const ScholarLogo = styled.img`
   margin-top: 17px;
 `;
 
+export const TextInput = styled.input`
+  width: 50%;
+  height: 5%;
+  padding: 10px;
+  margin : 0 auto;
+  font-size: 20px;
+  border: 1px solid ;
+
+  border-radius: 8px;
+  background-color: ${colors.inputBg};
+  color: ${colors.inputText};
+  background-color: #fff;
+  
+  &::placeholder {
+    color: ${colors.placeholderText};
+  }
+`;
+
 export const ResetButton = styled.button`
   display: inline-block;
   background-color: transparent;
@@ -154,11 +172,6 @@ export const ScholarshipItem = styled.li`
   width: auto; /* 부모에 맞게 크기 조정 */
 `;
 
-export const CardStyledWrapper = styled.div`
-
-
-
-}`;
 // 금액 스타일
 export const ScholarshipAmount = styled.div`
     flex-direction: column;
@@ -211,6 +224,26 @@ export const FilterModalContent = styled.div`
   position: relative;
 `;
 
+export const ModalContent = styled.div`
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+`;
+
+export const ModalContent = styled.div`
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+`;
+
 
 
 export const ModalClose = styled.button`
@@ -222,6 +255,156 @@ export const ModalClose = styled.button`
   font-size: 20px;
   cursor: pointer;
 `;
+
+//하트버튼 
+export const StyledWrapper = styled.div` 
+  .con-like {
+    --red: rgb(255, 50, 50);
+    position: relative;
+    width: 46px;
+    height: 46px;
+  }
+
+  .con-like .like {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 20;
+    cursor: pointer;
+  }
+.like{
+left : 0px;
+}
+
+  .con-like .checkmark {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .con-like .outline,
+  .con-like .filled {
+    
+    fill: var(--red);
+    position: absolute;
+  }
+
+  .con-like .filled {
+  
+    animation: kfr-filled 0.5s;
+    display: none;
+  }
+
+  .con-like .celebrate {
+    position: absolute;
+    animation: kfr-celebrate 0.5s;
+    animation-fill-mode: forwards;
+    display: none;
+  }
+
+  .con-like .poly {
+    stroke: var(--red);
+    fill: var(--red);
+  }
+
+  .con-like .like:checked ~ .checkmark .filled {
+    display: block
+  }
+
+  .con-like .like:checked ~ .checkmark .celebrate {
+    display: block
+  }
+
+  @keyframes kfr-filled {
+    0% {
+      opacity: 0;
+      transform: scale(0);
+    }
+
+    50% {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+  }
+
+  @keyframes kfr-celebrate {
+    0% {
+      transform: scale(0);
+    }
+
+    50% {
+      opacity: 0.8;
+    }
+
+    100% {
+      transform: scale(1.2);
+      opacity: 0;
+      display: none;
+    }
+  }`;
+
+  
+export const CardStyledWrapper = styled.div`
+.card {
+ width: 190px;
+ height: 254px;
+ border-radius: 20px;
+ background: #f5f5f5;
+ position: relative;
+ padding: 1.8rem;
+ border: 2px solid #c3c6ce;
+ transition: 0.5s ease-out;
+ overflow: visible;
+}
+
+.card-details {
+ color: black;
+ height: 100%;
+ gap: .5em;
+ display: grid;
+ place-content: center;
+}
+
+.card-button {
+ transform: translate(-50%, 125%);
+ width: 60%;
+ border-radius: 1rem;
+ border: none;
+ background-color: #008bf8;
+ color: #fff;
+ font-size: 1rem;
+ padding: .5rem 1rem;
+ position: absolute;
+ left: 50%;
+ bottom: 0;
+ opacity: 0;
+ transition: 0.3s ease-out;
+}
+
+.text-body {
+ color: rgb(134, 134, 134);
+}
+
+/*Text*/
+.text-title {
+ font-size: 1.5em;
+ font-weight: bold;
+}
+
+/*Hover*/
+.card:hover {
+ border-color: #008bf8;
+ box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+}
+
+.card:hover .card-button {
+ transform: translate(-50%, 50%);
+ opacity: 1;
+}`;
+
 
 export const ListItem = styled.li`
   margin: 35px;
@@ -354,6 +537,96 @@ export const StyledWrapper = styled.div`
   
 
 
+//하트버튼 
+export const StyledWrapper = styled.div` 
+  .con-like {
+    --red: rgb(255, 50, 50);
+    position: relative;
+    width: 46px;
+    height: 46px;
+  }
+
+  .con-like .like {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 20;
+    cursor: pointer;
+  }
+.like{
+left : 0px;
+}
+
+  .con-like .checkmark {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .con-like .outline,
+  .con-like .filled {
+    
+    fill: var(--red);
+    position: absolute;
+  }
+
+  .con-like .filled {
+  
+    animation: kfr-filled 0.5s;
+    display: none;
+  }
+
+  .con-like .celebrate {
+    position: absolute;
+    animation: kfr-celebrate 0.5s;
+    animation-fill-mode: forwards;
+    display: none;
+  }
+
+  .con-like .poly {
+    stroke: var(--red);
+    fill: var(--red);
+  }
+
+  .con-like .like:checked ~ .checkmark .filled {
+    display: block
+  }
+
+  .con-like .like:checked ~ .checkmark .celebrate {
+    display: block
+  }
+
+  @keyframes kfr-filled {
+    0% {
+      opacity: 0;
+      transform: scale(0);
+    }
+
+    50% {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+  }
+
+  @keyframes kfr-celebrate {
+    0% {
+      transform: scale(0);
+    }
+
+    50% {
+      opacity: 0.8;
+    }
+
+    100% {
+      transform: scale(1.2);
+      opacity: 0;
+      display: none;
+    }
+  }`;
+
 export const MainThree = styled.div`
   display: flex;
   justify-content: space-between;
@@ -403,7 +676,7 @@ export const FilterContainer = styled.div`
 
 export const Display = styled.div`
   display: flex-block;
-  width: 68%;
+  width: 80%;
   padding: 10px;
   background-color: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.2);
@@ -412,6 +685,7 @@ export const Display = styled.div`
   overflow-y: auto; /* 스크롤 허용 */
   height: auto; /* 높이를 내용물에 따라 조정 */
   margin: 0 auto;
+  margin-left: 10px;
 
 
   .imagebox {
@@ -437,7 +711,7 @@ export const Display = styled.div`
 
 export const Cardbox = styled.div`
   width: 11%;
-  padding: 16px;
+  padding: 0px;
   height: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -450,9 +724,10 @@ export const KingSection = styled.div`
   align-items: center;
   border: 1px solid #ddd;
   border-radius: 12px;
-  width: 80%;
+  width: 100%;
   background: white;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  margin-left: 10px;
 `;
 
 export const KingLogo = styled.img`
