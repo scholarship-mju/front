@@ -1,26 +1,17 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import customLogo from "../png/customLogo.png";
-import customLogo from "../png/customLogo.png";
 import king from "../png/king.png";
 import CustomLogo from "../png/customLogo.png";
 
-
 import {
-  Background, Button, ResetButton,  ScholarshipItem,
-   TextInput,
-   Selectioncontainer,
-  GoButton,FilterModalContent
-  , Select, StyledWrapper, Display, Cardbox, MainThree, Filterbox, ScholarLogo, KingSection,
-  KingLogo, KingListContainer, ListBox, FilterContainer,FiltersmallContainer,ModalClose,ModalContent,ModalOverlay
+  Background, Display, Cardbox, MainThree, Filterbox, ScholarLogo, KingSection,
+  KingLogo, KingListContainer, ListBox
 } from '../style/CustomScholarshipsPageStyles';
 import ScholarshipCard from "./ScholarshipCard";
-
 
 const CustomScholarshipsPage = () => {
 
   const [rankings, setRankings] = useState([]);
-  const [filteredScholarships, setFilteredScholarships] = useState([]);
   const [serverdata, setServerdata] = useState([]); // 서버 데이터 저장용 state
 
 
