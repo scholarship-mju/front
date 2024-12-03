@@ -5,11 +5,11 @@ import HomePage from "./pages/HomePage";
 import ScholarshipsPage from "./pages/ScholarshipsPage";
 import CustomScholarshipsPage from "./pages/CustomScholarshipsPage";
 import ReceivedScholarshipsPage from "./pages/ReceivedScholarshipsPage";
-import MyPage from "./pages/MyPage";
 import LoginPage from "./pages/LoginPage";
 import LoginSuccessPage from "./pages/auth/LoginSuccessPage";
 import axios from "axios";
 import NewUserPage from "./pages/NewUserPage";
+import MyPage from "./pages/MyPage";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
