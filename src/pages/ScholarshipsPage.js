@@ -4,9 +4,12 @@ import scholarLogo from "../png/scholarLogo.png";
 import king from "../png/king.png";
 
 import {
-  Background, ResetButton, TextInput, GoButton,FilterModalContent, Display,
-  Cardbox, MainThree, Filterbox, ScholarLogo, KingSection, KingLogo, KingListContainer, 
-  ListBox, FilterContainer,FiltersmallContainer,ModalClose,ModalOverlay
+  Background, Button, ResetButton,  ScholarshipItem,
+   TextInput,
+   Selectioncontainer,
+  GoButton,FilterModalContent
+  , Select, StyledWrapper, Display, Cardbox, MainThree, Filterbox, ScholarLogo, KingSection,
+  KingLogo, KingListContainer, ListBox, FilterContainer,FiltersmallContainer,ModalClose,ModalContent,ModalOverlay
 } from '../style/schloarshipsPageStyle';
 import ScholarshipCard from "./ScholarshipCard";
 
@@ -14,9 +17,16 @@ import ScholarshipCard from "./ScholarshipCard";
 const ScholarshipsPage = () => {
 
   const [searchTerm, setSearchTerm] = useState("");
+  
+  const [expandedScholarships, setExpandedScholarships] = useState({});
+  const [selectedCategory, setSelectedCategory] = useState("전체"); // 카테고리 상태 추가
+  const [isChecked, setIsChecked] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const parseAmount = (amount) => parseInt(amount.replace(/[^0-9]/g, ''), 10);
+
   const resetbutton = () => {
+    
+  
     // formData 초기화
     setFormData({
       minAge: "",
@@ -24,6 +34,9 @@ const ScholarshipsPage = () => {
       gender: "",
       university: "",
       department: "",
+      name: "",
+    
+      
     });
   };
 
@@ -41,6 +54,7 @@ const ScholarshipsPage = () => {
             university: filters.university || undefined,
             department: filters.department || undefined,
             incomeQuantile: filters.incomeQuantile || undefined,
+            name: filters.name || undefined,
           },
           headers: {
             Authorization: `Bearer ${token}`,
@@ -72,6 +86,7 @@ const ScholarshipsPage = () => {
             department: formData.department || undefined,
             gender: formData.gender || undefined,
             incomeQuantile: formData.incomeQuantile || undefined,
+            name: formData.name || undefined, // name 필터 추가
           },
           headers: {
             Authorization: `Bearer ${token}`,
@@ -122,6 +137,7 @@ const ScholarshipsPage = () => {
     department: "",
     gender: "",
     incomeQuantile: "",
+    name: "",
   });
 
   const handleOpenModal = (filter) => {
@@ -261,10 +277,11 @@ const ScholarshipsPage = () => {
     <Background>
       <ScholarLogo src={scholarLogo} />
       <TextInput
-        placeholder="검색어 입력"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)} // 검색창 
-      />
+      placeholder="장학금 이름 검색"
+      name="name"
+      value={formData.name}
+      onChange={handleInputChange}
+    />
       <MainThree>
         
         <Filterbox>
@@ -352,7 +369,11 @@ const ScholarshipsPage = () => {
           </KingListContainer>
         </KingSection>
 
+        
+
         </Cardbox>
+
+        
       </MainThree>
 
 
