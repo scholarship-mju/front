@@ -50,15 +50,7 @@ const fetchScholarships = async (filters = {}) => {
     const response = await axios.get(
       "http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/my-scholarship",
       {
-        params: {
-          minAge: filters.minAge || undefined,
-          maxAge: filters.maxAge || undefined,
-          gender: filters.gender || undefined,
-          university: filters.university || undefined,
-          department: filters.department || undefined,
-          incomeQuantile: filters.incomeQuantile || undefined,
-          name: filters.name || undefined,
-        },
+       
         headers: {
           Authorization: `Bearer ${token}`,
         },

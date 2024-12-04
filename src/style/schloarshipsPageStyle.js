@@ -513,8 +513,8 @@ export const Display = styled.div`
 `;
 
 export const Cardbox = styled.div`
-  width: 11%;
-  padding: 16px;
+  width: 10%;
+  padding: 7px;
   height: 100%;
   display: flex;
   flex-wrap: wrap;

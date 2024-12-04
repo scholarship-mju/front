@@ -190,8 +190,8 @@ const ScholarshipsPage = () => {
               onChange={handleInputChange}
             >
               <option value="">선택</option>
-              <option value="MALE">남성</option>
-              <option value="FEMALE">여성</option>
+              <option value="남성">남성</option>
+              <option value="여성">여성</option>
             </select>
           </div>
         );
