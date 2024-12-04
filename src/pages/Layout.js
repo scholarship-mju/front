@@ -14,7 +14,7 @@ import {
   Footer,
 } from "../style/LayoutStyle";
 
-const Layout = ({ isLoggedIn, handleLogout }) => {
+const Layout = ({ isLoggedIn = false, handleLogout }) => {
   const [hoveredLink, setHoveredLink] = useState(null);
   const navigate = useNavigate();
 
@@ -75,9 +75,7 @@ const Layout = ({ isLoggedIn, handleLogout }) => {
               </StyledButtonElement>
             </>
           ) : (
-            <>
-              <StyledLinkButton to="/login">로그인/회원가입</StyledLinkButton>
-            </>
+            <StyledLinkButton to="/login">로그인/회원가입</StyledLinkButton>
           )}
         </ButtonsContainer>
       </Header>
