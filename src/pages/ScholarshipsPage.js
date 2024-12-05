@@ -17,9 +17,16 @@ import ScholarshipCard from "./ScholarshipCard";
 const ScholarshipsPage = () => {
 
   const [searchTerm, setSearchTerm] = useState("");
+  
+  const [expandedScholarships, setExpandedScholarships] = useState({});
+  const [selectedCategory, setSelectedCategory] = useState("전체"); // 카테고리 상태 추가
+  const [isChecked, setIsChecked] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const parseAmount = (amount) => parseInt(amount.replace(/[^0-9]/g, ''), 10);
+
   const resetbutton = () => {
+    
+  
     // formData 초기화
     setFormData({
       minAge: "",
@@ -365,6 +372,8 @@ const ScholarshipsPage = () => {
         
 
         </Cardbox>
+
+        
       </MainThree>
 
 

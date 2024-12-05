@@ -35,6 +35,7 @@ function NewUserPage() {
             gender,
             province,
             city,
+            department,
             university,
             grade: Number(grade),
             incomeQuantile: Number(incomeQuantile),
@@ -107,8 +108,8 @@ function NewUserPage() {
                         <option value="" disabled>
                             성별을 선택하세요
                         </option>
-                        <option value="male">남성</option>
-                        <option value="female">여성</option>
+                        <option value="남성">남성</option>
+                        <option value="여성">여성</option>
                     </PlusSelectField>
                 </InputGroup>
 
@@ -121,23 +122,23 @@ function NewUserPage() {
                         <option value="" disabled>
                             도/광역시를 선택하세요
                         </option>
-                        <option value="Busan">부산광역시</option>
-                        <option value="Chungcheongbuk-do">충청북도</option>
-                        <option value="Chungcheongnam-do">충청남도</option>
-                        <option value="Daegu">대구광역시</option>
-                        <option value="Daejeon">대전광역시</option>
-                        <option value="Gangwon">강원특별자치도</option>
-                        <option value="Gwangju">광주광역시</option>
-                        <option value="Gyeonggi">경기도</option>
-                        <option value="Gyeongsangbuk-do">경상북도</option>
-                        <option value="Gyeongsangnam-do">경상남도</option>
-                        <option value="Incheon">인천광역시</option>
-                        <option value="Jeju">제주특별자치도</option>
-                        <option value="Jeollabuk-do">전북특별자치도</option>
-                        <option value="Jeollanam-do">전라남도</option>
-                        <option value="Sejong">세종특별자치시</option>
-                        <option value="Seoul">서울특별시</option>
-                        <option value="Ulsan">울산광역시</option>
+                        <option value="부산광역시">부산광역시</option>
+                        <option value="충청북도">충청북도</option>
+                        <option value="충청남도">충청남도</option>
+                        <option value="대구광역시">대구광역시</option>
+                        <option value="대전광역시">대전광역시</option>
+                        <option value="강원특별자치도">강원특별자치도</option>
+                        <option value="광주광역시">광주광역시</option>
+                        <option value="경기도">경기도</option>
+                        <option value="경상북도">경상북도</option>
+                        <option value="경상남도">경상남도</option>
+                        <option value="인천광역시">인천광역시</option>
+                        <option value="제주특별자치도">제주특별자치도</option>
+                        <option value="전북특별자치도">전북특별자치도</option>
+                        <option value="전라남도">전라남도</option>
+                        <option value="세종특별자치시">세종특별자치시</option>
+                        <option value="서울특별시">서울특별시</option>
+                        <option value="울산광역시">울산광역시</option>
                     </PlusSelectField>
                 </InputGroup>
 
@@ -176,7 +177,7 @@ function NewUserPage() {
                 <Label>학점</Label>
                     <InputField
                         type="text"
-                        value={city}
+                        value={grade}
                         onChange={(e) => setGrade(e.target.value)}
                         placeholder="학점을 입력하세요 (예시: 3.5)"
                     />
@@ -193,7 +194,7 @@ function NewUserPage() {
                         </option>
                         {[...Array(10).keys()].map((n) => (
                             <option key={n + 1} value={n + 1}>
-                                {n + 1}분위
+                                {n + 1}
                             </option>
                         ))}
                     </PlusSelectField>

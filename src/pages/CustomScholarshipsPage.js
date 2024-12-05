@@ -1,26 +1,18 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import customLogo from "../png/customLogo.png";
 import king from "../png/king.png";
 import CustomLogo from "../png/customLogo.png";
 
-
 import {
-  Background, Button, ResetButton,  ScholarshipItem,
-   TextInput,
-   Selectioncontainer,
-  GoButton,FilterModalContent
-  , Select, StyledWrapper, Display, Cardbox, MainThree, Filterbox, ScholarLogo, KingSection,
-  KingLogo, KingListContainer, ListBox, FilterContainer,FiltersmallContainer,ModalClose,ModalContent,ModalOverlay
-} from '../style/schloarshipsPageStyle';
+  Background, Display, Cardbox, MainThree, Filterbox, ScholarLogo, KingSection,
+  KingLogo, KingListContainer, ListBox
+} from '../style/CustomScholarshipsPageStyles';
 import ScholarshipCard from "./ScholarshipCard";
 
-
-const ScholarshipsPage = () => {
+const CustomScholarshipsPage = () => {
 
   const [rankings, setRankings] = useState([]);
-  const [filteredScholarships, setFilteredScholarships] = useState([]);
-  const [serverdata, setServerdata] = useState([]); // 서버 데이터 저장용 state
+  const [customScholarships, setCustomScholarships] = useState([]); // 맞춤 장학금 데이터
 
 
   const fetchRankings = async () => {
@@ -41,39 +33,40 @@ const ScholarshipsPage = () => {
     fetchRankings();
   }, []);
 
-  
 
-// 장학금 데이터 가져오기 함수
-const fetchScholarships = async (filters = {}) => {
-  try {
-    const token = localStorage.getItem("accessToken");
-    const response = await axios.get(
-      "http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/my-scholarship",
-      {
-       
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    setServerdata(response.data);
-  } catch (error) {
-    console.error("데이터를 가져오는데 실패했습니다:", error);
-  }
-};
+
+  // 맞춤 장학금 데이터 가져오기
+  const fetchCustomScholarships = async () => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      const response = await axios.get(
+        "http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/scholarship/my-scholarship",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      setCustomScholarships(response.data); // 맞춤 장학금 데이터 저장
+    } catch (error) {
+      console.error("맞춤 장학금을 가져오는데 실패했습니다:", error);
+    }
+  };
+  useEffect(() => {
+    fetchCustomScholarships();
+  }, []);
+
   return (
     <Background>
       <ScholarLogo src={CustomLogo} />
       <MainThree>
         <Filterbox>
-        
-            <div>안내문</div>
-         
+
+          <div>안내문</div>
+
         </Filterbox>
 
         <Display>
-        <div>
-          <ScholarshipCard scholarships={serverdata} />
+          <div>
+            <ScholarshipCard scholarships={customScholarships} />
           </div>
         </Display>
 
@@ -101,4 +94,4 @@ const fetchScholarships = async (filters = {}) => {
   );
 };
 
-export default ScholarshipsPage;
+export default CustomScholarshipsPage;
