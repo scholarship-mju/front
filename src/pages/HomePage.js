@@ -21,8 +21,6 @@ const HomePage = () => {
     try {
       const response = await axios.get("http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/rank");
 
-      console.log("data ", response.data);
-
       // 서버 응답에서 memberList를 사용하도록 수정
       if (response.data && response.data.memberList) {
         setRankings(response.data.memberList);
@@ -32,7 +30,6 @@ const HomePage = () => {
     }
   };
 
-  // 컴포넌트가 마운트될 때 데이터를 가져옵니다.
   useEffect(() => {
     fetchRankings();
   }, []);
@@ -77,9 +74,9 @@ const HomePage = () => {
         <KingSection>
           <KingLogo src={king} alt="이달의 왕" />
           <ListContainer>
-            {rankings && rankings.length > 0 ? (
+            {rankings?.length > 0 ? (
               rankings
-                .filter((member) => member.total > 0)
+                .filter((member) => member.total >= 0)
                 .sort((a, b) => b.total - a.total) // total 값 기준 내림차순 정렬
                 .slice(0, 4) // 상위 4명의 데이터만 선택
                 .map((user, index) => (
