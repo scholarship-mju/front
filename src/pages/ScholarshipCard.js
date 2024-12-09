@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import React, { useState } from "react";
 import {
   ModalClose,
@@ -8,7 +7,6 @@ import {
 } from "../style/schloarshipsPageStyle";
 import HeartCheckbox from "./HeartButton"; // HeartCheckbox 컴포넌트
 import schoolImage from "../png/5-1.jpg";
-import { CardStyledWrapper } from "../style/schloarshipsPageStyle";
 
 const ScholarshipCard = ({ scholarships }) => {
   const [selectedScholarship, setSelectedScholarship] = useState(null); // 모달에 표시할 데이터
@@ -35,7 +33,7 @@ const ScholarshipCard = ({ scholarships }) => {
   };
 
   return (
-    <CardStyledWrapper style={{ listStyleType: "none"}} className="Cards">
+    <div style={{ listStyleType: "none"}} className="Cards">
       {/* 스타일 적용된 리스트 */}
       {scholarships.map((scholarshipitem, index) => (
         <div key={index} style={{ position: "relative" }}>
@@ -89,9 +87,6 @@ const ScholarshipCard = ({ scholarships }) => {
     </div>
   </div>
 </ScholarshipItem>
-
-
-    
           <div
             style={{
               position: "absolute",
@@ -129,7 +124,7 @@ const ScholarshipCard = ({ scholarships }) => {
           </ModalContent>
         </ModalOverlay>
       )}
-    </CardStyledWrapper>
+    </div>
   );
 };
 

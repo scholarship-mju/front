@@ -74,8 +74,9 @@ const CustomScholarshipsPage = () => {
           <KingSection>
             <KingLogo src={king} alt="이달의 왕" />
             <KingListContainer>
-              {rankings.length > 0 ? (
+              {rankings?.length > 0 ? (
                 rankings
+                  .filter((member) => member.total >= 0)
                   .sort((a, b) => b.total - a.total)
                   .slice(0, 10)
                   .map((user, index) => (
@@ -84,7 +85,11 @@ const CustomScholarshipsPage = () => {
                     </ListBox>
                   ))
               ) : (
-                <ListBox>데이터 없음</ListBox>
+                Array.from({ length: 10 }).map((_, index) => (
+                  <ListBox key={`placeholder-${index}`}>
+                    <span>{index + 1}위</span> 데이터 없음
+                  </ListBox>
+                ))
               )}
             </KingListContainer>
           </KingSection>

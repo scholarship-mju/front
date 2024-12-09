@@ -47,61 +47,6 @@ export const TextInput = styled.input`
   }
 `;
 
-export const FilterButton = styled.button`
-  display: inline-block;
-  background-color: transparent;
-  border: 0.125em solid #1A1A1A;
-  border-radius: 8px;
-  color: ${colors.buttonText};
-  font-family: Roobert, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-  font-size: 18px;
-  font-weight: 600;
-  line-height: normal;
-  margin: 10px;
-  padding: 5px;
-  text-align: center;
-  touch-action: manipulation;
-  
-  &:disabled {
-    pointer-events: none;
-  }
-  
-  &:hover {
-    color: #fff;
-    background-color: ${colors.buttonBgHover};
-    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
-    transform: translateY(-2px);
-  }
-  
-  &:active {
-    box-shadow: none;
-    transform: translateY(0);
-  }
-`;
-
-export const SearchButton = styled.img`
-  position: absolute;
-  margin: 0px;
-  width: 17px; /* 버튼의 크기 설정 */
-  top:6.5px;
-  right:12px;
-  height: 30px; /* 버튼의 크기 설정 */
-`;
-
-export const Selectioncontainer = styled.div`
-  width: 100%;
-  line-height: 20px;
-  padding: 1px 2px 1px 2.5px;
-  border: 1px solid #000000;
-  border-radius: 4px;
-  font-size: 15px;
-  margin: 7px;
-  outline: none;
-  border-color: ${colors.navy};
-  background-color: #fff;
-  box-shadow: 0 0 0 4px ${colors.inputShadow};
-`;
-
 export const ResetButton = styled.button`
   display: inline-block;
   background-color: transparent;
@@ -176,43 +121,8 @@ export const FiltersmallContainer = styled.div` //흰색 폼
   justify-content: center; /* 중앙 정렬 */
   align-items: center; /* 중앙 정렬 */
   text-align: center; /* 텍스트 중앙 정렬 */
- 
   max-width: 100%; /* 최대 너비 80% */
   margin: 12px auto; /* 부모 요소에서 중앙 정렬 */
-  
-`;
-
-
-
-  // 필드셋 스타일
-export const Fieldset = styled.fieldset`
-    border: 5px solid ${colors.navy};
-    border-radius: 8px;
-    padding: 10px 10px 10px 0px; 
-    width: 95%;
-    margin-top: 40px;
-    margin: 0 auto;
-    max-height: 700px; /* 적절한 높이로 설정하세요, 10개 항목을 고려한 높이입니다 */
-    overflow-y: auto; /* 스크롤 가능하도록 설정 */
-  `;
-
-// 리스트 스타일
-export const List = styled.div`
-  list-style-type: none;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(200px, 1fr)); /* 화면 크기에 따라 열 조정 */
-  gap: 10px;
-  padding: 0;
-  margin: 20px;
-  max-height: 700px; /* 적절한 높이로 설정하세요, 10개 항목을 고려한 높이입니다 */
-    overflow-y: auto; /* 스크롤 가능하도록 설정 */
-`;
-
-export const LoadMoreButton = styled.button`
-  display: block;
-  margin: 20px auto;
-  padding: 10px 20px;
-  cursor: pointer;
 `;
 
 // 리스트 아이템 스타일
@@ -227,39 +137,6 @@ export const ScholarshipItem = styled.li`
   width: auto; /* 부모에 맞게 크기 조정 */
 `;
 
-export const CardStyledWrapper = styled.div`
-
-
-
-}`;
-// 금액 스타일
-export const ScholarshipAmount = styled.div`
-    flex-direction: column;
-    text-align: right;
-    font-size: 20px;
-  `;
-
-export const DownButton = styled.img`
-  margin-left: 10px;
-  width: 30px; /* 버튼의 크기 설정 */
-  height: 30px; /* 버튼의 크기 설정 */
-  border: 1px solid gray; /* 테두리 */
-  border-radius: 4px; /* 모서리 둥글게 */ 
-  background-color: rgba(249, 249, 249, 0.5); /* 배경색 */
-`;
-
-export const DetailBox = styled.div`
-  line-height: 170%;
-  flex-direction: column; /*
-  margin: 15px 20px 20px 10px;
-  width: 90%; /* 부모의 전체 너비 사용 */
-  margin : 20px;
-  padding: 10px; /* 안쪽 여백 */
-  box-shadow: 0px 4px 6px rgba(0, 0.1, 0, 0.2); /* 아래쪽 그림자 추가 */
-  border-radius: 6px; /* 모서리 둥글게 */ 
-  background-color: rgba(249, 249, 249, 0.5); /* 배경색 */
-  color: black; /* 글자색 */
-`;
 export const ModalOverlay = styled.div`
   position: fixed;
   top: 0;
@@ -302,18 +179,6 @@ export const ModalClose = styled.button`
   border: none;
   font-size: 20px;
   cursor: pointer;
-`;
-
-export const ListItem = styled.li`
-  margin: 35px;
-  padding: 1px;
-  display: inline-block;
-`;
-
-
-export const ListContainer = styled.ol`
-  margin: 0;
-  padding: 0;
 `;
 
 //하트버튼 
@@ -428,11 +293,6 @@ left : 0px;
       display: none;
     }
   }`;
-
-
-  
-
-
 
 export const MainThree = styled.div`
   display: flex;

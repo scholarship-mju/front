@@ -17,7 +17,6 @@ const HomePage = () => {
 
   // 서버에서 데이터를 가져오는 함수
   const fetchRankings = async () => {
-    const token = localStorage.getItem("accessToken");
     try {
       const response = await axios.get("http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/rank");
 

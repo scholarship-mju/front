@@ -4,29 +4,16 @@ import scholarLogo from "../png/scholarLogo.png";
 import king from "../png/king.png";
 
 import {
-  Background, Button, ResetButton,  ScholarshipItem,
-   TextInput,
-   Selectioncontainer,
-  GoButton,FilterModalContent
-  , Select, StyledWrapper, Display, Cardbox, MainThree, Filterbox, ScholarLogo, KingSection,
-  KingLogo, KingListContainer, ListBox, FilterContainer,FiltersmallContainer,ModalClose,ModalContent,ModalOverlay
+  Background, ResetButton, TextInput, GoButton, FilterModalContent, Display, 
+  Cardbox, MainThree, Filterbox, ScholarLogo, KingSection, KingLogo, KingListContainer, 
+  ListBox, FilterContainer, FiltersmallContainer, ModalClose, ModalOverlay
 } from '../style/schloarshipsPageStyle';
 import ScholarshipCard from "./ScholarshipCard";
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 const ScholarshipsPage = () => {
-
-  const [searchTerm, setSearchTerm] = useState("");
-  
-  const [expandedScholarships, setExpandedScholarships] = useState({});
-  const [selectedCategory, setSelectedCategory] = useState("전체"); // 카테고리 상태 추가
-  const [isChecked, setIsChecked] = useState(false);
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const parseAmount = (amount) => parseInt(amount.replace(/[^0-9]/g, ''), 10);
-
   const resetbutton = () => {
-    
-  
+
     // formData 초기화
     setFormData({
       minAge: "",
@@ -35,8 +22,6 @@ const ScholarshipsPage = () => {
       university: "",
       department: "",
       name: "",
-    
-      
     });
   };
 
@@ -98,7 +83,7 @@ const ScholarshipsPage = () => {
       console.error("필터링된 데이터를 가져오는데 실패했습니다:", error);
     }
   };
-  
+
 
 
   const [serverdata, setServerdata] = useState([]); // 서버 데이터 저장용 state
@@ -108,7 +93,6 @@ const ScholarshipsPage = () => {
   const [rankings, setRankings] = useState([]);
   const fetchRankings = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
       const response = await axios.get("http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/rank");
 
       if (response.data && response.data.memberList) {
@@ -121,12 +105,6 @@ const ScholarshipsPage = () => {
   useEffect(() => { //이달의왕
     fetchRankings();
   }, []);
-
-
-
-  //검색 필터 열기 닫기
-  const openFilterForm = () => setIsFilterOpen(true);
-  const closeFilterForm = () => setIsFilterOpen(false);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState("");
@@ -162,30 +140,27 @@ const ScholarshipsPage = () => {
       case "나이":
         return (
           <div>
-             <div>
-            <label>최소 나이를 입력하세요:</label>
-            <input
-              type="number"
-              name="minAge"
-              value={formData.minAge}
-              onChange={handleInputChange}
-              placeholder="예: 20"
-            />
+            <div>
+              <label>최소 나이를 입력하세요:</label>
+              <input
+                type="number"
+                name="minAge"
+                value={formData.minAge}
+                onChange={handleInputChange}
+                placeholder="예: 20"
+              />
             </div>
             <div>
-            <label>최대 나이를 입력하세요:</label>
-            <input
-              type="number"
-              name="maxAge"
-              value={formData.maxAge}
-              onChange={handleInputChange}
-              placeholder="예: 20"
-            />
-            
+              <label>최대 나이를 입력하세요:</label>
+              <input
+                type="number"
+                name="maxAge"
+                value={formData.maxAge}
+                onChange={handleInputChange}
+                placeholder="예: 20"
+              />
+            </div>
           </div>
-            
-          </div>
-          
         );
       case "성별":
         return (
@@ -228,41 +203,41 @@ const ScholarshipsPage = () => {
             />
           </div>
         );
-        case "소득 분위":
-          return (
-            <div>
-              <label>소득 분위를 입력하세요:</label>
-              <input
-                type="text"
-                name="incomeQuantile"
-                value={formData.incomeQuantile}
-                onChange={handleInputChange}
-                placeholder="예: 컴퓨터공학과"
-              />
-            </div>
-          );
+      case "소득 분위":
+        return (
+          <div>
+            <label>소득 분위를 입력하세요:</label>
+            <input
+              type="text"
+              name="incomeQuantile"
+              value={formData.incomeQuantile}
+              onChange={handleInputChange}
+              placeholder="예: 컴퓨터공학과"
+            />
+          </div>
+        );
       case "금액":
         return (
           <div>
-             <div>
-            <label>최소금액을 입력하세요:</label>
-            <input
-              type="number"
-              name="minprice"
-              value={formData.minprice}
-              onChange={handleInputChange}
-              placeholder="예: 1000000"
-            />
+            <div>
+              <label>최소금액을 입력하세요:</label>
+              <input
+                type="number"
+                name="minprice"
+                value={formData.minprice}
+                onChange={handleInputChange}
+                placeholder="예: 1000000"
+              />
             </div>
             <div>
-             <label>최대금액을 입력하세요:</label>
-             <input
-              type="number"
-              name="maxprice"
-              value={formData.maxprice}
-              onChange={handleInputChange}
-              placeholder="예: 1000000"
-            />
+              <label>최대금액을 입력하세요:</label>
+              <input
+                type="number"
+                name="maxprice"
+                value={formData.maxprice}
+                onChange={handleInputChange}
+                placeholder="예: 1000000"
+              />
             </div>
           </div>
         );
@@ -277,106 +252,89 @@ const ScholarshipsPage = () => {
     <Background>
       <ScholarLogo src={scholarLogo} />
       <TextInput
-      placeholder="장학금 이름 검색"
-      name="name"
-      value={formData.name}
-      onChange={handleInputChange}
-    />
+        placeholder="장학금 이름 검색"
+        name="name"
+        value={formData.name}
+        onChange={handleInputChange}
+      />
       <MainThree>
-        
+
         <Filterbox>
-        <FiltersmallContainer>
-        <div>검색필터</div>
+          <FiltersmallContainer>
+            <div>검색필터</div>
 
           </FiltersmallContainer>
           <FiltersmallContainer>
             <ResetButton onClick={resetbutton}>초기화</ResetButton>
-          <GoButton onClick={Gobutton}>적용</GoButton>
+            <GoButton onClick={Gobutton}>적용</GoButton>
           </FiltersmallContainer>
-          
-        
-         
+
           <div>
-          <FilterContainer onClick={() => handleOpenModal("나이")}>
-          <p>
-  {formData.minAge && formData.maxAge
-    ? `나이 : ${formData.minAge} ~ ${formData.maxAge}`
-    : "나이 : 입력되지 않음"}
-</p>
-      </FilterContainer>
-      <FilterContainer onClick={() => handleOpenModal("성별")}>
-        성별 : {formData.gender || "입력되지 않음"}
-      </FilterContainer>
-      <FilterContainer onClick={() => handleOpenModal("학교")}>
-        학교 : {formData.university || "입력되지 않음"}
-      </FilterContainer>
-      <FilterContainer onClick={() => handleOpenModal("학과")}>
-        학과 : {formData.department || "입력되지 않음"}
-      </FilterContainer>
-      <FilterContainer onClick={() => handleOpenModal("소득 분위")}>
-        소득 분위: {formData.incomeQuantile || "입력되지 않음"}
-      </FilterContainer>
-     
+            <FilterContainer onClick={() => handleOpenModal("나이")}>
+              <p>
+                {formData.minAge && formData.maxAge
+                  ? `나이 : ${formData.minAge} ~ ${formData.maxAge}`
+                  : "나이 : 입력되지 않음"}
+              </p>
+            </FilterContainer>
+            <FilterContainer onClick={() => handleOpenModal("성별")}>
+              성별 : {formData.gender || "입력되지 않음"}
+            </FilterContainer>
+            <FilterContainer onClick={() => handleOpenModal("학교")}>
+              학교 : {formData.university || "입력되지 않음"}
+            </FilterContainer>
+            <FilterContainer onClick={() => handleOpenModal("학과")}>
+              학과 : {formData.department || "입력되지 않음"}
+            </FilterContainer>
+            <FilterContainer onClick={() => handleOpenModal("소득 분위")}>
+              소득 분위: {formData.incomeQuantile || "입력되지 않음"}
+            </FilterContainer>
 
-      {/* 모달 */}
-      {isModalOpen && (
-        <ModalOverlay onClick={handleCloseModal}>
-          <FilterModalContent onClick={(e) => e.stopPropagation()}>
-            <ModalClose onClick={handleCloseModal}>&times;</ModalClose>
-            <h2>{selectedFilter} </h2>
-            {renderModalContent()} {/* 선택된 필터에 따라 동적 내용 렌더링 */}
-          </FilterModalContent>
-        </ModalOverlay>
-      )}
-    </div>
- 
+
+            {/* 모달 */}
+            {isModalOpen && (
+              <ModalOverlay onClick={handleCloseModal}>
+                <FilterModalContent onClick={(e) => e.stopPropagation()}>
+                  <ModalClose onClick={handleCloseModal}>&times;</ModalClose>
+                  <h2>{selectedFilter} </h2>
+                  {renderModalContent()} {/* 선택된 필터에 따라 동적 내용 렌더링 */}
+                </FilterModalContent>
+              </ModalOverlay>
+            )}
+          </div>
         </Filterbox>
-
-
 
         <Display>
           <div>
-          <ScholarshipCard scholarships={serverdata} />
+            <ScholarshipCard scholarships={serverdata} />
           </div>
         </Display>
-        
-
-
 
         <Cardbox>
-
-
-        <KingSection>
-          <KingLogo src={king} alt="이달의 왕" />
-          <KingListContainer>
-            {rankings?.length > 0 ? (
-              rankings
-                .filter((member) => member.total >= 0) // total 값이 0 이상인 항목만 선택
-                .sort((a, b) => b.total - a.total) // total 값 기준 내림차순 정렬
-                .slice(0, 10) // 상위 10명만 선택
-                .map((user, index) => (
-                  <ListBox key={user.id || `rank-${index}`}>
-                    {index + 1}위 {user.nickname || "이름 없음"}
+          <KingSection>
+            <KingLogo src={king} alt="이달의 왕" />
+            <KingListContainer>
+              {rankings?.length > 0 ? (
+                rankings
+                  .filter((member) => member.total >= 0)
+                  .sort((a, b) => b.total - a.total)
+                  .slice(0, 10)
+                  .map((user, index) => (
+                    <ListBox key={user.id || `rank-${index}`}>
+                      {index + 1}위 {user.nickname || "이름 없음"}
+                    </ListBox>
+                  ))
+              ) : (
+                Array.from({ length: 10 }).map((_, index) => (
+                  <ListBox key={`placeholder-${index}`}>
+                    <span>{index + 1}위</span> 데이터 없음
                   </ListBox>
                 ))
-            ) : (
-              Array.from({ length: 10 }).map((_, index) => (
-                <ListBox key={`placeholder-${index}`}>
-                  <span>{index + 1}위</span> 데이터 없음
-                </ListBox>
-              ))
-            )}
-          </KingListContainer>
-        </KingSection>
-
-        
-
+              )}
+            </KingListContainer>
+          </KingSection>
         </Cardbox>
-
-        
       </MainThree>
-
-
     </Background>
   );
 };
