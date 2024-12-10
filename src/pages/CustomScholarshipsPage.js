@@ -17,19 +17,16 @@ const CustomScholarshipsPage = () => {
 
   const fetchRankings = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
-      const response = await axios.get("http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/rank", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setRankings(response.data?.memberList || []); // 응답 데이터가 없을 경우 빈 배열
+      const response = await axios.get("http://ec2-15-164-84-210.ap-northeast-2.compute.amazonaws.com:8080/rank");
+
+      if (response.data && response.data.memberList) {
+        setRankings(response.data.memberList);
+      }
     } catch (error) {
-      console.error("이달의 왕 데이터를 가져오는데 실패했습니다:", error);
+      console.error("데이터를 가져오는데 실패했습니다:", error);
     }
   };
-
-  useEffect(() => {
+  useEffect(() => { //이달의왕
     fetchRankings();
   }, []);
 
