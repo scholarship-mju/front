@@ -258,11 +258,16 @@
       <Background>
         <ScholarLogo src={scholarLogo} />
         <TextInput
-          placeholder="장학금 이름 검색"
-          name="scholarshipName"
-          value={formData.scholarshipName}
-          onChange={handleInputChange}
-        />
+  placeholder="장학금 이름 검색"
+  name="scholarshipName"
+  value={formData.scholarshipName}
+  onChange={handleInputChange}
+  onKeyPress={(e) => {
+    if (e.key === "Enter") {
+      Gobutton(); // 엔터 키를 누르면 GoButton의 기능 실행
+    }
+  }}
+/>
         <MainThree>
 
           <Filterbox>
